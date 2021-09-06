@@ -1,0 +1,52 @@
+name: pay_buy_max
+description: The official app for PayBuyMax
+
+
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  bot_toast: ^4.0.1
+  provider: ^5.0.0
+  equatable: ^2.0.3
+  money_formatter: ^0.0.3
+  font_awesome_flutter: ^9.1.0
+  flutter_webview_plugin: ^0.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.9.1
+  flutter_native_splash: ^1.1.8+4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: FiraSans
+      fonts:
+        - asset: assets/fonts/FiraSans_w300.ttf
+          weight: 300
+        - asset: assets/fonts/FiraSans_w400.ttf
+          weight: 400
+        - asset: assets/fonts/FiraSans_w500.ttf
+          weight: 500
+        - asset: assets/fonts/FiraSans_w600.ttf
+          weight: 600
+        - asset: assets/fonts/FiraSans_w700.ttf
+          weight: 700
+        - asset: assets/fonts/FiraSans_w800.ttf
+          weight: 800
+        - asset: assets/fonts/FiraSans_w900.ttf
+          weight: 900
+  
