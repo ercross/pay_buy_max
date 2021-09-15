@@ -4,9 +4,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pay_buy_max/views/screens/chat_support_screen.dart';
-import 'package:pay_buy_max/views/screens/fund_wallet_screen.dart';
 
+import 'views/screens/chat_support_screen.dart';
 import 'views/screens/authentication_screens/forgot_password_screen.dart';
 import 'views/screens/authentication_screens/sign_in_screen.dart';
 import 'views/screens/authentication_screens/sign_up_screen.dart';
@@ -33,7 +32,6 @@ class PayBuyMax extends StatelessWidget {
     ForgotPasswordPage.route: (_) => ForgotPasswordPage(),
     LandingPageScaffold.route: (_) => LandingPageScaffold(),
     ChatSupport.route: (_) => ChatSupport(),
-    FundWalletPage.route: (_) => FundWalletPage()
   };
 
   static const String _entry = LandingPageScaffold.route;

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:pay_buy_max/views/screens/landing_screen_scaffold/landing_screen_scaffold.dart';
+import 'landing_screen_scaffold/landing_screen_scaffold.dart';
 
 import '../../style_sheet.dart';
 

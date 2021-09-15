@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pay_buy_max/views/screens/landing_screen_scaffold/tabs/home_tab/home_tab.dart';
+import '../../views/screens/landing_screen_scaffold/tabs/home_tab/home_tab.dart';
 
 class CurrentServiceProvider extends ChangeNotifier {
   Service _activeService;

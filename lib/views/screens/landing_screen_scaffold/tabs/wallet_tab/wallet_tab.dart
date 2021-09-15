@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_buy_max/views/screens/fund_wallet_screen.dart';
+import 'package:pay_buy_max/views/screens/chat_support_screen.dart';
 
 import '../../../../../mock_data.dart';
 import '../../../../../style_sheet.dart';
@@ -224,7 +224,7 @@ class _WithdrawAndFundWalletButtons extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Navigator.of(context).pushNamed(FundWalletPage.route),
+          onTap: () => Navigator.of(context).pushNamed(ChatSupport.route),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

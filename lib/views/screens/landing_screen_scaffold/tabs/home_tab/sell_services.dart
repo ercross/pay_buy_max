@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pay_buy_max/views/screens/chat_support_screen.dart';
-import 'package:pay_buy_max/views/widgets/horizontal_bar.dart';
+import '../../../chat_support_screen.dart';
+import '../../../../widgets/horizontal_bar.dart';
 
 import '../../../../../style_sheet.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pay_buy_max/controllers/providers/current_service_provider.dart';
-import 'package:pay_buy_max/views/screens/landing_screen_scaffold/tabs/home_tab/sell_services.dart';
+import '../../../../../controllers/providers/current_service_provider.dart';
+import 'sell_services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../style_sheet.dart';
