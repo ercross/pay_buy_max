@@ -26,10 +26,11 @@ class _LandingPageScaffold extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
     final double pageWidth = size.width;
-    return BlankPage(
+    return BlankPage.withoutSafeArea(
       child: Container(
         height: pageHeight,
         width: pageWidth,
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         color: state.background,
         child: Column(
           children: [

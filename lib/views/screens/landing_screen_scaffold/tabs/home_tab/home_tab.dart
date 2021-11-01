@@ -193,7 +193,7 @@ class _ServicesBar extends StatelessWidget {
               : Colors.black87,
           size: size,
         ),
-        name: "Training",
+        name: "Learn",
         service: Service.training);
 
     final double serviceHeight = height * 0.8;

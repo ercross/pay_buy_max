@@ -1,9 +1,12 @@
 import 'dart:io';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/root/get_cupertino_app.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
 import 'views/screens/chat_support_screen.dart';
 import 'views/screens/authentication_screens/forgot_password_screen.dart';
@@ -16,82 +19,114 @@ import 'views/screens/secondary_splash_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(PayBuyMax());
 }
 
 class PayBuyMax extends StatelessWidget {
-  static const String _title = "PayBuyMax";
-  static final bool _isIos = Platform.isIOS;
+  static const int _duration = 750;
 
-  static final Map<String, Widget Function(BuildContext)> _routes = {
-    SecondarySplashScreen.route: (_) => SecondarySplashScreen(),
-    OnboardingPage.route: (_) => OnboardingPage(),
-    SignInPage.route: (_) => SignInPage(),
-    SignUpPage.route: (_) => SignUpPage(),
-    ForgotPasswordPage.route: (_) => ForgotPasswordPage(),
-    LandingPageScaffold.route: (_) => LandingPageScaffold(),
-    ChatSupport.route: (_) => ChatSupport(),
-  };
+  final List<GetPage<dynamic>> _pages = [
+    GetPage(
+      name: SecondarySplashScreen.route,
+      page: () => SecondarySplashScreen(),
+    ),
+    GetPage(
+        name: OnboardingPage.route,
+        page: () => OnboardingPage(),
+        curve: Curves.easeInCubic,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.size),
+    GetPage(
+        name: SignUpPage.route,
+        page: () => SignUpPage(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: SignInPage.route,
+        page: () => SignInPage(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: ForgotPasswordPage.route,
+        page: () => ForgotPasswordPage(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.fadeIn),
+    GetPage(
+        name: LandingPageScaffold.route,
+        page: () => LandingPageScaffold(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.upToDown),
+    GetPage(
+        name: ChatSupport.route,
+        page: () => ChatSupport(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.size),
+  ];
 
   static const String _entry = LandingPageScaffold.route;
 
   @override
-  Widget build(BuildContext context) => _isIos ? _IOSRoot() : _AndroidRoot();
-}
-
-class _IOSRoot extends StatelessWidget {
-  const _IOSRoot();
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      navigatorObservers: [BotToastNavigatorObserver()],
-      builder: BotToastInit(),
-      title: PayBuyMax._title,
-      initialRoute: PayBuyMax._entry,
-      routes: PayBuyMax._routes,
-    );
-  }
-}
-
-class _AndroidRoot extends StatelessWidget {
-  const _AndroidRoot();
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorObservers: [BotToastNavigatorObserver()],
-      builder: BotToastInit(),
-      title: PayBuyMax._title,
-      initialRoute: PayBuyMax._entry,
-      routes: PayBuyMax._routes,
-    );
-  }
+  Widget build(BuildContext context) => Platform.isAndroid
+      ? GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: _entry,
+          getPages: _pages)
+      : GetCupertinoApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: _entry,
+          getPages: _pages,
+        );
 }
 
 /// BlankPage builds the right platform-dependent root widget,
 /// CupertinoPageScaffold for iOS and Scaffold for Android.
 class BlankPage extends StatelessWidget {
   final Widget child;
-  const BlankPage({required this.child});
+  final bool _withSafeArea;
+  const BlankPage({required this.child}) : _withSafeArea = false;
+
+  const BlankPage.withoutSafeArea({required this.child}) : _withSafeArea = true;
 
   @override
   Widget build(BuildContext context) {
-    return PayBuyMax._isIos
-        ? CupertinoPageScaffold(
-            resizeToAvoidBottomInset: false,
-            child: GestureDetector(
-                child: child,
-                onTap: () => WidgetsBinding.instance?.focusManager.primaryFocus
-                    ?.unfocus()))
-        : Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: SafeArea(
+    return _withSafeArea
+        ? Platform.isIOS
+            ? CupertinoPageScaffold(
+                resizeToAvoidBottomInset: false,
                 child: GestureDetector(
                     child: child,
                     onTap: () => WidgetsBinding
                         .instance?.focusManager.primaryFocus
-                        ?.unfocus())));
+                        ?.unfocus()))
+            : Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: GestureDetector(
+                    child: child,
+                    onTap: () => WidgetsBinding
+                        .instance?.focusManager.primaryFocus
+                        ?.unfocus()))
+        : Platform.isIOS
+            ? CupertinoPageScaffold(
+                resizeToAvoidBottomInset: false,
+                child: SafeArea(
+                  child: GestureDetector(
+                      child: child,
+                      onTap: () => WidgetsBinding
+                          .instance?.focusManager.primaryFocus
+                          ?.unfocus()),
+                ))
+            : Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: SafeArea(
+                    child: GestureDetector(
+                        child: child,
+                        onTap: () => WidgetsBinding
+                            .instance?.focusManager.primaryFocus
+                            ?.unfocus())));
   }
 }

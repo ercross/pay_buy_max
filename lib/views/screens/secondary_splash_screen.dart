@@ -40,7 +40,7 @@ class _SecondarySplashScreenState extends State<SecondarySplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlankPage(
+    return BlankPage.withoutSafeArea(
         child: Container(
             color: StyleSheet.accentColor.withOpacity(0.09),
             alignment: Alignment.center,

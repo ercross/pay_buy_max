@@ -1,45 +1,61 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../controllers/providers/onboarding_provider.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../main.dart';
 import '/views/screens/authentication_screens/sign_up_screen.dart';
 import '/views/widgets/horizontal_bar.dart';
 
 import '../../style_sheet.dart';
 
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage();
+class _OnboardingPageController extends GetxController {
+  RxInt _currentIndex = RxInt(0);
 
-  static const String route = "/onboarding";
+  RxInt get currentIndex => _currentIndex;
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<OnboardingPageContentProvider>(
-        lazy: false,
-        create: (_) => OnboardingPageContentProvider(),
-        child: _OnboardingPage());
+  changeCurrentIndex(int value) {
+    _currentIndex = RxInt(value);
+    update();
+  }
+
+  next() {
+    _currentIndex++;
+    update();
+  }
+
+  previous() {
+    _currentIndex--;
+    update();
   }
 }
 
-class _OnboardingPage extends StatelessWidget {
-  _OnboardingPage();
+class OnboardingPage extends StatelessWidget {
+  const OnboardingPage();
+
+  static const String route = '/onboarding';
 
   static const String _base = "assets/images/";
-  final List<String> _imagesUrls = [
+  static const List<String> _imagesUrls = [
     _base + "onboarding1.png",
     _base + "onboarding2.png",
     _base + "onboarding3.png"
   ];
-  final List<String> _titles = [
+  static const List<String> _titles = [
     "Get your money working",
     "Secured Transaction",
     "We want to see your grow"
   ];
 
-  final List<String> _contents = [
+  static const List<String> _contents = [
+    "At PayBuyMax, we offer you an easy way to exchange your cryptocurrencies" +
+        " and funds for real cash into your local bank account.",
+    "At PayBuyMax, we offer you an easy way to exchange your cryptocurrencies" +
+        " and funds for real cash into your local bank account.",
     "At PayBuyMax, we offer you an easy way to exchange your cryptocurrencies" +
         " and funds for real cash into your local bank account."
   ];
@@ -49,62 +65,76 @@ class _OnboardingPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
     final double pageWidth = size.width;
-    final OnboardingPageContentProvider state =
-        Provider.of<OnboardingPageContentProvider>(context);
-    return BlankPage(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.black12,
+        statusBarIconBrightness: Brightness.light));
+    final _OnboardingPageController state =
+        Get.put<_OnboardingPageController>(_OnboardingPageController());
+    final CarouselController slideControl = CarouselController();
+    return BlankPage.withoutSafeArea(
         child: Container(
       height: pageHeight,
       width: pageWidth,
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       decoration:
           BoxDecoration(color: StyleSheet.primaryColor.withOpacity(0.09)),
       child: Column(
         children: [
-          Platform.isAndroid
-              ? SizedBox(
-                  height: pageHeight * 0.03,
-                )
-              : SizedBox(height: MediaQuery.of(context).padding.top),
-          SizedBox(width: pageWidth, child: _Navigator()),
+          SizedBox(width: pageWidth, child: _Navigator(slideControl)),
           SizedBox(
             height: pageHeight * 0.09,
           ),
-          AnimatedSwitcher(
-            duration: Duration(milliseconds: 750),
-            child: Image.asset(
-              _imagesUrls[state.activeIndex],
-              fit: BoxFit.contain,
-              key: ValueKey<String>(_imagesUrls[state.activeIndex]),
-              height: pageHeight * 0.4,
-              width: pageWidth,
-            ),
-          ),
+          CarouselSlider.builder(
+              itemCount: _imagesUrls.length,
+              carouselController: slideControl,
+              options: CarouselOptions(
+                height: pageHeight * 0.4,
+                viewportFraction: 1,
+                enableInfiniteScroll: false,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 3),
+                autoPlayAnimationDuration: Duration(milliseconds: 1000),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: false,
+                onPageChanged: (index, cause) =>
+                    state.changeCurrentIndex(index),
+                scrollDirection: Axis.horizontal,
+              ),
+              itemBuilder: (_, __, index) => Image.asset(
+                    _imagesUrls[index],
+                    fit: BoxFit.contain,
+                    height: pageHeight * 0.4,
+                    width: pageWidth,
+                  )),
           SizedBox(
             height: pageHeight * 0.04,
           ),
-          Text(_titles[state.activeIndex],
-              textAlign: TextAlign.center, style: StyleSheet.gold15w600),
-          SizedBox(
-            height: pageHeight * 0.03,
-          ),
-          SizedBox(
-            width: pageWidth * 0.85,
-            child: Text(_contents[0],
-                textAlign: TextAlign.center,
-                style: StyleSheet.grey14w500.copyWith(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w300)),
+          Obx(
+            () => Text(_titles[state.currentIndex.value],
+                textAlign: TextAlign.center, style: StyleSheet.gold15w600),
           ),
           SizedBox(
             height: pageHeight * 0.03,
           ),
+          Obx(
+            () => SizedBox(
+              width: pageWidth * 0.85,
+              child: Text(_contents[state.currentIndex.value],
+                  textAlign: TextAlign.center,
+                  style: StyleSheet.grey14w500.copyWith(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w300)),
+            ),
+          ),
           SizedBox(
-            height: pageHeight * 0.1,
+            height: pageHeight * 0.09,
           ),
           HorizontalBar.button(
               child: Text("Get Started",
                   textAlign: TextAlign.center, style: StyleSheet.white15w500),
-              height: pageHeight * 0.07,
+              height: pageHeight * 0.06,
               width: pageWidth * 0.9,
               onPressed: () =>
                   Navigator.of(context).pushReplacementNamed(SignUpPage.route)),
@@ -118,44 +148,45 @@ class _OnboardingPage extends StatelessWidget {
 }
 
 class _Navigator extends StatelessWidget {
-  const _Navigator();
+  final CarouselController slideController;
+  const _Navigator(this.slideController);
 
   @override
   Widget build(BuildContext context) {
-    final OnboardingPageContentProvider state =
-        Provider.of<OnboardingPageContentProvider>(context, listen: false);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Platform.isIOS
-            ? CupertinoButton(
-                child: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: StyleSheet.primaryColor.withOpacity(0.6),
-                ),
-                onPressed: () => state.previous(),
-              )
-            : IconButton(
-                onPressed: () => state.previous(),
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: StyleSheet.primaryColor.withOpacity(0.6),
-                )),
-        _ProgressIndicator(active: state.activeIndex),
-        Platform.isIOS
-            ? CupertinoButton(
-                child: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: StyleSheet.primaryColor.withOpacity(0.6),
-                ),
-                onPressed: () => state.next())
-            : IconButton(
-                onPressed: () => state.next(),
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: StyleSheet.primaryColor.withOpacity(0.6),
-                )),
-      ],
+    return GetBuilder<_OnboardingPageController>(
+      builder: (state) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Platform.isIOS
+              ? CupertinoButton(
+                  child: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: StyleSheet.primaryColor.withOpacity(0.6),
+                  ),
+                  onPressed: () => slideController.previousPage(),
+                )
+              : IconButton(
+                  onPressed: () => slideController.previousPage(),
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: StyleSheet.primaryColor.withOpacity(0.6),
+                  )),
+          _ProgressIndicator(active: state.currentIndex.value),
+          Platform.isIOS
+              ? CupertinoButton(
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: StyleSheet.primaryColor.withOpacity(0.6),
+                  ),
+                  onPressed: () => slideController.nextPage())
+              : IconButton(
+                  onPressed: () => slideController.nextPage(),
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: StyleSheet.primaryColor.withOpacity(0.6),
+                  )),
+        ],
+      ),
     );
   }
 }

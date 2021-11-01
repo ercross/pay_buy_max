@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:pay_buy_max/views/screens/chat_support_screen.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../controllers/providers/buy_coin_provider.dart';
@@ -85,9 +85,8 @@ class _BuyTab extends StatelessWidget {
   void _proceedToPayment(BuildContext context) {
     final state = Provider.of<BuyCoinProvider>(context, listen: false);
     if (state.nairaEquivalent < 1) {
-      BotToast.showText(
-        text: "please enter a valid amount",
-        textStyle: StyleSheet.white13w400,
+      AppOverlay.snackbar(
+        message: "please enter a valid amount",
       );
       return;
     }

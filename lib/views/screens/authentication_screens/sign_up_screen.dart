@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../helpers/text_field_validators.dart';
 import '../../../main.dart';
 import '../../../style_sheet.dart';
 import '../../widgets/authentication_text_field.dart';
 import '../../widgets/horizontal_bar.dart';
+import '../../widgets/overlays.dart';
 import 'sign_in_screen.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -32,105 +34,83 @@ class _SignUpPageState extends State<SignUpPage> {
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
     final double pageWidth = size.width;
-    final double contentWidth = pageWidth * 0.75;
-    final double formHeight = pageWidth * 0.13;
+    final double contentWidth = pageWidth * 0.8;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.black12,
+        statusBarIconBrightness: Brightness.light));
 
-    return BlankPage(
+    final Widget space = SizedBox(height: pageHeight * 0.04);
+
+    return BlankPage.withoutSafeArea(
         child: Container(
       alignment: Alignment.center,
       color: StyleSheet.primaryColor.withOpacity(0.09),
-      child: SizedBox(
-        height: pageHeight * 0.9,
-        width: pageWidth * 0.9,
-        child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(
-                "assets/images/launcher_icon.png",
-                fit: BoxFit.fill,
-                height: pageHeight * 0.11,
-                width: pageWidth * 0.3,
-              ),
-              Text("Sign up to get started",
-                  textAlign: TextAlign.center, style: StyleSheet.black14w500),
-              SizedBox(height: pageHeight * 0.01),
-              AuthenticationTextField(
-                  excludeFieldName: true,
-                  fieldName: "Email",
-                  leading: Icons.email_rounded,
-                  validator: (value) => Validator.validateEmail(value ?? ""),
-                  onSaved: (value) => _onFieldsSaved(value ?? "", "email"),
-                  renderHeight: formHeight,
-                  renderWidth: contentWidth),
-              SizedBox(height: pageHeight * 0.01),
-              AuthenticationTextField(
-                  excludeFieldName: true,
-                  fieldName: "Phone Number",
-                  leading: Icons.phone_android_rounded,
-                  isDigits: true,
-                  validator: (value) =>
-                      Validator.validatePhoneNumber(value ?? ""),
-                  onSaved: (value) => _onFieldsSaved(value ?? "", "phone"),
-                  renderHeight: formHeight,
-                  renderWidth: contentWidth),
-              SizedBox(height: pageHeight * 0.01),
-              AuthenticationTextField(
-                  excludeFieldName: true,
-                  fieldName: "Password",
-                  leading: Icons.lock_rounded,
-                  isPassword: true,
-                  validator: (value) => _validateFields(value, "password"),
-                  onSaved: (value) => _onFieldsSaved(value ?? "", "password"),
-                  renderHeight: formHeight,
-                  renderWidth: contentWidth),
-              SizedBox(height: pageHeight * 0.01),
-              AuthenticationTextField(
-                  excludeFieldName: true,
-                  fieldName: "Confirm Password",
-                  leading: Icons.lock_rounded,
-                  isPassword: true,
-                  validator: (value) =>
-                      _validateFields(value, "confirm password"),
-                  onSaved: (value) =>
-                      _onFieldsSaved(value ?? "", "confirm password"),
-                  renderHeight: formHeight,
-                  renderWidth: contentWidth),
-              SizedBox(height: pageHeight * 0.02),
-              HorizontalBar.button(
-                  height: pageHeight * 0.07,
-                  width: contentWidth,
-                  child: Text(
-                    "Sign Up",
-                    textAlign: TextAlign.center,
-                    style: StyleSheet.white15w500,
-                  ),
-                  onPressed: _saveCredentials),
-              _TermsAndConditionDisclaimer(),
-              _SignUpPrompt()
-            ],
-          ),
+      padding: EdgeInsets.fromLTRB(
+          pageWidth * 0.1,
+          MediaQuery.of(context).padding.top + (pageHeight * 0.08),
+          pageWidth * 0.1,
+          0),
+      child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _formKey,
+        child: Column(
+          children: [
+            Image.asset(
+              "assets/images/launcher_icon.png",
+              fit: BoxFit.contain,
+              height: pageHeight * 0.11,
+              width: pageWidth * 0.3,
+            ),
+            space,
+            Text("Sign up to get started",
+                textAlign: TextAlign.center, style: StyleSheet.black14w500),
+            SizedBox(height: pageHeight * 0.04),
+            AuthenticationTextField(
+                fieldName: "Email",
+                leading: Icons.email_rounded,
+                onSaved: (value) => {
+                      if (Validator.isValidEmail(value ?? ""))
+                        _credentials.putIfAbsent("email", () => value ?? "")
+                      else
+                        AppOverlay.snackbar(
+                            message:
+                                "invalid email address. please enter a valid email address")
+                    },
+                renderHeight: pageHeight * 0.11,
+                renderWidth: contentWidth),
+            space,
+            PasswordAuthField(
+                onSaved: (value) {
+                  if (value.isEmpty) {
+                    AppOverlay.snackbar(message: "please enter your password");
+                  } else
+                    _credentials.putIfAbsent("password", () => value);
+                },
+                height: pageHeight * 0.065,
+                width: contentWidth),
+            SizedBox(height: pageHeight * 0.07),
+            HorizontalBar.button(
+                height: pageHeight * 0.065,
+                width: contentWidth,
+                child: Text(
+                  "Sign Up",
+                  textAlign: TextAlign.center,
+                  style: StyleSheet.white15w400,
+                ),
+                onPressed: _saveCredentials),
+            space,
+            _TermsAndConditionDisclaimer(),
+            SizedBox(height: pageHeight * 0.01),
+            _SignUpPrompt()
+          ],
         ),
       ),
     ));
   }
 
-  String? _validateFields(String? value, String fieldName) {
-    if (value == null || value.isEmpty)
-      return "please enter a valid $fieldName";
-    return null;
-  }
-
-  void _onFieldsSaved(String value, String key) {
-    if (_credentials.containsKey(key)) _credentials.remove(key);
-    if (value.isEmpty) return;
-    _credentials.putIfAbsent(key, () => value);
-  }
-
   void _saveCredentials() {
-    if (_formKey.currentState!.validate()) _formKey.currentState!.save();
+    _credentials.clear();
+    _formKey.currentState!.save();
   }
 }
 
@@ -178,7 +158,7 @@ class _SignUpPrompt extends StatelessWidget {
           ),
           GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(SignInPage.route),
-              child: Text("SIGN IN", style: StyleSheet.gold14w600)),
+              child: Text("SIGN IN", style: StyleSheet.gold14w400)),
         ],
       ),
     );

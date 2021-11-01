@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 
 import '/helpers/text_field_validators.dart';
 import '../../../main.dart';
@@ -34,8 +36,10 @@ class _SignInPageState extends State<SignInPage> {
     final double pageHeight = size.height;
     final double pageWidth = size.width;
     final double contentWidth = pageWidth * 0.75;
-
-    return BlankPage(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.black12,
+        statusBarIconBrightness: Brightness.light));
+    return BlankPage.withoutSafeArea(
         child: Container(
       color: StyleSheet.primaryColor.withOpacity(0.09),
       alignment: Alignment.center,
@@ -47,41 +51,49 @@ class _SignInPageState extends State<SignInPage> {
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(height: pageHeight * 0.06),
+              SizedBox(height: pageHeight * 0.08),
               Image.asset(
                 "assets/images/launcher_icon.png",
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
                 height: pageHeight * 0.11,
                 width: pageWidth * 0.3,
               ),
               SizedBox(height: pageHeight * 0.02),
               Text("Enter your credentials to gain access",
-                  textAlign: TextAlign.center, style: StyleSheet.black14w500),
+                  textAlign: TextAlign.center, style: StyleSheet.black14w400),
               SizedBox(height: pageHeight * 0.05),
               AuthenticationTextField(
                   fieldName: "Email",
                   leading: Icons.email_rounded,
-                  validator: (value) => Validator.validateEmail(value ?? ""),
-                  onSaved: (value) => _onFieldsSaved(value ?? "", "email"),
-                  renderHeight: pageHeight * 0.12,
+                  onSaved: (value) => {
+                        if (Validator.isValidEmail(value ?? ""))
+                          _credentials.putIfAbsent("email", () => value ?? "")
+                        else
+                          AppOverlay.snackbar(
+                              message:
+                                  "invalid email address. please enter a valid email address")
+                      },
+                  renderHeight: pageHeight * 0.11,
                   renderWidth: contentWidth),
               SizedBox(height: pageHeight * 0.04),
-              AuthenticationTextField(
-                  fieldName: "Password",
-                  leading: Icons.lock_rounded,
-                  isPassword: true,
-                  validator: (value) => _validateFields(value, "password"),
-                  onSaved: (value) => _onFieldsSaved(value ?? "", "password"),
-                  renderHeight: pageHeight * 0.12,
-                  renderWidth: contentWidth),
+              PasswordAuthField(
+                  onSaved: (value) {
+                    if (value.isEmpty) {
+                      AppOverlay.snackbar(
+                          message: "please enter your password");
+                    } else
+                      _credentials.putIfAbsent("password", () => value);
+                  },
+                  height: pageHeight * 0.065,
+                  width: contentWidth),
               SizedBox(height: pageHeight * 0.07),
               HorizontalBar.button(
-                  height: pageHeight * 0.08,
+                  height: pageHeight * 0.065,
                   width: contentWidth,
                   child: Text(
                     "Sign In",
                     textAlign: TextAlign.center,
-                    style: StyleSheet.white15w500,
+                    style: StyleSheet.white15w400,
                   ),
                   onPressed: _saveCredentials),
               SizedBox(height: pageHeight * 0.04),
@@ -94,20 +106,9 @@ class _SignInPageState extends State<SignInPage> {
     ));
   }
 
-  String? _validateFields(String? value, String fieldName) {
-    if (value == null || value.isEmpty)
-      return "please enter a valid $fieldName";
-    return null;
-  }
-
-  void _onFieldsSaved(String value, String key) {
-    if (_credentials.containsKey(key)) _credentials.remove(key);
-    if (value.isEmpty) return;
-    _credentials.putIfAbsent(key, () => value);
-  }
-
   void _saveCredentials() {
-    if (_formKey.currentState!.validate()) _formKey.currentState!.save();
+    _credentials.clear();
+    _formKey.currentState!.save();
   }
 }
 
@@ -156,7 +157,7 @@ class _SignUpPrompt extends StatelessWidget {
           ),
           GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(SignUpPage.route),
-              child: Text("SIGN UP", style: StyleSheet.gold14w600)),
+              child: Text("SIGN UP", style: StyleSheet.gold14w400)),
         ],
       ),
     );

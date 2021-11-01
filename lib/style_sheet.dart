@@ -14,6 +14,13 @@ class StyleSheet {
     fontWeight: FontWeight.w500,
   );
 
+  static final TextStyle black14w400 = TextStyle(
+    fontFamily: primaryFont,
+    color: Colors.black,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+
   static final TextStyle black12w300 = TextStyle(
     fontFamily: primaryFont,
     color: Colors.black,
@@ -26,6 +33,13 @@ class StyleSheet {
     color: Colors.black,
     fontSize: 13,
     fontWeight: FontWeight.w400,
+  );
+
+  static final TextStyle black13w300 = TextStyle(
+    fontFamily: primaryFont,
+    color: Colors.black,
+    fontSize: 13,
+    fontWeight: FontWeight.w300,
   );
 
   static final TextStyle black16w400 = TextStyle(
@@ -58,6 +72,13 @@ class StyleSheet {
     color: Colors.grey,
     fontSize: 14,
     fontWeight: FontWeight.w500,
+  );
+
+  static final TextStyle grey14w400 = TextStyle(
+    fontFamily: primaryFont,
+    color: Colors.grey,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
   );
 
   static final TextStyle grey13w300 = TextStyle(
@@ -102,6 +123,13 @@ class StyleSheet {
     color: primaryColor,
     fontSize: 14,
     fontWeight: FontWeight.w600,
+  );
+
+  static final TextStyle gold14w400 = TextStyle(
+    fontFamily: primaryFont,
+    color: primaryColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
   );
 
   static final TextStyle goldAccent13w400 = TextStyle(

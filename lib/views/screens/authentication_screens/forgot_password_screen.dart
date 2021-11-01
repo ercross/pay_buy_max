@@ -1,6 +1,7 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 import 'package:provider/provider.dart';
 import '../../../controllers/providers/forgot_password_progress_provider.dart';
 import '/main.dart';
@@ -29,7 +30,10 @@ class _ForgotPasswordPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
     final double pageWidth = size.width;
-    return BlankPage(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.black12,
+        statusBarIconBrightness: Brightness.light));
+    return BlankPage.withoutSafeArea(
         child: Container(
       height: pageHeight,
       width: pageWidth,
@@ -120,14 +124,14 @@ class _SendEmailStage extends StatelessWidget {
 
   void _onSubmitted(ForgotPasswordProgressProvider state) {
     if (state.submittedEmail.isEmpty) {
-      BotToast.showText(text: "Please enter a valid email");
+      AppOverlay.snackbar(message: "Please enter a valid email");
       return;
     }
     if (_isValidEmail(state.submittedEmail)) {
       state.submitEmail();
       return;
     } else
-      BotToast.showText(text: "Please enter a valid email");
+      AppOverlay.snackbar(title: "", message: "Please enter a valid email");
   }
 
   bool _isValidEmail(String email) {
@@ -209,7 +213,7 @@ class __TextFieldState extends State<_TextField> {
             onChanged: widget.onChanged,
             decoration: InputDecoration(
               hintText: widget.hint,
-              hintStyle: StyleSheet.black14w500,
+              hintStyle: StyleSheet.black14w400,
             ),
           )
         ],
@@ -309,14 +313,14 @@ class _VerifyCodeStage extends StatelessWidget {
 
   void _onSubmitted(ForgotPasswordProgressProvider state) {
     if (state.verificationCode.isEmpty || state.verificationCode.length < 6) {
-      BotToast.showText(text: "Please enter a valid code");
+      AppOverlay.snackbar(message: "Please enter a valid code");
       return;
     }
     state.submitVerificationCode();
   }
 
   void _resendCode() {
-    BotToast.showText(text: "Verification code sent");
+    AppOverlay.snackbar(message: "Verification code sent");
   }
 }
 
@@ -371,12 +375,13 @@ class _ChangePasswordStage extends StatelessWidget {
   void _onSubmitted(
       ForgotPasswordProgressProvider state, BuildContext context) {
     // if (state.password.compareTo(state.confirmPassword) != 0) {
-    //   BotToast.showText(text: "the passwords do not match");
+    //   AppOverlay.snackbar(message:  "the passwords do not match");
     //   return;
     // }
     state.submitPassword();
-    BotToast.showText(
-        text: "SUCCESS!", crossPage: true, duration: Duration(seconds: 3));
+    AppOverlay.snackbar(
+      message: "SUCCESS!",
+    );
     Navigator.of(context).pushReplacementNamed(SignUpPage.route);
   }
 }
@@ -421,7 +426,8 @@ class _AppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: renderHeight * 0.15),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).padding.top + 12),
             child: IconButton(
                 onPressed: () {
                   if (state.currentStage != 0) {

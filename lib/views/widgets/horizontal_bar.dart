@@ -34,8 +34,8 @@ class HorizontalBar extends StatelessWidget {
         alignment: Alignment.center,
         height: height,
         width: width,
-        padding: EdgeInsets.all(8),
         child: child,
+        padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           boxShadow: kElevationToShadow[1],

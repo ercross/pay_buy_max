@@ -42,7 +42,7 @@ class HowToSell extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Proceed",
+                        "sell from external wallet",
                         style: StyleSheet.white15w400,
                       ),
                       SizedBox(
