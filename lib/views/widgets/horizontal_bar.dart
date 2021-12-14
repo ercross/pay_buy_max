@@ -8,6 +8,7 @@ class HorizontalBar extends StatelessWidget {
   final double width;
   final Widget child;
   final Color color;
+  final double borderRadius;
 
   /// [onPressed] is the function invoked when this widget is clicked.
   final dynamic onPressed;
@@ -16,6 +17,7 @@ class HorizontalBar extends StatelessWidget {
       {required this.height,
       required this.width,
       required this.child,
+      this.borderRadius = 12,
       this.color = Colors.white})
       : onPressed = null;
 
@@ -23,6 +25,7 @@ class HorizontalBar extends StatelessWidget {
       {required this.child,
       required this.height,
       required this.width,
+      this.borderRadius = 12,
       required this.onPressed,
       this.color = StyleSheet.primaryColor});
 
@@ -37,7 +40,7 @@ class HorizontalBar extends StatelessWidget {
         child: child,
         padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: kElevationToShadow[1],
           color: color,
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_formatter/money_formatter.dart';
 import '../../../../../models/asset.dart';
@@ -28,10 +29,10 @@ class AssetCard extends StatelessWidget {
         .compactSymbolOnLeft;
 
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: height * 0.1, right: 2, left: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
+          color: CupertinoColors.systemGrey6,
           boxShadow: kElevationToShadow[2]),
       height: height,
       width: width,

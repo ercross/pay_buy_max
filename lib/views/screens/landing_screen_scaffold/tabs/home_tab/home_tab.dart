@@ -26,20 +26,11 @@ class _HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (_, constraints) {
-        return Stack(
+        return Column(
           children: [
-            Positioned(
-                top: constraints.maxHeight * 0.25,
-                left: 0,
-                width: constraints.maxWidth,
-                height: constraints.maxHeight * 0.75,
-                child: _ActiveService()),
-            Positioned(
-                top: constraints.maxHeight * 0.04,
-                left: 0,
-                width: constraints.maxWidth,
-                height: constraints.maxHeight * 0.25,
-                child: _UpperContent()),
+            SizedBox(height: MediaQuery.of(context).padding.top + 10),
+            Flexible(flex: 3, child: _UpperContent()),
+            Flexible(flex: 9, child: _ActiveService()),
           ],
         );
       },
@@ -57,13 +48,13 @@ class _UpperContent extends StatelessWidget {
         return Column(
           children: [
             _Username(
-                height: constraints.maxHeight * 0.28,
+                height: constraints.maxHeight * 0.25,
                 width: constraints.maxWidth),
             SizedBox(
-              height: constraints.maxHeight * 0.1,
+              height: constraints.maxHeight * 0.15,
             ),
             _ServicesBar(
-                height: constraints.maxHeight * 0.62,
+                height: constraints.maxHeight * 0.6,
                 width: constraints.maxWidth * 0.95),
           ],
         );
@@ -202,8 +193,7 @@ class _ServicesBar extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: StyleSheet.background),
+          borderRadius: BorderRadius.circular(20), color: Color(0xFFFAF4EB)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

@@ -4,33 +4,38 @@ import 'models/asset.dart';
 
 class MockData {
   static final Transaction _t1 = Transaction(
+      referenceNumber: "Qwerty",
       amount: 100000,
       date: DateTime.now(),
-      transactionType: TransactionType.withdrawal,
+      type: TransactionType.withdrawal,
       currency: "NGN");
 
   static final Transaction _t2 = Transaction(
+      referenceNumber: "Qwerty",
       amount: 0.123100,
       date: DateTime.now(),
-      transactionType: TransactionType.sell,
+      type: TransactionType.sell,
       currency: "BTC");
 
   static final Transaction _t3 = Transaction(
+      referenceNumber: "Qwerty",
       amount: 12,
       date: DateTime.now(),
-      transactionType: TransactionType.buy,
+      type: TransactionType.buy,
       currency: "ETH");
 
   static final Transaction _t4 = Transaction(
+      referenceNumber: "Qwerty",
       amount: 2,
       date: DateTime.now(),
-      transactionType: TransactionType.sell,
+      type: TransactionType.sell,
       currency: "Amazon Giftcard");
 
   static final Transaction _t5 = Transaction(
       amount: 230000,
+      referenceNumber: "Qwerty",
       date: DateTime.now(),
-      transactionType: TransactionType.credit,
+      type: TransactionType.credit,
       currency: "NGN");
 
   static late List<Transaction> transactions = [_t1, _t2, _t3, _t4, _t5];
@@ -50,32 +55,11 @@ class MockData {
       nairaAmount: 98000000);
 
   static final Asset _a3 = Asset(
-      logoUrl: "assets/images/dogecoin_logo.png",
+      logoUrl: "assets/images/usdt_logo.png",
       balance: 12000000,
-      fullname: "Doge Coin",
-      abbreviatedName: "DOGE",
+      fullname: "Tether",
+      abbreviatedName: "USDT",
       nairaAmount: 4000000);
 
-  static final Asset _a4 = Asset(
-      logoUrl: "assets/images/rmb_logo.jpg",
-      balance: 1000000,
-      fullname: "Ren Min Bi",
-      abbreviatedName: "RMB",
-      nairaAmount: 5000000);
-
-  static final Asset _a5 = Asset(
-      logoUrl: "assets/images/bnb_logo.png",
-      balance: 120,
-      fullname: "Binance Coin",
-      abbreviatedName: "BNB",
-      nairaAmount: 6500000);
-
-  static final Asset _a6 = Asset(
-      logoUrl: "assets/images/amazon_giftcard.png",
-      balance: 12,
-      fullname: "Amazon Giftcards",
-      abbreviatedName: "AMG",
-      nairaAmount: 200000);
-
-  static late List<Asset> assets = [_a1, _a2, _a3, _a4, _a5, _a6];
+  static final List<Asset> assets = [_a1, _a2, _a3];
 }

@@ -17,7 +17,7 @@ class AppOverlay {
         messageText: Text(
           message,
           textAlign: TextAlign.center,
-          style: StyleSheet.black13w300.copyWith(fontWeight: FontWeight.w200),
+          style: StyleSheet.black13w300,
         ),
         snackPosition: SnackPosition.BOTTOM);
   }

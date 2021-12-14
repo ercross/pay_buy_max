@@ -126,7 +126,7 @@ class _DialogContent extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: StyleSheet.background.withOpacity(0.5)),
+                  color: Color(0xFFFAF4EB).withOpacity(0.5)),
               child: _state.buySource == null
                   ? _PaymentSource(ctx)
                   : _InternalBuy(
@@ -378,7 +378,7 @@ class _CoinDetails extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: StyleSheet.background,
+          color: CupertinoColors.systemGrey6,
           boxShadow: kElevationToShadow[2]),
       height: height,
       width: width,

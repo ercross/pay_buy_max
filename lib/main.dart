@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_cupertino_app.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:pay_buy_max/views/screens/payment_screen.dart';
 
 import 'views/screens/chat_support_screen.dart';
 import 'views/screens/authentication_screens/forgot_password_screen.dart';
@@ -63,6 +64,12 @@ class PayBuyMax extends StatelessWidget {
     GetPage(
         name: ChatSupport.route,
         page: () => ChatSupport(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.size),
+    GetPage(
+        name: PaymentPage.route,
+        page: () => PaymentPage(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.size),

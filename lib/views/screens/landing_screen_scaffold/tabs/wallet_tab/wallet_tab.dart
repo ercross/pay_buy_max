@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_buy_max/views/screens/chat_support_screen.dart';
 
 import '../../../../../mock_data.dart';
 import '../../../../../style_sheet.dart';
+import '../../../payment_screen.dart';
 import 'asset_card.dart';
 
 class WalletTab extends StatelessWidget {
@@ -50,6 +50,7 @@ class _Assets extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: ListView(
+          padding: EdgeInsets.zero,
           children: MockData.assets
               .map<AssetCard>((asset) => AssetCard(
                   asset: asset, height: heightPerCard, width: widthPerCard))
@@ -96,7 +97,7 @@ class _AmountInput extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: StyleSheet.background,
+        color: Colors.white,
         boxShadow: kElevationToShadow[2],
       ),
       child: Column(
@@ -179,9 +180,6 @@ class _Balance extends StatelessWidget {
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            height: constraints.maxHeight * 0.08,
-          ),
-          SizedBox(
               width: constraints.maxWidth,
               child: _WithdrawAndFundWalletButtons()),
           SizedBox(
@@ -214,7 +212,7 @@ class _WithdrawAndFundWalletButtons extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: StyleSheet.background,
+            color: Colors.white,
           ),
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Text(
@@ -224,11 +222,11 @@ class _WithdrawAndFundWalletButtons extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Navigator.of(context).pushNamed(ChatSupport.route),
+          onTap: () => Navigator.of(context).pushNamed(PaymentPage.route),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: StyleSheet.background,
+              color: Colors.white,
             ),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Text(
@@ -256,22 +254,20 @@ class _ConcaveContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: ClipPath(
-        clipper: _ConcaveContainerClipper(),
-        child: Container(
-            padding: EdgeInsets.only(
-              left: 10,
-              right: 10,
-              bottom: containerHeight * 0.1,
-            ),
-            alignment: Alignment.topCenter,
-            child: child,
-            height: containerHeight,
-            width: containerWidth,
-            color: StyleSheet.primaryColor),
-      ),
+    return ClipPath(
+      clipper: _ConcaveContainerClipper(),
+      child: Container(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + 10,
+            left: 10,
+            right: 10,
+            bottom: containerHeight * 0.1,
+          ),
+          alignment: Alignment.topCenter,
+          child: child,
+          height: containerHeight,
+          width: containerWidth,
+          color: StyleSheet.primaryColor),
     );
   }
 }

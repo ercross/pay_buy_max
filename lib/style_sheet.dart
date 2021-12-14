@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class StyleSheet {
   static const Color primaryColor = Color(0xFFaa6325);
   static const Color accentColor = Color(0xFFF1A23A);
-  static const Color background = Color(0xFFFAF4EB);
   static const String primaryFont = "FiraSans";
 
   //************************* BLACKS ***********************/

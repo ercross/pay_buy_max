@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -74,8 +75,9 @@ class _Tab extends StatelessWidget {
   Widget build(BuildContext context) {
     const double sidePadding = 10.00;
     final LandingPageProvider state = Provider.of(context);
-    final Color color =
-        _isActive(state.tabOnDisplay) ? StyleSheet.primaryColor : Colors.grey;
+    final Color color = _isActive(state.tabOnDisplay)
+        ? StyleSheet.primaryColor
+        : CupertinoColors.systemGrey3;
     return GestureDetector(
         onTap: () => state.changeTabOnDisplay(to: navBarItem.tab),
         child: Column(

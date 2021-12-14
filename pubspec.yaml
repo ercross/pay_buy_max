@@ -23,6 +23,9 @@ dependencies:
   carousel_slider: ^4.0.0
   dio: ^4.0.1
   shared_preferences: ^2.0.8
+  dropdown_search: ^2.0.0
+  flutter_paystack: ^1.0.5+1
+  flutter_credit_card: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +37,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/gift_cards/
 
   fonts:
     - family: FiraSans

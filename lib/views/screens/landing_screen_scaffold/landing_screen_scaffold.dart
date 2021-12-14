@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controllers/providers/landing_screen_provider.dart';
@@ -22,6 +23,10 @@ class _LandingPageScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark));
     final LandingPageProvider state = Provider.of<LandingPageProvider>(context);
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
@@ -30,14 +35,16 @@ class _LandingPageScaffold extends StatelessWidget {
       child: Container(
         height: pageHeight,
         width: pageWidth,
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        color: state.background,
+        color: Colors.white,
         child: Column(
           children: [
             Expanded(
               child: state.content,
             ),
-            BottomNavBar(renderHeight: pageHeight * 0.08)
+            BottomNavBar(renderHeight: pageHeight * 0.07),
+            SizedBox(
+              height: pageHeight * 0.05,
+            )
           ],
         ),
       ),
