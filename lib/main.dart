@@ -20,6 +20,7 @@ import 'views/screens/secondary_splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFFFFFF)));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(PayBuyMax());
 }
@@ -57,12 +58,6 @@ class PayBuyMax extends StatelessWidget {
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.fadeIn),
     GetPage(
-        name: HomePage.route,
-        page: () => HomePage(),
-        curve: Curves.easeIn,
-        transitionDuration: Duration(milliseconds: _duration),
-        transition: Transition.upToDown),
-    GetPage(
         name: ChatSupport.route,
         page: () => ChatSupport(),
         curve: Curves.easeIn,
@@ -74,6 +69,12 @@ class PayBuyMax extends StatelessWidget {
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.size),
+    GetPage(
+        name: HomePage.route,
+        page: () => HomePage(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.upToDown),
   ];
 
   static const String _entry = HomePage.route;

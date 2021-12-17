@@ -16,9 +16,6 @@ class PaymentPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
     final double pageWidth = size.width;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark));
     return BlankPage(
       child: Container(
         padding: EdgeInsets.only(

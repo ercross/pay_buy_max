@@ -35,9 +35,6 @@ class _SignUpPageState extends State<SignUpPage> {
     final double pageHeight = size.height;
     final double pageWidth = size.width;
     final double contentWidth = pageWidth * 0.8;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.black12,
-        statusBarIconBrightness: Brightness.light));
 
     final Widget space = SizedBox(height: pageHeight * 0.04);
 

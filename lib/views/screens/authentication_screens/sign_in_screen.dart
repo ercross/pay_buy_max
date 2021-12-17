@@ -36,9 +36,7 @@ class _SignInPageState extends State<SignInPage> {
     final double pageHeight = size.height;
     final double pageWidth = size.width;
     final double contentWidth = pageWidth * 0.75;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.black12,
-        statusBarIconBrightness: Brightness.light));
+
     return BlankPage.withoutSafeArea(
         child: Container(
       color: StyleSheet.primaryColor.withOpacity(0.09),

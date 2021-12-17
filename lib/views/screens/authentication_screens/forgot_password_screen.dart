@@ -30,9 +30,6 @@ class _ForgotPasswordPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double pageHeight = size.height;
     final double pageWidth = size.width;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.black12,
-        statusBarIconBrightness: Brightness.light));
     return BlankPage.withoutSafeArea(
         child: Container(
       height: pageHeight,
