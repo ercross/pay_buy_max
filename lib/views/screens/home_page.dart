@@ -1,4 +1,5 @@
 import 'package:coingecko_dart/coingecko_dart.dart';
+import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
 import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -99,9 +100,16 @@ class _HomeState extends State<_HomePage> {
     CoinGeckoResult<List<PricedCoin>> ethItems = Provider.of<CoinPriceProvider>(context, listen: false).ethereumPrice;
     CoinGeckoResult<List<PricedCoin>> tetherItems = Provider.of<CoinPriceProvider>(context, listen: false).tetherPrice;
 
+    CoinGeckoResult<List<CoinDataPoint>> bitcoinChart = Provider.of<CoinPriceProvider>(context, listen: true).bitcoinChart;
+    CoinGeckoResult<List<CoinDataPoint>> ethereumChart = Provider.of<CoinPriceProvider>(context, listen: true).ethereumChart;
+    CoinGeckoResult<List<CoinDataPoint>> tetherChart = Provider.of<CoinPriceProvider>(context, listen: true).tetherChart;
+
     RefreshController _refreshController = RefreshController(initialRefresh: false);
     void _onListRefresh() async{
-      await Provider.of<CoinPriceProvider>(context, listen: false).queryBitcoinPrice();
+      var date = DateTime.now();
+      var weekDay = date.weekday;
+
+      await Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: weekDay)),date);
       await Provider.of<CoinPriceProvider>(context, listen: false).queryEthereumPrice();
       await Provider.of<CoinPriceProvider>(context, listen: false).queryTetherPrice();
       _refreshController.refreshCompleted();
