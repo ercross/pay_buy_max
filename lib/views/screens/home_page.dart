@@ -1,3 +1,5 @@
+import 'package:coingecko_dart/coingecko_dart.dart';
+import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
@@ -91,6 +94,18 @@ class _HomeState extends State<_HomePage> {
     );
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
+
+    CoinGeckoResult<List<PricedCoin>> btcItems = Provider.of<CoinPriceProvider>(context, listen: false).bitcoinPrice;
+    CoinGeckoResult<List<PricedCoin>> ethItems = Provider.of<CoinPriceProvider>(context, listen: false).ethereumPrice;
+    CoinGeckoResult<List<PricedCoin>> tetherItems = Provider.of<CoinPriceProvider>(context, listen: false).tetherPrice;
+
+    RefreshController _refreshController = RefreshController(initialRefresh: false);
+    void _onListRefresh() async{
+      await Provider.of<CoinPriceProvider>(context, listen: false).queryBitcoinPrice();
+      await Provider.of<CoinPriceProvider>(context, listen: false).queryEthereumPrice();
+      await Provider.of<CoinPriceProvider>(context, listen: false).queryTetherPrice();
+      _refreshController.refreshCompleted();
+    }
 
     Container container = Container(
       height: height,
@@ -533,10 +548,22 @@ class _HomeState extends State<_HomePage> {
           debugShowCheckedModeBanner: false,
           home: Scaffold(
             appBar: appBar,
-            body: container,
+            body: SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: false,
+                header: 	MaterialClassicHeader(
+                  color: Color(0xFFFAFAFA),
+                  backgroundColor: Color(0xFF4B8800),
+                ),
+                controller: _refreshController,
+                onRefresh: _onListRefresh,
+                onLoading: null,
+                child: container
+            ),
           ),
         );
       },
     );
+
   }
 }

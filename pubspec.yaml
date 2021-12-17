@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  pull_to_refresh: 2.0.0
   k_chart: 0.1.1
   coingecko_dart: 0.1.0
   flutter_svg: 1.0.0

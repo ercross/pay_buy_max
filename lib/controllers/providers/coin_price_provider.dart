@@ -5,41 +5,14 @@ import 'package:flutter/material.dart';
 class CoinPriceProvider extends ChangeNotifier{
   CoinGeckoApi apiInstance = CoinGeckoApi();
 
-  late CoinGeckoResult<List<PricedCoin>>? _bitcoinPrice;
-  CoinGeckoResult<List<PricedCoin>>? get bitcoinPrice => _bitcoinPrice;
+  CoinGeckoResult<List<PricedCoin>> _bitcoinPrice = CoinGeckoResult(List.empty());
+  CoinGeckoResult<List<PricedCoin>> get bitcoinPrice => _bitcoinPrice;
 
-  late CoinGeckoResult<List<PricedCoin>>? _ethereumPrice;
-  CoinGeckoResult<List<PricedCoin>>? get ethereumPrice => _ethereumPrice;
+  CoinGeckoResult<List<PricedCoin>> _ethereumPrice = CoinGeckoResult(List.empty());
+  CoinGeckoResult<List<PricedCoin>> get ethereumPrice => _ethereumPrice;
 
-  late CoinGeckoResult<List<PricedCoin>>? _tetherPrice;
-  CoinGeckoResult<List<PricedCoin>>? get tetherPrice => _tetherPrice;
-
-  void getBitcoinPrice(){
-    queryBitcoinPrice().then((value){
-      _bitcoinPrice = value;
-      notifyListeners();
-    }, onError: (error) {
-      print(error);
-    });
-  }
-
-  void getEthereumPrice(){
-    queryBitcoinPrice().then((value){
-      _ethereumPrice = value;
-      notifyListeners();
-    }, onError: (error) {
-      print(error);
-    });
-  }
-
-  void getTetherPrice(){
-    queryBitcoinPrice().then((value){
-      _tetherPrice = value;
-      notifyListeners();
-    }, onError: (error) {
-      print(error);
-    });
-  }
+  CoinGeckoResult<List<PricedCoin>> _tetherPrice = CoinGeckoResult(List.empty());
+  CoinGeckoResult<List<PricedCoin>> get tetherPrice => _tetherPrice;
 
   Future<CoinGeckoResult<List<PricedCoin>>> queryBitcoinPrice() async {
     CoinGeckoResult<List<PricedCoin>> result = await apiInstance.simplePrice(
@@ -48,6 +21,8 @@ class CoinPriceProvider extends ChangeNotifier{
         includeLastUpdatedAt: true,
         includeMarketCap: true);
 
+    _bitcoinPrice = result;
+    notifyListeners();
     return result;
   }
 
@@ -58,6 +33,8 @@ class CoinPriceProvider extends ChangeNotifier{
         includeLastUpdatedAt: true,
         includeMarketCap: true);
 
+    _ethereumPrice = result;
+    notifyListeners();
     return result;
   }
 
@@ -68,7 +45,8 @@ class CoinPriceProvider extends ChangeNotifier{
         includeLastUpdatedAt: true,
         includeMarketCap: true);
 
+    _tetherPrice = result;
+    notifyListeners();
     return result;
   }
-
 }
