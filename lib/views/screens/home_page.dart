@@ -1,10 +1,9 @@
-import 'package:coingecko_dart/coingecko_dart.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pay_buy_max/controllers/providers/current_service_provider.dart';
+import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,9 +13,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CurrentServiceProvider>(
-      create: (_) => CurrentServiceProvider(),
-      builder: (_, __) => _HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CoinPriceProvider>(create: (context) => CoinPriceProvider()),
+      ],
+      child: const _HomePage(),
     );
   }
 }

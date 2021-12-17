@@ -17,6 +17,7 @@ class CoinPriceProvider extends ChangeNotifier{
   void getBitcoinPrice(){
     queryBitcoinPrice().then((value){
       _bitcoinPrice = value;
+      notifyListeners();
     }, onError: (error) {
       print(error);
     });
@@ -25,6 +26,7 @@ class CoinPriceProvider extends ChangeNotifier{
   void getEthereumPrice(){
     queryBitcoinPrice().then((value){
       _ethereumPrice = value;
+      notifyListeners();
     }, onError: (error) {
       print(error);
     });
@@ -33,6 +35,7 @@ class CoinPriceProvider extends ChangeNotifier{
   void getTetherPrice(){
     queryBitcoinPrice().then((value){
       _tetherPrice = value;
+      notifyListeners();
     }, onError: (error) {
       print(error);
     });
