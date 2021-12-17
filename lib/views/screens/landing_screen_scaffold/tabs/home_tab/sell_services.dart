@@ -1,14 +1,11 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay_buy_max/models/coin.dart';
 import 'package:pay_buy_max/style_sheet.dart';
 import 'package:pay_buy_max/views/screens/chat_support_screen.dart';
 import 'package:pay_buy_max/views/widgets/authentication_text_field.dart';
 import 'package:pay_buy_max/views/widgets/horizontal_bar.dart';
-import 'package:pay_buy_max/views/widgets/horizontal_tab_header.dart';
 
 class HowToSell extends StatelessWidget {
   const HowToSell();
@@ -28,11 +25,11 @@ class HowToSell extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            HorizontalTabsHeader(
+            /*HorizontalTabsHeader(
                 width: width,
                 tabs: ["External wallet", "Internal wallet", "Gift card"],
                 onTabChanged: (text, index) => state.changeActiveIndex(index),
-                height: height * 0.08),
+                height: height * 0.08),*/
             Expanded(
                 child: Container(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.05),

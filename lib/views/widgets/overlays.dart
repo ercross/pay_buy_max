@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_navigation/src/snackbar/snack.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 import '../../style_sheet.dart';
 
 class AppOverlay {
   static void snackbar({String title = "", required String message}) {
-    Get.snackbar<String>(title, message,
+    Get.snackbar(title, message,
         margin: EdgeInsets.only(bottom: 40, right: 20, left: 20),
         titleText: Text(
           title,

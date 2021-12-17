@@ -17,8 +17,7 @@ class Api {
 
   Future<ApiResponse> signup(Map<String, String> credentials) async {
     try {
-      final response = await _client.post(_registerUser,
-          options: Options(method: "POST"), data: credentials);
+      final response = await _client.post(_registerUser, options: Options(method: "POST"), data: credentials);
       return ApiResponse.from(response.data);
     } on DioError catch (e) {
       return e.toApiError();
@@ -27,8 +26,7 @@ class Api {
 
   Future<ApiResponse> signin(Map<String, dynamic> credentials) async {
     try {
-      final response = await _client.post(_login,
-          options: Options(method: "POST"), data: credentials);
+      final response = await _client.post(_login, options: Options(method: "POST"), data: credentials);
       return ApiResponse.from(response.data);
     } on DioError catch (e) {
       return e.toApiError();
