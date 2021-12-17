@@ -40,6 +40,10 @@ class _HomeState extends State<_HomePage>{
     timeController = new TextEditingController(text: "this week.");
   }
 
+  void expand(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
@@ -77,7 +81,14 @@ class _HomeState extends State<_HomePage>{
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextField(controller: priceController,readOnly: true,enableInteractiveSelection: false,keyboardType:  TextInputType.text,textAlign: TextAlign.center,style:TextStyle(color: Color(0xFFC9782F),fontSize: 60),maxLines: 1,
+                  TextField(
+                    controller: priceController,
+                    readOnly: true,
+                    enableInteractiveSelection: false,
+                    keyboardType:  TextInputType.text,
+                    textAlign: TextAlign.center,
+                    style:TextStyle(color: Color(0xFFC9782F), fontSize: 60),
+                    maxLines: 1,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.all(-5)
@@ -129,6 +140,49 @@ class _HomeState extends State<_HomePage>{
             height: height/2,
             width: MediaQuery.of(context).size.width,
             color: Color(0xFFFAFAFA),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Text('Funds', style:TextStyle(color: Colors.blueGrey,fontSize: 18),textAlign: TextAlign.start),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Wrap(
+                              alignment: WrapAlignment.end,
+                              children: [ElevatedButton.icon(
+                                onPressed: expand,
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Color(0xFFC9782F))
+                                        )
+                                    )
+                                ),
+                                label: Text('Expand'),
+                                icon: Icon(Icons.list_rounded,color: Color(0xFFFAFAFA)),
+                              )],
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                )
+              ],
+            ),
           )
         ],
       ),
