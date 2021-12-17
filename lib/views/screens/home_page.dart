@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/current_service_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
+
   static const String route = "/landing";
 
   @override
@@ -25,10 +25,9 @@ class _HomePage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _HomeState();
-
 }
 
-class _HomeState extends State<_HomePage>{
+class _HomeState extends State<_HomePage> {
   final color = const Color(0xFFC9782F);
   late TextEditingController priceController;
   late TextEditingController priceIncreaseController;
@@ -41,7 +40,7 @@ class _HomeState extends State<_HomePage>{
   late TextEditingController ethController;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     priceController = new TextEditingController(text: "\$3,982.70");
     priceIncreaseController = new TextEditingController(text: "\$982.70");
@@ -54,37 +53,42 @@ class _HomeState extends State<_HomePage>{
     ethController = new TextEditingController(text: "12.123");
   }
 
-  void expand(){
+  void expand() {}
 
-  }
+  void exchange() {}
 
-  void exchange(){
+  void learn() {}
 
-  }
-
-  void learn(){
-
-  }
-
-  void investment(){
-
-  }
+  void investment() {}
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
     AppBar appBar = AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark,systemNavigationBarColor: Colors.white),
+      systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.white),
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title:Center(child: Text('PayBuyMax', style:TextStyle(color: Colors.blueGrey,fontSize: 18),textAlign: TextAlign.center)),
-      leading: IconButton(icon: new Icon(Icons.menu), onPressed: () {},color: Colors.blueGrey),
-      actions: [IconButton(icon: new Icon(Icons.notifications_rounded), onPressed: () {},color: Colors.blueGrey)],
+      title: Center(
+          child: Text('PayBuyMax',
+              style: TextStyle(color: Colors.blueGrey, fontSize: 18),
+              textAlign: TextAlign.center)),
+      leading: IconButton(
+          icon: new Icon(Icons.menu), onPressed: () {}, color: Colors.blueGrey),
+      actions: [
+        IconButton(
+            icon: new Icon(Icons.notifications_rounded),
+            onPressed: () {},
+            color: Colors.blueGrey)
+      ],
     );
 
-    final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height+MediaQuery.of(context).padding.top);
+    final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
 
     Container container = Container(
       height: height,
@@ -93,15 +97,13 @@ class _HomeState extends State<_HomePage>{
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            height: (height/2) - appBar.preferredSize.height,
+            height: (height / 2) - appBar.preferredSize.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     opacity: 0.18,
                     image: AssetImage('assets/images/background_image.jpg'),
-                    fit: BoxFit.cover
-                )
-            ),
+                    fit: BoxFit.cover)),
             child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -111,14 +113,13 @@ class _HomeState extends State<_HomePage>{
                     controller: priceController,
                     readOnly: true,
                     enableInteractiveSelection: false,
-                    keyboardType:  TextInputType.text,
+                    keyboardType: TextInputType.text,
                     textAlign: TextAlign.center,
-                    style:TextStyle(color: Color(0xFFC9782F), fontSize: 60),
+                    style: TextStyle(color: Color(0xFFC9782F), fontSize: 60),
                     maxLines: 1,
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(-5)
-                    ),
+                        contentPadding: EdgeInsets.all(-5)),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -128,34 +129,47 @@ class _HomeState extends State<_HomePage>{
                         padding: const EdgeInsets.only(right: 10),
                         child: IntrinsicHeight(
                           child: IntrinsicWidth(
-                            child: TextField(controller: priceIncreaseController,readOnly: true,textAlign: TextAlign.center,enableInteractiveSelection: false,maxLines: 1,style:TextStyle(color: Color(0xFFC9782F),fontSize: 16),
+                            child: TextField(
+                                controller: priceIncreaseController,
+                                readOnly: true,
+                                textAlign: TextAlign.center,
+                                enableInteractiveSelection: false,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Color(0xFFC9782F), fontSize: 16),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(0)
-                                )
-                            ),
+                                    contentPadding: EdgeInsets.all(0))),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: IntrinsicWidth(
-                            child: TextField(controller: percentController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
+                            child: TextField(
+                                controller: percentController,
+                                readOnly: true,
+                                enableInteractiveSelection: false,
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.blueGrey, fontSize: 16),
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(0)
-                                )
-                            )
-                        ),
+                                    contentPadding: EdgeInsets.all(0)))),
                       ),
                       IntrinsicWidth(
-                          child: TextField(controller: timeController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
+                          child: TextField(
+                              controller: timeController,
+                              readOnly: true,
+                              enableInteractiveSelection: false,
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  color: Colors.blueGrey, fontSize: 16),
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(0)
-                              )
-                          )
-                      )
+                                  contentPadding: EdgeInsets.all(0))))
                     ],
                   )
                 ],
@@ -163,7 +177,7 @@ class _HomeState extends State<_HomePage>{
             ),
           ),
           Container(
-            height: (height/2) + appBar.preferredSize.height,
+            height: (height / 2) + appBar.preferredSize.height,
             width: MediaQuery.of(context).size.width,
             color: Color(0xFFFAFAFA),
             child: Column(
@@ -172,7 +186,7 @@ class _HomeState extends State<_HomePage>{
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Flexible(
-                  fit: FlexFit.tight,
+                    fit: FlexFit.tight,
                     flex: 1,
                     child: Row(
                       children: [
@@ -180,7 +194,10 @@ class _HomeState extends State<_HomePage>{
                           flex: 1,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 30),
-                            child:  Text('Funds', style:TextStyle(color: Colors.blueGrey,fontSize: 18),textAlign: TextAlign.start),
+                            child: Text('Funds',
+                                style: TextStyle(
+                                    color: Colors.blueGrey, fontSize: 18),
+                                textAlign: TextAlign.start),
                           ),
                         ),
                         Expanded(
@@ -189,30 +206,35 @@ class _HomeState extends State<_HomePage>{
                             padding: const EdgeInsets.only(right: 30),
                             child: Wrap(
                               alignment: WrapAlignment.end,
-                              children: [ElevatedButton.icon(
-                                onPressed: expand,
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Color(0xFF4B8800)),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
-                                            side: BorderSide(color: Color(0xFF4B8800))
-                                        )
-                                    )
-                                ),
-                                label: Text('Expand'),
-                                icon: Icon(Icons.list_rounded,color: Color(0xFFFAFAFA)),
-                              )],
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: expand,
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Color(0xFF4B8800)),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(
+                                                  color: Color(0xFF4B8800))))),
+                                  label: Text('Expand'),
+                                  icon: Icon(Icons.list_rounded,
+                                      color: Color(0xFFFAFAFA)),
+                                )
+                              ],
                             ),
                           ),
                         )
                       ],
-                    )
-                ),
+                    )),
                 Expanded(
                     flex: 6,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 5,bottom: 5),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
@@ -222,26 +244,32 @@ class _HomeState extends State<_HomePage>{
                               width: 220.0,
                               decoration: BoxDecoration(
                                   color: Color(0xFF4B8800),
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
                                   image: DecorationImage(
                                       opacity: 0.1,
-                                      image: AssetImage('assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover
-                                  )
-                              ),
+                                      image: AssetImage(
+                                          'assets/images/background_image.jpg'),
+                                      fit: BoxFit.cover)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 25,bottom: 8,top: 30),
+                                    padding: const EdgeInsets.only(
+                                        left: 25, bottom: 8, top: 30),
                                     child: CircleAvatar(
                                         backgroundColor: Color(0xFF4B8800),
-                                        child: SvgPicture.asset('assets/images/naira.svg')
-                                    ),
+                                        child: SvgPicture.asset(
+                                            'assets/images/naira.svg')),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 15,bottom: 1,top: 5),
-                                    child: Text('Wallet Balance', style:TextStyle(color: Color(0xFFFAFAFA),fontSize: 20),textAlign: TextAlign.start),
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 1, top: 5),
+                                    child: Text('Wallet Balance',
+                                        style: TextStyle(
+                                            color: Color(0xFFFAFAFA),
+                                            fontSize: 20),
+                                        textAlign: TextAlign.start),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 16),
@@ -250,14 +278,16 @@ class _HomeState extends State<_HomePage>{
                                         controller: walletController,
                                         readOnly: true,
                                         enableInteractiveSelection: false,
-                                        keyboardType:  TextInputType.text,
+                                        keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
-                                        style:TextStyle(color: Colors.white60, fontSize: 15),
+                                        style: TextStyle(
+                                            color: Colors.white60,
+                                            fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            contentPadding: EdgeInsets.only(top:-5)
-                                        ),
+                                            contentPadding:
+                                                EdgeInsets.only(top: -5)),
                                       ),
                                     ),
                                   )
@@ -271,26 +301,33 @@ class _HomeState extends State<_HomePage>{
                               width: 200.0,
                               decoration: BoxDecoration(
                                   color: Color(0xFFC9782F),
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
                                   image: DecorationImage(
                                       opacity: 0.1,
-                                      image: AssetImage('assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover
-                                  )
-                              ),
+                                      image: AssetImage(
+                                          'assets/images/background_image.jpg'),
+                                      fit: BoxFit.cover)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 25,bottom: 8,top: 30),
+                                    padding: const EdgeInsets.only(
+                                        left: 25, bottom: 8, top: 30),
                                     child: CircleAvatar(
                                         backgroundColor: Color(0xFF4B8800),
-                                        child: Image(image: AssetImage('assets/images/bitcoin_logo.png'))
-                                    ),
+                                        child: Image(
+                                            image: AssetImage(
+                                                'assets/images/bitcoin_logo.png'))),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 15,bottom: 1,top: 5),
-                                    child: Text('Bitcoin', style:TextStyle(color: Color(0xFFFAFAFA),fontSize: 20),textAlign: TextAlign.start),
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 1, top: 5),
+                                    child: Text('Bitcoin',
+                                        style: TextStyle(
+                                            color: Color(0xFFFAFAFA),
+                                            fontSize: 20),
+                                        textAlign: TextAlign.start),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 16),
@@ -299,14 +336,16 @@ class _HomeState extends State<_HomePage>{
                                         controller: bitcoinController,
                                         readOnly: true,
                                         enableInteractiveSelection: false,
-                                        keyboardType:  TextInputType.text,
+                                        keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
-                                        style:TextStyle(color: Colors.white60, fontSize: 15),
+                                        style: TextStyle(
+                                            color: Colors.white60,
+                                            fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            contentPadding: EdgeInsets.only(top:-5)
-                                        ),
+                                            contentPadding:
+                                                EdgeInsets.only(top: -5)),
                                       ),
                                     ),
                                   )
@@ -320,75 +359,33 @@ class _HomeState extends State<_HomePage>{
                               width: 200.0,
                               decoration: BoxDecoration(
                                   color: Color(0xFFC9782F),
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
                                   image: DecorationImage(
                                       opacity: 0.1,
-                                      image: AssetImage('assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover
-                                  )
-                              ),
+                                      image: AssetImage(
+                                          'assets/images/background_image.jpg'),
+                                      fit: BoxFit.cover)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 25,bottom: 8,top: 30),
+                                    padding: const EdgeInsets.only(
+                                        left: 25, bottom: 8, top: 30),
                                     child: CircleAvatar(
                                         backgroundColor: Color(0xFF4B8800),
-                                        child: Image(image: AssetImage('assets/images/usdt_logo.png'))
-                                    ),
+                                        child: Image(
+                                            image: AssetImage(
+                                                'assets/images/ethereum_logo.png'))),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 15,bottom: 1,top: 5),
-                                    child: Text('USDT', style:TextStyle(color: Color(0xFFFAFAFA),fontSize: 20),textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: IntrinsicHeight(
-                                      child: TextField(
-                                        controller: usdtController,
-                                        readOnly: true,
-                                        enableInteractiveSelection: false,
-                                        keyboardType:  TextInputType.text,
-                                        textAlign: TextAlign.start,
-                                        style:TextStyle(color: Colors.white60, fontSize: 15),
-                                        maxLines: 1,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding: EdgeInsets.only(top:-5)
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              width: 200.0,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFC9782F),
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  image: DecorationImage(
-                                      opacity: 0.1,
-                                      image: AssetImage('assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover
-                                  )
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 25,bottom: 8,top: 30),
-                                    child: CircleAvatar(
-                                        backgroundColor: Color(0xFF4B8800),
-                                        child: Image(image: AssetImage('assets/images/ethereum_logo.png'))
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15,bottom: 1,top: 5),
-                                    child: Text('Ethereum', style:TextStyle(color: Color(0xFFFAFAFA),fontSize: 20),textAlign: TextAlign.start),
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 1, top: 5),
+                                    child: Text('Ethereum',
+                                        style: TextStyle(
+                                            color: Color(0xFFFAFAFA),
+                                            fontSize: 20),
+                                        textAlign: TextAlign.start),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 16),
@@ -397,14 +394,74 @@ class _HomeState extends State<_HomePage>{
                                         controller: ethController,
                                         readOnly: true,
                                         enableInteractiveSelection: false,
-                                        keyboardType:  TextInputType.text,
+                                        keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
-                                        style:TextStyle(color: Colors.white60, fontSize: 15),
+                                        style: TextStyle(
+                                            color: Colors.white60,
+                                            fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            contentPadding: EdgeInsets.only(top:-5)
-                                        ),
+                                            contentPadding:
+                                            EdgeInsets.only(top: -5)),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: 200.0,
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFC9782F),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  image: DecorationImage(
+                                      opacity: 0.1,
+                                      image: AssetImage(
+                                          'assets/images/background_image.jpg'),
+                                      fit: BoxFit.cover)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 25, bottom: 8, top: 30),
+                                    child: CircleAvatar(
+                                        backgroundColor: Color(0xFF4B8800),
+                                        child: Image(
+                                            image: AssetImage(
+                                                'assets/images/usdt_logo.png'))),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 1, top: 5),
+                                    child: Text('USDT',
+                                        style: TextStyle(
+                                            color: Color(0xFFFAFAFA),
+                                            fontSize: 20),
+                                        textAlign: TextAlign.start),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 16),
+                                    child: IntrinsicHeight(
+                                      child: TextField(
+                                        controller: usdtController,
+                                        readOnly: true,
+                                        enableInteractiveSelection: false,
+                                        keyboardType: TextInputType.text,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: Colors.white60,
+                                            fontSize: 15),
+                                        maxLines: 1,
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            contentPadding:
+                                                EdgeInsets.only(top: -5)),
                                       ),
                                     ),
                                   )
@@ -414,8 +471,7 @@ class _HomeState extends State<_HomePage>{
                           ),
                         ],
                       ),
-                    )
-                ),
+                    )),
                 Expanded(
                     flex: 4,
                     child: Padding(
@@ -431,7 +487,10 @@ class _HomeState extends State<_HomePage>{
                                   color: Colors.transparent,
                                   shape: CircleBorder(),
                                   clipBehavior: Clip.hardEdge,
-                                  child: IconButton(icon: new Icon(Icons.book_rounded), onPressed: learn,color: Colors.blueGrey)),
+                                  child: IconButton(
+                                      icon: new Icon(Icons.book_rounded),
+                                      onPressed: learn,
+                                      color: Colors.blueGrey)),
                             ),
                             Container(
                               height: 90,
@@ -451,13 +510,15 @@ class _HomeState extends State<_HomePage>{
                                   color: Colors.transparent,
                                   shape: CircleBorder(),
                                   clipBehavior: Clip.hardEdge,
-                                  child: IconButton(icon: new Icon(Icons.show_chart), onPressed: learn,color: Colors.blueGrey)),
+                                  child: IconButton(
+                                      icon: new Icon(Icons.show_chart),
+                                      onPressed: learn,
+                                      color: Colors.blueGrey)),
                             )
                           ],
                         ),
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           )
