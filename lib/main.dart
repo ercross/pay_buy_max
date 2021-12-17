@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_cupertino_app.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:pay_buy_max/views/screens/home_page.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
 
 import 'views/screens/chat_support_screen.dart';
@@ -56,8 +57,8 @@ class PayBuyMax extends StatelessWidget {
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.fadeIn),
     GetPage(
-        name: LandingPageScaffold.route,
-        page: () => LandingPageScaffold(),
+        name: HomePage.route,
+        page: () => HomePage(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.upToDown),
@@ -75,7 +76,7 @@ class PayBuyMax extends StatelessWidget {
         transition: Transition.size),
   ];
 
-  static const String _entry = LandingPageScaffold.route;
+  static const String _entry = HomePage.route;
 
   @override
   Widget build(BuildContext context) => Platform.isAndroid

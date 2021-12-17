@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_buy_max/views/screens/home_page.dart';
 import '../../views/screens/landing_screen_scaffold/bottom_nav_bar.dart';
 import '../../views/screens/landing_screen_scaffold/tabs/account_tab.dart';
 import '../../views/screens/landing_screen_scaffold/tabs/transactions_tab/transactions_tab.dart';
@@ -11,7 +12,7 @@ class LandingPageProvider extends ChangeNotifier {
 
   LandingPageProvider()
       : _tabOnDisplay = NavBarTab.home,
-        _content = HomeTab();
+        _content = HomePage();
 
   NavBarTab get tabOnDisplay => _tabOnDisplay;
   Widget get content => _content;
@@ -25,7 +26,7 @@ class LandingPageProvider extends ChangeNotifier {
   void _setContent() {
     switch (_tabOnDisplay) {
       case NavBarTab.home:
-        _content = HomeTab();
+        _content = HomePage();
         break;
       case NavBarTab.wallet:
         _content = WalletTab();
