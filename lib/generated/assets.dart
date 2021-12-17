@@ -15,6 +15,7 @@ class Assets {
   static const String imagesForgotPassword = 'assets/images/forgot_password.png';
   static const String imagesLauncherIcon = 'assets/images/launcher_icon.png';
   static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesNaira = 'assets/images/naira.svg';
   static const String imagesOnboarding1 = 'assets/images/onboarding1.png';
   static const String imagesOnboarding2 = 'assets/images/onboarding2.png';
   static const String imagesOnboarding3 = 'assets/images/onboarding3.png';
