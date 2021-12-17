@@ -109,10 +109,10 @@ class _HomeState extends State<_HomePage> {
       var date = DateTime.now();
       var weekDay = date.weekday;
 
-      await Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: weekDay)),date);
-      await Provider.of<CoinPriceProvider>(context, listen: false).queryEthereumPrice();
-      await Provider.of<CoinPriceProvider>(context, listen: false).queryTetherPrice();
-      _refreshController.refreshCompleted();
+      Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: weekDay)),date,_refreshController);
+      //await Provider.of<CoinPriceProvider>(context, listen: false).queryEthereumPrice();
+     // await Provider.of<CoinPriceProvider>(context, listen: false).queryTetherPrice();
+     // _refreshController.refreshCompleted();
     }
 
     Container container = Container(
