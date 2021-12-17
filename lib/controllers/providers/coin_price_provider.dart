@@ -1,4 +1,5 @@
 import 'package:coingecko_dart/coingecko_dart.dart';
+import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
 import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:flutter/material.dart';
 
@@ -49,4 +50,44 @@ class CoinPriceProvider extends ChangeNotifier{
     notifyListeners();
     return result;
   }
+
+  CoinGeckoResult<List<CoinDataPoint>> bitcoinChart = CoinGeckoResult(List.empty());
+  Future<CoinGeckoResult<List<CoinDataPoint>>> getBitCoinMarketChart(DateTime from,DateTime to) async {
+    var result = await apiInstance.getCoinMarketChartRanged(
+        id: "bitcoin",
+        vsCurrency: "ngn",
+        from: from,
+        to: to);
+
+    bitcoinChart = result;
+    notifyListeners();
+    return result;
+  }
+
+  CoinGeckoResult<List<CoinDataPoint>> ethereumChart = CoinGeckoResult(List.empty());
+  Future<CoinGeckoResult<List<CoinDataPoint>>> getEthereumMarketChart(DateTime from,DateTime to) async {
+    var result = await apiInstance.getCoinMarketChartRanged(
+        id: "ethereum",
+        vsCurrency: "ngn",
+        from: from,
+        to: to);
+
+    ethereumChart = result;
+    notifyListeners();
+    return result;
+  }
+
+  CoinGeckoResult<List<CoinDataPoint>> tetherChart = CoinGeckoResult(List.empty());
+  Future<CoinGeckoResult<List<CoinDataPoint>>> getTetherMarketChart(DateTime from,DateTime to) async {
+    var result = await apiInstance.getCoinMarketChartRanged(
+        id: "tether",
+        vsCurrency: "ngn",
+        from: from,
+        to: to);
+
+    tetherChart = result;
+    notifyListeners();
+    return result;
+  }
+
 }
