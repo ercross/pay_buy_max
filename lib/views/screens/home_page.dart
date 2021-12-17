@@ -1,3 +1,4 @@
+import 'package:coingecko_dart/coingecko_dart.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +47,11 @@ class _HomeState extends State<_HomePage> {
     priceIncreaseController = new TextEditingController(text: "\$982.70");
     percentController = new TextEditingController(text: "(10%)");
     timeController = new TextEditingController(text: "this week.");
+    
     walletController = new TextEditingController(text: "NGN 500");
-
-    bitcoinController = new TextEditingController(text: "0.0125");
-    usdtController = new TextEditingController(text: "800.00");
-    ethController = new TextEditingController(text: "12.123");
+    bitcoinController = new TextEditingController(text: "0.0125 btc");
+    usdtController = new TextEditingController(text: "800.00 usdt");
+    ethController = new TextEditingController(text: "12.123 eth");
   }
 
   void expand() {}
@@ -281,7 +282,7 @@ class _HomeState extends State<_HomePage> {
                                         keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
-                                            color: Colors.white60,
+                                            color: Colors.white70,
                                             fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(
@@ -339,7 +340,7 @@ class _HomeState extends State<_HomePage> {
                                         keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
-                                            color: Colors.white60,
+                                            color: Colors.white70,
                                             fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(
@@ -397,7 +398,7 @@ class _HomeState extends State<_HomePage> {
                                         keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
-                                            color: Colors.white60,
+                                            color: Colors.white70,
                                             fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(
@@ -439,7 +440,7 @@ class _HomeState extends State<_HomePage> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 15, bottom: 1, top: 5),
-                                    child: Text('USDT',
+                                    child: Text('Tether',
                                         style: TextStyle(
                                             color: Color(0xFFFAFAFA),
                                             fontSize: 20),
@@ -452,10 +453,9 @@ class _HomeState extends State<_HomePage> {
                                         controller: usdtController,
                                         readOnly: true,
                                         enableInteractiveSelection: false,
-                                        keyboardType: TextInputType.text,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
-                                            color: Colors.white60,
+                                            color: Colors.white70,
                                             fontSize: 15),
                                         maxLines: 1,
                                         decoration: InputDecoration(

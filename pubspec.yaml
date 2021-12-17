@@ -13,6 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  k_chart: 0.1.1
+  coingecko_dart: 0.1.0
   flutter_svg: 1.0.0
   eva_icons_flutter: 3.0.2
   persistent_bottom_nav_bar: 4.0.2

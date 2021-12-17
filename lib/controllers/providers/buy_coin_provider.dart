@@ -61,8 +61,7 @@ class BuyCoinProvider extends ChangeNotifier {
 
   void changeAmount(double newAmount) {
     _amount = newAmount;
-    _nairaEquivalent =
-        _amount * _coins[_currentCoinIndex].dollarAmount * dollarToNaira;
+    _nairaEquivalent = _amount * _coins[_currentCoinIndex].dollarAmount * dollarToNaira;
     _dollarEquivalent = _coins[_currentCoinIndex].dollarAmount * _amount;
     notifyListeners();
   }
@@ -76,4 +75,5 @@ class BuyCoinProvider extends ChangeNotifier {
     _currentCoinIndex = index;
     notifyListeners();
   }
+
 }
