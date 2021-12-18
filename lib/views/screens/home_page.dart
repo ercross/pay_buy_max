@@ -85,6 +85,8 @@ class _HomeState extends State<_HomePage> {
 
   void investment() {}
 
+  void moreDetails() {}
+
   bool isSameDate(DateTime former, DateTime other) {
     return former.year == other.year &&
         former.month == other.month &&
@@ -520,7 +522,7 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: expand,
+                                                onPressed: moreDetails,
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                     MaterialStateProperty.all(Color(0xFFFAFAFA)),
@@ -605,7 +607,7 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: expand,
+                                                onPressed: moreDetails,
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                     MaterialStateProperty.all(Color(0xFFFAFAFA)),
@@ -690,7 +692,7 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: expand,
+                                                onPressed: moreDetails,
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                     MaterialStateProperty.all(Color(0xFFFAFAFA)),
@@ -774,7 +776,7 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: expand,
+                                                onPressed: moreDetails,
                                                 style: ButtonStyle(
                                                     backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
                                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
