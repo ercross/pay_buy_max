@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:coingecko_dart/coingecko_dart.dart';
 import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
 import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
@@ -10,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -85,7 +84,9 @@ class _HomeState extends State<_HomePage> {
 
   void investment() {}
 
-  void moreDetails() {}
+  void moreDetails() {
+    Navigator.of(context).pushNamed(WalletScreen.route);
+  }
 
   bool isSameDate(DateTime former, DateTime other) {
     return former.year == other.year &&

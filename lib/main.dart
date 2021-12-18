@@ -9,6 +9,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pay_buy_max/views/screens/home_page.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 
 import 'views/screens/chat_support_screen.dart';
 import 'views/screens/authentication_screens/forgot_password_screen.dart';
@@ -75,9 +76,14 @@ class PayBuyMax extends StatelessWidget {
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.upToDown),
+    GetPage(
+        name: WalletScreen.route,
+        page: () => WalletScreen(),
+        curve: Curves.easeIn,
+        transition:  Transition.fadeIn),
   ];
 
-  static const String _entry = HomePage.route;
+  static const String _entry = WalletScreen.route;
 
   @override
   Widget build(BuildContext context) => Platform.isAndroid
