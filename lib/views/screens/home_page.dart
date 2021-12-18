@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:coingecko_dart/coingecko_dart.dart';
 import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
 import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +22,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<CoinPriceProvider>(create: (context) => CoinPriceProvider()),
+        ChangeNotifierProvider<CoinPriceProvider>(
+            create: (context) => CoinPriceProvider()),
       ],
       child: const _HomePage(),
     );
@@ -45,14 +49,28 @@ class _HomeState extends State<_HomePage> {
   late TextEditingController usdtController;
   late TextEditingController ethController;
 
+  List<Color> gradientColors = [
+    Color(0xFF4B8800),
+    Color(0xFF4B8800),
+  ];
+
+  List<Color> gradientWhiteColors = [
+    const Color(0xFFFAFAFA),
+    const Color(0xFFFAFAFA),
+  ];
+
+  bool showAvg = false;
+
   @override
   void initState() {
     super.initState();
+    btcIt = new List<CoinDataPoint>.from(List.empty());
+
     priceController = new TextEditingController(text: "\$3,982.70");
     priceIncreaseController = new TextEditingController(text: "\$982.70");
     percentController = new TextEditingController(text: "(10%)");
     timeController = new TextEditingController(text: "this week.");
-    
+
     walletController = new TextEditingController(text: "NGN 500");
     bitcoinController = new TextEditingController(text: "0.0125 btc");
     usdtController = new TextEditingController(text: "800.00 usdt");
@@ -67,6 +85,184 @@ class _HomeState extends State<_HomePage> {
 
   void investment() {}
 
+  bool isSameDate(DateTime former, DateTime other) {
+    return former.year == other.year &&
+        former.month == other.month &&
+        former.day == other.day;
+  }
+
+  String dayValue(List<double> dayValues) {
+    var date = DateTime.now();
+    if (dayValues.isNotEmpty) {
+      for (var day in dayValues) {
+        date = DateTime.fromMillisecondsSinceEpoch(day.toInt());
+        switch (date.weekday) {
+          case DateTime.sunday:
+            return 'SUN';
+          case DateTime.tuesday:
+            return 'TUE';
+          case DateTime.wednesday:
+            return 'WED';
+          case DateTime.friday:
+            return 'FRI';
+          case DateTime.sunday:
+            return 'SUN';
+        }
+      }
+    }
+    return "";
+  }
+
+  LineChartData mainData(List<CoinDataPoint> chartList) {
+    List<FlSpot> flSpotList = new List<FlSpot>.from(List.empty());
+    List<String> priceValues = new List<String>.from(List.empty());
+    List<DateTime> dayValues = new List<DateTime>.from(List.empty());
+
+    double millisecond = 6.0;
+    double minMillisecond = 0;
+    double price = 11.0;
+    double minPrice = 0;
+
+    chartList.sort((a, b) {
+      return a.date!.compareTo(b.date!);
+    });
+
+    if (chartList.isNotEmpty) {
+      var date = DateTime.now().subtract(Duration(days: 7));
+      for (var chartData in chartList) {
+        if (chartData.price!.toDouble() > minPrice) {
+          minPrice = chartData.price!;
+        }
+        if (chartData.date!.millisecondsSinceEpoch > minMillisecond) {
+          minMillisecond = chartData.date!.millisecondsSinceEpoch.toDouble();
+        }
+      }
+      for (var chartData in chartList) {
+        dayValues.add(date);
+        date.add(Duration(days: 1));
+        priceValues.add(chartData.price.toString());
+        if (chartData.date!.millisecondsSinceEpoch > millisecond) {
+          millisecond = chartData.date!.millisecondsSinceEpoch.toDouble();
+        }
+
+        if (chartData.price!.toDouble() > price) {
+          price = chartData.price!;
+        }
+
+        if (chartData.price!.toDouble() < minPrice) {
+          minPrice = chartData.price!;
+        }
+
+        if (chartData.date!.millisecondsSinceEpoch < minMillisecond) {
+          minMillisecond = chartData.date!.millisecondsSinceEpoch.toDouble();
+        }
+
+        flSpotList.add(new FlSpot(
+            chartData.date!.millisecondsSinceEpoch.toDouble(),
+            chartData.price!.toDouble()));
+      }
+    }
+
+    return LineChartData(
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: false,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: Colors.black12,
+            strokeWidth: 1,
+          );
+        },
+        getDrawingVerticalLine: (value) {
+          return FlLine(
+            color: const Color(0xff37434d),
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        rightTitles: SideTitles(showTitles: false),
+        topTitles: SideTitles(showTitles: false),
+        bottomTitles: SideTitles(
+          showTitles: false,
+          reservedSize: 22,
+          interval: 1,
+          getTextStyles: (context, value) => const TextStyle(
+              color: Color(0xFFFAFAFA),
+              fontWeight: FontWeight.bold,
+              fontSize: 10),
+          getTitles: (values) {
+            switch (values.toInt()) {
+              case 1:
+                return 'SUN';
+              case 3:
+                return 'TUE';
+              case 5:
+                return 'WED';
+              case 7:
+                return 'FRI';
+              case 9:
+                return 'SUN';
+            }
+            return '';
+          },
+          margin: 8,
+        ),
+        leftTitles: SideTitles(
+          showTitles: false,
+          interval: 1,
+          getTextStyles: (context, value) => const TextStyle(
+            color: Color(0xff67727d),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+          getTitles: (value) {
+            switch (value.toInt()) {
+              case 1:
+                return '10k';
+              case 3:
+                return '30k';
+              case 5:
+                return '50k';
+              case 7:
+                return '70k';
+            }
+            return '';
+          },
+          reservedSize: 32,
+          margin: 12,
+        ),
+      ),
+      borderData: FlBorderData(
+          show: true, border: Border.all(color: Colors.transparent, width: 0)),
+      minX: minMillisecond,
+      maxX: millisecond,
+      minY: minPrice,
+      maxY: price,
+      lineBarsData: [
+        LineChartBarData(
+          spots: flSpotList,
+          isCurved: true,
+          colors: gradientColors,
+          barWidth: 3,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            colors: gradientWhiteColors
+                .map((color) => color.withOpacity(0.5))
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  late List<CoinDataPoint> btcIt;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -76,7 +272,7 @@ class _HomeState extends State<_HomePage> {
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.white),
+          systemNavigationBarColor: Color(0xFFFAFAFA)),
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -100,19 +296,25 @@ class _HomeState extends State<_HomePage> {
     CoinGeckoResult<List<PricedCoin>> ethItems = Provider.of<CoinPriceProvider>(context, listen: false).ethereumPrice;
     CoinGeckoResult<List<PricedCoin>> tetherItems = Provider.of<CoinPriceProvider>(context, listen: false).tetherPrice;
 
-    CoinGeckoResult<List<CoinDataPoint>> bitcoinChart = Provider.of<CoinPriceProvider>(context, listen: true).bitcoinChart;
+    CoinGeckoResult<List<CoinDataPoint>> bitcoinChart = Provider.of<CoinPriceProvider>(context, listen: false).bitcoinChart;
     CoinGeckoResult<List<CoinDataPoint>> ethereumChart = Provider.of<CoinPriceProvider>(context, listen: true).ethereumChart;
     CoinGeckoResult<List<CoinDataPoint>> tetherChart = Provider.of<CoinPriceProvider>(context, listen: true).tetherChart;
 
     RefreshController _refreshController = RefreshController(initialRefresh: false);
-    void _onListRefresh() async{
+    void _onListRefresh() {
       var date = DateTime.now();
-      var weekDay = date.weekday;
-
-      Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: weekDay)),date,_refreshController);
-      //await Provider.of<CoinPriceProvider>(context, listen: false).queryEthereumPrice();
-     // await Provider.of<CoinPriceProvider>(context, listen: false).queryTetherPrice();
-     // _refreshController.refreshCompleted();
+      Provider.of<CoinPriceProvider>(context, listen: false)
+          .getBitCoinMarketChart(date.subtract(Duration(days: 7)), date)
+          .then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          showAvg = !showAvg;
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
+      });
     }
 
     Container container = Container(
@@ -126,79 +328,67 @@ class _HomeState extends State<_HomePage> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    opacity: 0.18,
-                    image: AssetImage('assets/images/background_image.jpg'),
+                    opacity: 0.2,
+                    image: AssetImage(
+                        'assets/images/background_image.jpg'),
                     fit: BoxFit.cover)),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextField(
-                    controller: priceController,
-                    readOnly: true,
-                    enableInteractiveSelection: false,
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFFC9782F), fontSize: 60),
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(-5)),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextField(
+                  controller: priceController,
+                  readOnly: true,
+                  enableInteractiveSelection: false,
+                  keyboardType:  TextInputType.text,
+                  textAlign: TextAlign.center,
+                  style:TextStyle(color: Color(0xFFC9782F), fontSize: 60),
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(-5)
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: IntrinsicHeight(
-                          child: IntrinsicWidth(
-                            child: TextField(
-                                controller: priceIncreaseController,
-                                readOnly: true,
-                                textAlign: TextAlign.center,
-                                enableInteractiveSelection: false,
-                                maxLines: 1,
-                                style: TextStyle(
-                                    color: Color(0xFFC9782F), fontSize: 16),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(0))),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: IntrinsicHeight(
+                        child: IntrinsicWidth(
+                          child: TextField(controller: priceIncreaseController,readOnly: true,textAlign: TextAlign.center,enableInteractiveSelection: false,maxLines: 1,style:TextStyle(color: Color(0xFFC9782F),fontSize: 16),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.all(0)
+                              )
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: IntrinsicWidth(
-                            child: TextField(
-                                controller: percentController,
-                                readOnly: true,
-                                enableInteractiveSelection: false,
-                                textAlign: TextAlign.center,
-                                maxLines: 1,
-                                style: TextStyle(
-                                    color: Colors.blueGrey, fontSize: 16),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(0)))),
-                      ),
-                      IntrinsicWidth(
-                          child: TextField(
-                              controller: timeController,
-                              readOnly: true,
-                              enableInteractiveSelection: false,
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  color: Colors.blueGrey, fontSize: 16),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: IntrinsicWidth(
+                          child: TextField(controller: percentController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(0))))
-                    ],
-                  )
-                ],
-              ),
+                                  contentPadding: EdgeInsets.all(0)
+                              )
+                          )
+                      ),
+                    ),
+                    IntrinsicWidth(
+                        child: TextField(controller: timeController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(0)
+                            )
+                        )
+                    )
+                  ],
+                )
+              ],
             ),
           ),
           Container(
@@ -277,6 +467,7 @@ class _HomeState extends State<_HomePage> {
                                           'assets/images/background_image.jpg'),
                                       fit: BoxFit.cover)),
                               child: Column(
+                                mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
@@ -314,6 +505,33 @@ class _HomeState extends State<_HomePage> {
                                             contentPadding:
                                                 EdgeInsets.only(top: -5)),
                                       ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                              child: ElevatedButton.icon(
+                                                onPressed: expand,
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                    MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
+                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   )
                                 ],
@@ -373,6 +591,33 @@ class _HomeState extends State<_HomePage> {
                                                 EdgeInsets.only(top: -5)),
                                       ),
                                     ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                              child: ElevatedButton.icon(
+                                                onPressed: expand,
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                    MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
+                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -385,7 +630,7 @@ class _HomeState extends State<_HomePage> {
                               decoration: BoxDecoration(
                                   color: Color(0xFFC9782F),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(20)),
                                   image: DecorationImage(
                                       opacity: 0.1,
                                       image: AssetImage(
@@ -428,8 +673,35 @@ class _HomeState extends State<_HomePage> {
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
                                             contentPadding:
-                                            EdgeInsets.only(top: -5)),
+                                                EdgeInsets.only(top: -5)),
                                       ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                              child: ElevatedButton.icon(
+                                                onPressed: expand,
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                    MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
+                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   )
                                 ],
@@ -487,6 +759,32 @@ class _HomeState extends State<_HomePage> {
                                             contentPadding:
                                                 EdgeInsets.only(top: -5)),
                                       ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                              child: ElevatedButton.icon(
+                                                onPressed: expand,
+                                                style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
+                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   )
                                 ],
@@ -559,19 +857,17 @@ class _HomeState extends State<_HomePage> {
             body: SmartRefresher(
                 enablePullDown: true,
                 enablePullUp: false,
-                header: 	MaterialClassicHeader(
+                header: MaterialClassicHeader(
                   color: Color(0xFFFAFAFA),
                   backgroundColor: Color(0xFF4B8800),
                 ),
                 controller: _refreshController,
                 onRefresh: _onListRefresh,
                 onLoading: null,
-                child: container
-            ),
+                child: container),
           ),
         );
       },
     );
-
   }
 }

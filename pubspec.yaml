@@ -32,6 +32,8 @@ dependencies:
   dropdown_search: ^2.0.0
   flutter_paystack: ^1.0.5+1
   flutter_credit_card: ^3.0.1
+  fl_chart: ^0.40.6
+  dart_date: ^1.1.0
 
 dev_dependencies:
   flutter_test:

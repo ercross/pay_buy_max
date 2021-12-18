@@ -53,28 +53,15 @@ class CoinPriceProvider extends ChangeNotifier{
   }
 
   CoinGeckoResult<List<CoinDataPoint>> bitcoinChart = CoinGeckoResult(List.empty());
-  Future<CoinGeckoResult<List<CoinDataPoint>>> getBitCoinMarketChart(DateTime from,DateTime to,RefreshController _refreshController) async {
+  Future<CoinGeckoResult<List<CoinDataPoint>>> getBitCoinMarketChart(DateTime from,DateTime to) async {
     var result = await apiInstance.getCoinMarketChartRanged(
         id: "bitcoin",
         vsCurrency: "ngn",
         from: from,
         to: to);
-    
-    if(result.isError){
-      if(bitcoinChart.data.isEmpty){
-        _refreshController.resetNoData();
-      }else{
-        _refreshController.refreshFailed();
-      }
-    }else{
-      bitcoinChart = result;
-      notifyListeners();
-      if(bitcoinChart.data.isEmpty){
-        _refreshController.resetNoData();
-      }else{
-        _refreshController.refreshCompleted();
-      }
-    }
+
+    bitcoinChart = result;
+    notifyListeners();
     return result;
   }
 
