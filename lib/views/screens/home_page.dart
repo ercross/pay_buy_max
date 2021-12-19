@@ -831,7 +831,7 @@ class _HomeState extends State<_HomePage> {
                               width: 90,
                               child: FloatingActionButton(
                                 child: Icon(
-                                  EvaIcons.swap,
+                                  Icons.card_giftcard_rounded,
                                   color: Color(0xFFFAFAFA),
                                 ),
                                 backgroundColor: Color(0xFF4B8800),
