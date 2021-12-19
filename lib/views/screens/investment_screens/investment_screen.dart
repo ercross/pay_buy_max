@@ -1,17 +1,15 @@
+import 'dart:html';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
-import 'package:pay_buy_max/generated/assets.dart';
 import 'package:provider/provider.dart';
 
-import 'exchange_items.dart';
+class InvestmentScreen extends StatelessWidget {
+  const InvestmentScreen();
 
-class ExchangeScreen extends StatelessWidget {
-  const ExchangeScreen();
-
-  static const String route = "/exchangeScreen";
+  static const String route = "/investmentScreen";
 
   @override
   Widget build(BuildContext context) {
@@ -20,41 +18,28 @@ class ExchangeScreen extends StatelessWidget {
         ChangeNotifierProvider<CoinPriceProvider>(
             create: (context) => CoinPriceProvider()),
       ],
-      child: const _ExchangeScreen(),
+      child: const _InvestmentScreen(),
     );
   }
 }
 
-class _ExchangeScreen extends StatefulWidget {
-  const _ExchangeScreen();
+class _InvestmentScreen extends StatefulWidget {
+  const _InvestmentScreen();
 
   @override
-  State<StatefulWidget> createState() => _ExchangeState();
+  State<StatefulWidget> createState() => _InvestmentState();
 }
 
-class _ExchangeState extends State<_ExchangeScreen> {
-  late List<ExchangeItems> exchangeItems;
+class _InvestmentState extends State<_InvestmentScreen> {
 
   @override
   void initState() {
     super.initState();
-    exchangeItems = new List<ExchangeItems>.from(List.empty());
-    exchangeItems.add(new ExchangeItems("i Tunes", Assets.giftCardsGiftCards1));
-    exchangeItems.add(new ExchangeItems("Starbucks", Assets.giftCardsGiftCards2));
-    exchangeItems.add(new ExchangeItems("Walmart", Assets.giftCardsGiftCards3));
-    exchangeItems.add(new ExchangeItems("Victoria’s secret", Assets.giftCardsGiftCards4));
-    exchangeItems.add(new ExchangeItems("Target", Assets.giftCardsGiftCards5));
-    exchangeItems.add(new ExchangeItems("Amazon", Assets.giftCardsGiftCards6));
-    exchangeItems.add(new ExchangeItems("Best Buy", Assets.giftCardsGiftCards7));
-    exchangeItems.add(new ExchangeItems("Chipotle", Assets.giftCardsGiftCards8));
-    exchangeItems.add(new ExchangeItems("Fandango", Assets.giftCardsGiftCards9));
-    exchangeItems.add(new ExchangeItems("Sephora", Assets.giftCardsGiftCards10));
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
     AppBar appBar = AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -64,11 +49,11 @@ class _ExchangeState extends State<_ExchangeScreen> {
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: Text("Gift Cards",
-          style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-          textAlign: TextAlign.start),
+      title: Text("Investment", style: TextStyle(color: Colors.blueGrey, fontSize: 18), textAlign: TextAlign.start),
       leading: IconButton(
-          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {}, color: Colors.blueGrey),
+          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {
+            Navigator.of(context).pop();
+      }, color: Colors.blueGrey),
     );
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
@@ -99,10 +84,10 @@ class _ExchangeState extends State<_ExchangeScreen> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
+                     /* children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(exchangeItems.elementAt(position).title,style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
+                          child: Text(InvestmentItems.elementAt(position).title,style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -110,7 +95,7 @@ class _ExchangeState extends State<_ExchangeScreen> {
                             height: 120,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage(exchangeItems.elementAt(position).asset),
+                                    image: AssetImage(InvestmentItems.elementAt(position).asset),
                                     fit: BoxFit.contain
                                 )
                             ),
@@ -127,11 +112,11 @@ class _ExchangeState extends State<_ExchangeScreen> {
                                 MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFF4B8800))))),
                           ),
                         )
-                      ],
+                      ]*/
                     ),
                   );
                 },
-                itemCount: exchangeItems.length,
+                itemCount: 0,
               ),
             ),
           ),
