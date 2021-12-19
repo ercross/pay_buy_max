@@ -1,12 +1,9 @@
-
-import 'dart:math';
 import 'dart:ui';
 import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
-import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
