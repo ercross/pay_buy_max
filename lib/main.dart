@@ -79,7 +79,8 @@ class PayBuyMax extends StatelessWidget {
     GetPage(
         name: WalletScreen.route,
         page: () => WalletScreen(),
-        curve: Curves.linear,
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
         transition:  Transition.rightToLeft),
   ];
 

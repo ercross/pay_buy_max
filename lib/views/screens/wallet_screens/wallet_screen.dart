@@ -44,11 +44,13 @@ class _WalletState extends State<_WalletScreen> {
   late List<CoinDataPoint> btc180;
   late List<CoinDataPoint> btc360;
 
+  late String type = "";
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _onListRefresh();
+      _onListRefresh(type);
     });
     btcIt = new List<CoinDataPoint>.from(List.empty());
     btc1 = new List<CoinDataPoint>.from(List.empty());
@@ -223,14 +225,14 @@ class _WalletState extends State<_WalletScreen> {
 
   int days = 7;
   RefreshController _refreshController = RefreshController(initialRefresh: false);
-  void _onListRefresh() {
+  void _onListRefresh(String type) {
     if(days == 1){
       if(btc1.isNotEmpty){
         setState((){
           btcIt = btc1.toList();
         });
       }else{
-        onListRefresh();
+        onListRefresh(type);
       }
     }
     else if(days == 7){
@@ -239,7 +241,7 @@ class _WalletState extends State<_WalletScreen> {
           btcIt = btc7.toList();
         });
       }else{
-        onListRefresh();
+        onListRefresh(type);
       }
     }
     else if(days == 30){
@@ -248,7 +250,7 @@ class _WalletState extends State<_WalletScreen> {
           btcIt = btc30.toList();
         });
       }else{
-        onListRefresh();
+        onListRefresh(type);
       }
     }
     else if(days == 183){
@@ -257,7 +259,7 @@ class _WalletState extends State<_WalletScreen> {
           btcIt = btc180.toList();
         });
       }else{
-        onListRefresh();
+        onListRefresh(type);
       }
     }
     else if(days == 366){
@@ -266,38 +268,156 @@ class _WalletState extends State<_WalletScreen> {
           btcIt = btc360.toList();
         });
       }else{
-        onListRefresh();
+        onListRefresh(type);
       }
     }
   }
 
-  void onListRefresh(){
+  void onListRefresh(String type){
     var date = DateTime.now();
-    Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: days)), date).then((value) {
-      _refreshController.refreshCompleted();
-      setState(() {
-        if(days == 1){
-          btc1 = value.data;
-        }else if(days == 7){
-          btc7 = value.data;
-        }else if(days == 30){
-          btc30 = value.data;
-        }else if(days == 183){
-          btc180 = value.data;
-        }else if(days == 366){
-          btc360 = value.data;
-        }
-        btcIt = value.data;
+    if(type == "Bitcoin") {
+      Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          if(days == 1){
+            btc1 = value.data;
+          }else if(days == 7){
+            btc7 = value.data;
+          }else if(days == 30){
+            btc30 = value.data;
+          }else if(days == 183){
+            btc180 = value.data;
+          }else if(days == 366){
+            btc360 = value.data;
+          }
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
       });
-    }, onError: (error) {
-      print(error);
-      _refreshController.refreshFailed();
-    });
+    }
+    if(type == "Tether"){
+      Provider.of<CoinPriceProvider>(context, listen: false).getTetherMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          if(days == 1){
+            btc1 = value.data;
+          }else if(days == 7){
+            btc7 = value.data;
+          }else if(days == 30){
+            btc30 = value.data;
+          }else if(days == 183){
+            btc180 = value.data;
+          }else if(days == 366){
+            btc360 = value.data;
+          }
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
+      });
+    }
+    if(type == "Ethereum"){
+      Provider.of<CoinPriceProvider>(context, listen: false).getEthereumMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          if(days == 1){
+            btc1 = value.data;
+          }else if(days == 7){
+            btc7 = value.data;
+          }else if(days == 30){
+            btc30 = value.data;
+          }else if(days == 183){
+            btc180 = value.data;
+          }else if(days == 366){
+            btc360 = value.data;
+          }
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
+      });
+    }
+  }
+
+  void onSwipeListRefresh(String type){
+    var date = DateTime.now();
+    if(type == "Bitcoin") {
+      Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          if(days == 1){
+            btc1 = value.data;
+          }else if(days == 7){
+            btc7 = value.data;
+          }else if(days == 30){
+            btc30 = value.data;
+          }else if(days == 183){
+            btc180 = value.data;
+          }else if(days == 366){
+            btc360 = value.data;
+          }
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
+      });
+    }
+    if(type == "Tether"){
+      Provider.of<CoinPriceProvider>(context, listen: false).getTetherMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          if(days == 1){
+            btc1 = value.data;
+          }else if(days == 7){
+            btc7 = value.data;
+          }else if(days == 30){
+            btc30 = value.data;
+          }else if(days == 183){
+            btc180 = value.data;
+          }else if(days == 366){
+            btc360 = value.data;
+          }
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
+      });
+    }
+    if(type == "Ethereum"){
+      Provider.of<CoinPriceProvider>(context, listen: false).getEthereumMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+        _refreshController.refreshCompleted();
+        setState(() {
+          if(days == 1){
+            btc1 = value.data;
+          }else if(days == 7){
+            btc7 = value.data;
+          }else if(days == 30){
+            btc30 = value.data;
+          }else if(days == 183){
+            btc180 = value.data;
+          }else if(days == 366){
+            btc360 = value.data;
+          }
+          btcIt = value.data;
+        });
+      }, onError: (error) {
+        print(error);
+        _refreshController.refreshFailed();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as WalletArguments;
+    type = args.title;
+    walletController.text = args.abbrev;
 
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
@@ -471,23 +591,23 @@ class _WalletState extends State<_WalletScreen> {
                       children: [
                         TextButton(onPressed: () {
                           days = 1;
-                          _onListRefresh();
+                          _onListRefresh(args.title);
                         }, child: Text("1D",style: TextStyle(color: Color(0xFF4B8800)))),
                         TextButton(onPressed: () {
                           days = 7;
-                          _onListRefresh();
+                          _onListRefresh(args.title);
                         }, child: Text("1W",style: TextStyle(color: Color(0xFF4B8800)))),
                         TextButton(onPressed: () {
                           days = 30;
-                          _onListRefresh();
+                          _onListRefresh(args.title);
                         }, child: Text("1M",style: TextStyle(color: Color(0xFF4B8800)))),
                         TextButton(onPressed: () {
                           days = 183;
-                          _onListRefresh();
+                          _onListRefresh(args.title);
                         }, child: Text("6M",style: TextStyle(color: Color(0xFF4B8800)))),
                         TextButton(onPressed: () {
                           days = 366;
-                          _onListRefresh();
+                          _onListRefresh(args.title);
                         }, child: Text("1Y",style: TextStyle(color: Color(0xFF4B8800)))),
                       ],
                     )
@@ -568,7 +688,9 @@ class _WalletState extends State<_WalletScreen> {
                   backgroundColor: Color(0xFF4B8800),
                 ),
                 controller: _refreshController,
-                onRefresh: _onListRefresh,
+                onRefresh: (){
+                  onSwipeListRefresh(args.title);
+                },
                 onLoading: null,
                 child: container),
           ),

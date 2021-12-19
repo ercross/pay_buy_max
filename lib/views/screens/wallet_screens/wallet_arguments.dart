@@ -1,7 +1,7 @@
 class WalletArguments {
   final String title;
-  final String message;
+  final String abbrev;
   final String asset;
 
-  WalletArguments(this.title, this.message, this.asset);
+  WalletArguments(this.title, this.abbrev, this.asset);
 }
