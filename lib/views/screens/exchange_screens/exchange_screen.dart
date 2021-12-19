@@ -95,6 +95,7 @@ class _ExchangeState extends State<_ExchangeScreen> {
               child:  ListView.builder(
                 itemBuilder: (context, position) {
                   return Card(
+                    elevation: 6,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         side: BorderSide(color: Color(0xFF4B8800))

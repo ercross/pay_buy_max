@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/views/widgets/chart_container.dart';
 import 'package:provider/provider.dart';
 
 import 'investment_items.dart';
@@ -69,57 +70,108 @@ class _InvestmentState extends State<_InvestmentScreen> {
       height: height,
       width: MediaQuery.of(context).size.width,
       child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      opacity: 0.2,
-                      image: AssetImage(
-                          'assets/images/background_image.jpg'),
-                      fit: BoxFit.cover)),
-              child:  ListView.builder(
-                itemBuilder: (context, position) {
-                  return Card(
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        side: BorderSide(color: Color(0xFFFAFAFA))
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10,top: 10),
-                          child: Text("Bronze Plan",style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
+          Container(
+            height: 250,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    opacity: 0.2,
+                    image: AssetImage(
+                        'assets/images/background_image.jpg'),
+                    fit: BoxFit.cover)),
+            child:  ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, position) {
+                return Container(
+                  width: 250,
+                  height: 250,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 6,
+                        color: Color(0xFF4B8800),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            side: BorderSide(color: Color(0xFF4B8800))
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10,top: 10),
-                          child: Text("50.0K - 500.0K",style: TextStyle(color: Colors.blueGrey, fontSize: 10),textAlign: TextAlign.start),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ElevatedButton(
-                            onPressed: () {  },
-                            child: Text("Invest Now"),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFF4B8800)),
-                                shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFF4B8800))))),
+                        child: Container(
+                          width: 250,
+                          height: 250,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  opacity: 0.15,
+                                  image: AssetImage('assets/images/background_image.jpg'),
+                                  fit: BoxFit.cover)),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                  padding: const EdgeInsets.only(left: 10,top: 10),
+                                  child: Text(investItems.elementAt(position).title,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 25),textAlign: TextAlign.start),
+                                ),
+                                  Padding(
+                                  padding: const EdgeInsets.only(left: 10,top: 5),
+                                  child: Text(investItems.elementAt(position).price,style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                ),
+                                  Spacer(flex: 1),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10,top: 5),
+                                    child: Text(investItems.elementAt(position).commission,style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                  ),
+                                  Padding(
+                                  padding: const EdgeInsets.only(left: 10,top: 5),
+                                  child: Text(investItems.elementAt(position).duration,style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                ),
+                                  Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {  },
+                                    child: Text("Invest Now",style: TextStyle(color: Color(0xFF4B8800))),
+                                    style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                  ),
+                                )
+                              ]
+                            ),
                           ),
-                        )
-                      ]
+                        ),
+                      ),
                     ),
-                  );
-                },
-                itemCount: investItems.length,
-              ),
+                  ),
+                );
+              },
+              itemCount: investItems.length,
             ),
           ),
+          Expanded(child: DefaultTabController(
+              length: 2,
+              child:Scaffold(
+                appBar:  TabBar(
+                  indicatorColor: Color(0xFF4B8800),
+                  labelColor: Color(0xFF4B8800),
+                  unselectedLabelColor: Colors.black45,
+                  indicatorWeight: 1,
+                  tabs: [
+                    Tab(text: "My Investments",),
+                    Tab(text: "History"),
+                  ],
+                ),
+                body: const TabBarView(
+                  children: [
+                    Icon(Icons.directions_car),
+                    Icon(Icons.directions_transit),
+                  ],
+                ),
+              ),
+          )
+          )
         ],
       ),
     );
