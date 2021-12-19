@@ -14,6 +14,8 @@ import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'investment_screens/investment_screen.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage();
 
@@ -86,7 +88,9 @@ class _HomeState extends State<_HomePage> {
 
   void learn() {}
 
-  void investment() {}
+  void investment() {
+    Navigator.of(context).pushNamed(InvestmentScreen.route);
+  }
 
   void moreDetails(WalletArguments walletArguments) {
     Navigator.of(context).pushNamed(WalletScreen.route,arguments: walletArguments);
@@ -834,11 +838,11 @@ class _HomeState extends State<_HomePage> {
                               width: 90,
                               child: FloatingActionButton(
                                 child: Icon(
-                                  Icons.card_giftcard_rounded,
+                                  Icons.show_chart,
                                   color: Color(0xFFFAFAFA),
                                 ),
                                 backgroundColor: Color(0xFF4B8800),
-                                onPressed: exchange,
+                                onPressed: investment,
                               ),
                             ),
                             Padding(
@@ -848,8 +852,8 @@ class _HomeState extends State<_HomePage> {
                                   shape: CircleBorder(),
                                   clipBehavior: Clip.hardEdge,
                                   child: IconButton(
-                                      icon: new Icon(Icons.show_chart),
-                                      onPressed: learn,
+                                      icon: new Icon(Icons.card_giftcard_rounded),
+                                      onPressed: exchange,
                                       color: Colors.blueGrey)),
                             )
                           ],

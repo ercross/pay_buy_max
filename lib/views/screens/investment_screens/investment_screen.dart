@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +38,10 @@ class _InvestmentState extends State<_InvestmentScreen> {
   void initState() {
     super.initState();
     investItems = new List<InvestmentItems>.from(List.empty());
-    investItems.add(InvestmentItems("Bronze Plan", "50.0K- 500.0K", "10 %", "3 Months"));
-    investItems.add(InvestmentItems("Silver Plan", "501.0K- 1.0M", "20 %", "6 Months"));
-    investItems.add(InvestmentItems("Gold Plan", "1.0M- 5.0M", "30 %", "9 Months"));
-    investItems.add(InvestmentItems("Diamond Plan", "5.0M- 50.0M", "50 %", "12 Months"));
+    investItems.add(InvestmentItems("Bronze Plan", "50.0K - 500.0K", "10 %", "3 Months"));
+    investItems.add(InvestmentItems("Silver Plan", "501.0K - 1.0M", "20 %", "6 Months"));
+    investItems.add(InvestmentItems("Gold Plan", "1.0M - 5.0M", "30 %", "9 Months"));
+    investItems.add(InvestmentItems("Diamond Plan", "5.0M - 50.0M", "50 %", "12 Months"));
   }
 
   @override
@@ -86,45 +85,38 @@ class _InvestmentState extends State<_InvestmentScreen> {
               child:  ListView.builder(
                 itemBuilder: (context, position) {
                   return Card(
+                    elevation: 6,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        side: BorderSide(color: Color(0xFF4B8800))
+                        side: BorderSide(color: Color(0xFFFAFAFA))
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                     /* children: [
+                      children: [
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(InvestmentItems.elementAt(position).title,style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
+                          padding: const EdgeInsets.only(left: 10,top: 10),
+                          child: Text("Bronze Plan",style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 120,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(InvestmentItems.elementAt(position).asset),
-                                    fit: BoxFit.contain
-                                )
-                            ),
-                          ),
+                          padding: const EdgeInsets.only(left: 10,top: 10),
+                          child: Text("50.0K - 500.0K",style: TextStyle(color: Colors.blueGrey, fontSize: 10),textAlign: TextAlign.start),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: ElevatedButton(
                             onPressed: () {  },
-                            child: Text("Sell"),
+                            child: Text("Invest Now"),
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(Color(0xFF4B8800)),
                                 shape:
                                 MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFF4B8800))))),
                           ),
                         )
-                      ]*/
+                      ]
                     ),
                   );
                 },
-                itemCount: 0,
+                itemCount: investItems.length,
               ),
             ),
           ),
@@ -144,4 +136,5 @@ class _InvestmentState extends State<_InvestmentScreen> {
       },
     );
   }
+
 }
