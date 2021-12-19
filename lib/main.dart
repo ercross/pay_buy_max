@@ -9,6 +9,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/home_page.dart';
+import 'package:pay_buy_max/views/screens/investment_screens/investment_screen.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 
@@ -86,6 +87,12 @@ class PayBuyMax extends StatelessWidget {
     GetPage(
         name: ExchangeScreen.route,
         page: () => ExchangeScreen(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition:  Transition.rightToLeft),
+    GetPage(
+        name: InvestmentScreen.route,
+        page: () => InvestmentScreen(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition:  Transition.rightToLeft),
