@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,9 @@ class _HomeState extends State<_HomePage> {
 
   void expand() {}
 
-  void exchange() {}
+  void exchange() {
+    Navigator.of(context).pushNamed(ExchangeScreen.route);
+  }
 
   void learn() {}
 

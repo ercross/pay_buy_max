@@ -10,6 +10,16 @@ class Assets {
   static const String fontsFiraSansW700 = 'assets/fonts/FiraSans_w700.ttf';
   static const String fontsFiraSansW800 = 'assets/fonts/FiraSans_w800.ttf';
   static const String fontsFiraSansW900 = 'assets/fonts/FiraSans_w900.ttf';
+  static const String giftCardsGiftCards1 = 'assets/images/gift_cards/gift-cards1.png';
+  static const String giftCardsGiftCards10 = 'assets/images/gift_cards/gift-cards10.png';
+  static const String giftCardsGiftCards2 = 'assets/images/gift_cards/gift-cards2.png';
+  static const String giftCardsGiftCards3 = 'assets/images/gift_cards/gift-cards3.png';
+  static const String giftCardsGiftCards4 = 'assets/images/gift_cards/gift-cards4.png';
+  static const String giftCardsGiftCards5 = 'assets/images/gift_cards/gift-cards5.png';
+  static const String giftCardsGiftCards6 = 'assets/images/gift_cards/gift-cards6.png';
+  static const String giftCardsGiftCards7 = 'assets/images/gift_cards/gift-cards7.png';
+  static const String giftCardsGiftCards8 = 'assets/images/gift_cards/gift-cards8.png';
+  static const String giftCardsGiftCards9 = 'assets/images/gift_cards/gift-cards9.png';
   static const String imagesBackgroundImage = 'assets/images/background_image.jpg';
   static const String imagesBitcoinLogo = 'assets/images/bitcoin_logo.png';
   static const String imagesEthereumLogo = 'assets/images/ethereum_logo.png';

@@ -58,11 +58,6 @@ class _ExchangeState extends State<_ExchangeScreen> {
           textAlign: TextAlign.start),
       leading: IconButton(
           icon: new Icon(Icons.arrow_back_rounded), onPressed: () {}, color: Colors.blueGrey),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(top: 12,bottom: 12,right: 12),
-          child: new Icon(Icons.card_giftcard_rounded)),
-      ],
     );
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
