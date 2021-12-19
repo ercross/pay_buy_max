@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'investment_items.dart';
+
 class InvestmentScreen extends StatelessWidget {
   const InvestmentScreen();
 
@@ -31,10 +33,16 @@ class _InvestmentScreen extends StatefulWidget {
 }
 
 class _InvestmentState extends State<_InvestmentScreen> {
+  late List<InvestmentItems> investItems;
 
   @override
   void initState() {
     super.initState();
+    investItems = new List<InvestmentItems>.from(List.empty());
+    investItems.add(InvestmentItems("Bronze Plan", "50.0K- 500.0K", "10 %", "3 Months"));
+    investItems.add(InvestmentItems("Silver Plan", "501.0K- 1.0M", "20 %", "6 Months"));
+    investItems.add(InvestmentItems("Gold Plan", "1.0M- 5.0M", "30 %", "9 Months"));
+    investItems.add(InvestmentItems("Diamond Plan", "5.0M- 50.0M", "50 %", "12 Months"));
   }
 
   @override
