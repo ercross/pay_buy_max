@@ -5,4 +5,5 @@ class InvestmentItems {
   final String duration;
 
   InvestmentItems(this.title, this.price, this.commission, this.duration);
+
 }
