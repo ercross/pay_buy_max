@@ -68,7 +68,9 @@ class _ExchangeState extends State<_ExchangeScreen> {
           style: TextStyle(color: Colors.blueGrey, fontSize: 18),
           textAlign: TextAlign.start),
       leading: IconButton(
-          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {}, color: Colors.blueGrey),
+          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {
+        Navigator.of(context).pop();
+      }, color: Colors.blueGrey),
     );
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
