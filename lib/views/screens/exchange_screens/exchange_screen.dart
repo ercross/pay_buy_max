@@ -53,8 +53,7 @@ class _ExchangeState extends State<_ExchangeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
     AppBar appBar = AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -163,4 +162,5 @@ class _ExchangeState extends State<_ExchangeScreen> {
       },
     );
   }
+
 }
