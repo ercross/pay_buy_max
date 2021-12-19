@@ -37,6 +37,11 @@ class _WalletState extends State<_WalletScreen> {
   late TextEditingController priceIncreaseController;
   late TextEditingController walletController;
   late List<CoinDataPoint> btcIt;
+  late List<CoinDataPoint> btc1;
+  late List<CoinDataPoint> btc7;
+  late List<CoinDataPoint> btc30;
+  late List<CoinDataPoint> btc180;
+  late List<CoinDataPoint> btc360;
 
   @override
   void initState() {
@@ -45,6 +50,12 @@ class _WalletState extends State<_WalletScreen> {
       _onListRefresh();
     });
     btcIt = new List<CoinDataPoint>.from(List.empty());
+    btc1 = new List<CoinDataPoint>.from(List.empty());
+    btc7 = new List<CoinDataPoint>.from(List.empty());
+    btc30 = new List<CoinDataPoint>.from(List.empty());
+    btc180 = new List<CoinDataPoint>.from(List.empty());
+    btc360 = new List<CoinDataPoint>.from(List.empty());
+
     priceController = new TextEditingController(text: "NGN 3,982.70");
     priceIncreaseController = new TextEditingController(text: "0.00125");
     walletController = new TextEditingController(text: "BTC");
@@ -212,10 +223,69 @@ class _WalletState extends State<_WalletScreen> {
   int days = 7;
   RefreshController _refreshController = RefreshController(initialRefresh: false);
   void _onListRefresh() {
+    if(days == 1){
+      if(btc1.isNotEmpty){
+        setState((){
+          btcIt = btc1.toList();
+        });
+      }else{
+        onListRefresh();
+      }
+    }
+    else if(days == 7){
+      if(btc7.isNotEmpty){
+        setState((){
+          btcIt = btc7.toList();
+        });
+      }else{
+        onListRefresh();
+      }
+    }
+    else if(days == 30){
+      if(btc30.isNotEmpty){
+        setState((){
+          btcIt = btc30.toList();
+        });
+      }else{
+        onListRefresh();
+      }
+    }
+    else if(days == 183){
+      if(btc180.isNotEmpty){
+        setState((){
+          btcIt = btc180.toList();
+        });
+      }else{
+        onListRefresh();
+      }
+    }
+    else if(days == 366){
+      if(btc360.isNotEmpty){
+        setState((){
+          btcIt = btc360.toList();
+        });
+      }else{
+        onListRefresh();
+      }
+    }
+  }
+
+  void onListRefresh(){
     var date = DateTime.now();
     Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: days)), date).then((value) {
       _refreshController.refreshCompleted();
       setState(() {
+        if(days == 1){
+          btc1 = value.data;
+        }else if(days == 7){
+          btc7 = value.data;
+        }else if(days == 30){
+          btc30 = value.data;
+        }else if(days == 183){
+          btc180 = value.data;
+        }else if(days == 366){
+          btc360 = value.data;
+        }
         btcIt = value.data;
       });
     }, onError: (error) {
@@ -410,11 +480,11 @@ class _WalletState extends State<_WalletScreen> {
                           _onListRefresh();
                         }, child: Text("1M",style: TextStyle(color: Color(0xFF4B8800)))),
                         TextButton(onPressed: () {
-                          days = 180;
+                          days = 183;
                           _onListRefresh();
                         }, child: Text("6M",style: TextStyle(color: Color(0xFF4B8800)))),
                         TextButton(onPressed: () {
-                          days = 360;
+                          days = 366;
                           _onListRefresh();
                         }, child: Text("1Y",style: TextStyle(color: Color(0xFF4B8800)))),
                       ],
@@ -424,9 +494,59 @@ class _WalletState extends State<_WalletScreen> {
               )),
           Expanded(
               flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text('Transactions', style: TextStyle(color: Colors.blueGrey, fontSize: 18), textAlign: TextAlign.start),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, position) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    top: BorderSide(color: Colors.black12,width: 1.0)
+                                )
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Transform.rotate(
+                                      angle: -1,
+                                      child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 30, bottom: 15,top: 15),
+                                    child: Text('0.0125', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
+                                    child: Wrap(
+                                      alignment: WrapAlignment.end,
+                                      children: [
+                                        Text('NGN 1000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start)
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: 10,
+                      ),
+                    )
+                  ],
+                ),
               ))
         ],
       ),

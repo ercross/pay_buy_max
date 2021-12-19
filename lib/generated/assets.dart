@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsImagesNaira = 'assets/images/naira.svg';
   static const String fontsFiraSansW300 = 'assets/fonts/FiraSans_w300.ttf';
   static const String fontsFiraSansW400 = 'assets/fonts/FiraSans_w400.ttf';
   static const String fontsFiraSansW500 = 'assets/fonts/FiraSans_w500.ttf';
@@ -15,7 +16,7 @@ class Assets {
   static const String imagesForgotPassword = 'assets/images/forgot_password.png';
   static const String imagesLauncherIcon = 'assets/images/launcher_icon.png';
   static const String imagesLogo = 'assets/images/logo.png';
-  static const String imagesNaira = 'assets/images/naira.svg';
+  static const String imagesNaira = 'assets/images/naira.png';
   static const String imagesOnboarding1 = 'assets/images/onboarding1.png';
   static const String imagesOnboarding2 = 'assets/images/onboarding2.png';
   static const String imagesOnboarding3 = 'assets/images/onboarding3.png';

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -84,8 +85,8 @@ class _HomeState extends State<_HomePage> {
 
   void investment() {}
 
-  void moreDetails() {
-    Navigator.of(context).pushNamed(WalletScreen.route);
+  void moreDetails(WalletArguments walletArguments) {
+    Navigator.of(context).pushNamed(WalletScreen.route,arguments: walletArguments);
   }
 
   bool isSameDate(DateTime former, DateTime other) {
@@ -523,7 +524,9 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: moreDetails,
+                                                onPressed:(){
+                                                  moreDetails(WalletArguments("Wallet","","assets/images/naira.png"));
+                                                },
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                     MaterialStateProperty.all(Color(0xFFFAFAFA)),
@@ -608,7 +611,9 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: moreDetails,
+                                                onPressed: (){
+                                                  moreDetails(WalletArguments("Bitcoin","","assets/images/bitcoin_logo.png"));
+                                                },
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                     MaterialStateProperty.all(Color(0xFFFAFAFA)),
@@ -693,7 +698,9 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: moreDetails,
+                                                onPressed: (){
+                                                  moreDetails(WalletArguments("Bitcoin","","assets/images/ethereum_logo.png"));
+                                                },
                                                 style: ButtonStyle(
                                                     backgroundColor:
                                                     MaterialStateProperty.all(Color(0xFFFAFAFA)),
@@ -777,7 +784,9 @@ class _HomeState extends State<_HomePage> {
                                             Padding(
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
-                                                onPressed: moreDetails,
+                                                onPressed: (){
+                                                  moreDetails(WalletArguments("Bitcoin","","assets/images/usdt_logo.png"));
+                                                },
                                                 style: ButtonStyle(
                                                     backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
                                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
