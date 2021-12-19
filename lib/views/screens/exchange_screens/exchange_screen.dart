@@ -92,10 +92,16 @@ class _ExchangeState extends State<_ExchangeScreen> {
                       image: AssetImage(
                           'assets/images/background_image.jpg'),
                       fit: BoxFit.cover)),
-              child:  ListView.builder(
+              child:   GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0
+                ),
                 itemBuilder: (context, position) {
                   return Card(
                     elevation: 6,
+                    color: Color(0xFF4B8800),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         side: BorderSide(color: Color(0xFF4B8800))
@@ -105,29 +111,32 @@ class _ExchangeState extends State<_ExchangeScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text(exchangeItems.elementAt(position).title,style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
+                          child: Text(exchangeItems.elementAt(position).title,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20),textAlign: TextAlign.start),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 120,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(exchangeItems.elementAt(position).asset),
-                                fit: BoxFit.contain
-                              )
+                        Container(
+                          color:Colors.white30,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Container(
+                              height: 100,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(exchangeItems.elementAt(position).asset),
+                                  fit: BoxFit.contain
+                                )
+                              ),
                             ),
                           ),
                         ),
+                        Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: ElevatedButton(
                             onPressed: () {  },
-                            child: Text("Sell"),
+                            child: Text("Sell",style: TextStyle(color: Color(0xFF4B8800))),
                             style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFF4B8800)),
-                                shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFF4B8800))))),
+                                backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
                           ),
                         )
                       ],
