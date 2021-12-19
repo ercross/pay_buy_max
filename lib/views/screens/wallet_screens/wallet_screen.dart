@@ -434,7 +434,9 @@ class _WalletState extends State<_WalletScreen> {
           style: TextStyle(color: Colors.blueGrey, fontSize: 18),
           textAlign: TextAlign.start),
       leading: IconButton(
-          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {}, color: Colors.blueGrey),
+          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {
+        Navigator.of(context).pop();
+      }, color: Colors.blueGrey),
       actions: [
         Padding(
           padding: const EdgeInsets.only(top: 12,bottom: 12,right: 12),
