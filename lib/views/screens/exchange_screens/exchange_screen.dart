@@ -1,15 +1,10 @@
 import 'dart:ui';
-import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/generated/assets.dart';
-import 'package:pay_buy_max/models/asset.dart';
-import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'exchange_items.dart';
 
@@ -97,44 +92,46 @@ class _ExchangeState extends State<_ExchangeScreen> {
                       fit: BoxFit.cover)),
               child:  ListView.builder(
                 itemBuilder: (context, position) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            top: BorderSide(color: Colors.black12,width: 1.0)
-                        )
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        side: BorderSide(color: Color(0xFF4B8800))
                     ),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Transform.rotate(
-                              angle: -1,
-                              child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(exchangeItems.elementAt(position).title,style: TextStyle(color: Colors.blueGrey, fontSize: 20),textAlign: TextAlign.start),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 30, bottom: 15,top: 15),
-                            child: Text('0.0125', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 120,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(exchangeItems.elementAt(position).asset),
+                                fit: BoxFit.contain
+                              )
+                            ),
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
-                            child: Wrap(
-                              alignment: WrapAlignment.end,
-                              children: [
-                                Text('NGN 1000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start)
-                              ],
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ElevatedButton(
+                            onPressed: () {  },
+                            child: Text("Sell"),
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Color(0xFF4B8800)),
+                                shape:
+                                MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFF4B8800))))),
                           ),
                         )
                       ],
                     ),
                   );
                 },
-                itemCount: 10,
+                itemCount: exchangeItems.length,
               ),
             ),
           ),
