@@ -79,11 +79,11 @@ class PayBuyMax extends StatelessWidget {
     GetPage(
         name: WalletScreen.route,
         page: () => WalletScreen(),
-        curve: Curves.easeIn,
-        transition:  Transition.fadeIn),
+        curve: Curves.linear,
+        transition:  Transition.rightToLeft),
   ];
 
-  static const String _entry = WalletScreen.route;
+  static const String _entry = HomePage.route;
 
   @override
   Widget build(BuildContext context) => Platform.isAndroid

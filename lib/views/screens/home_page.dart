@@ -699,7 +699,7 @@ class _HomeState extends State<_HomePage> {
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
                                                 onPressed: (){
-                                                  moreDetails(WalletArguments("Bitcoin","","assets/images/ethereum_logo.png"));
+                                                  moreDetails(WalletArguments("Ethereum","","assets/images/ethereum_logo.png"));
                                                 },
                                                 style: ButtonStyle(
                                                     backgroundColor:
@@ -785,7 +785,7 @@ class _HomeState extends State<_HomePage> {
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
                                                 onPressed: (){
-                                                  moreDetails(WalletArguments("Bitcoin","","assets/images/usdt_logo.png"));
+                                                  moreDetails(WalletArguments("Tether","","assets/images/usdt_logo.png"));
                                                 },
                                                 style: ButtonStyle(
                                                     backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),

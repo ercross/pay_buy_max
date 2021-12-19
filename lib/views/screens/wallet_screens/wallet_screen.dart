@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -296,6 +297,8 @@ class _WalletState extends State<_WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as WalletArguments;
+
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
@@ -307,7 +310,7 @@ class _WalletState extends State<_WalletScreen> {
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: Text('Bitcoin',
+      title: Text(args.title,
           style: TextStyle(color: Colors.blueGrey, fontSize: 18),
           textAlign: TextAlign.start),
       leading: IconButton(
@@ -318,8 +321,7 @@ class _WalletState extends State<_WalletScreen> {
           child: CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Image(
-                  image: AssetImage(
-                      'assets/images/bitcoin_logo.png'))),
+                  image: AssetImage(args.asset))),
         )
       ],
     );
