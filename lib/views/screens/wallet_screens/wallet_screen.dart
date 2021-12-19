@@ -1,9 +1,12 @@
 
 import 'dart:math';
-
+import 'dart:ui';
+import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
+import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -36,11 +39,15 @@ class _WalletState extends State<_WalletScreen> {
   late TextEditingController priceController;
   late TextEditingController priceIncreaseController;
   late TextEditingController walletController;
+  late List<CoinDataPoint> btcIt;
 
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _onListRefresh();
+    });
+    btcIt = new List<CoinDataPoint>.from(List.empty());
     priceController = new TextEditingController(text: "NGN 3,982.70");
     priceIncreaseController = new TextEditingController(text: "0.00125");
     walletController = new TextEditingController(text: "BTC");
@@ -50,15 +57,180 @@ class _WalletState extends State<_WalletScreen> {
 
   void sell(){}
 
+  List<Color> gradientColors = [Color(0xFF4B8800), Color(0xFF4B8800),];
+
+  List<Color> gradientWhiteColors = [const Color(0xFF4B8800), const Color(0xFFFAFAFA),];
+
+  LineChartData mainData(List<CoinDataPoint> chartList) {
+    List<FlSpot> flSpotList = new List<FlSpot>.from(List.empty());
+    List<String> priceValues = new List<String>.from(List.empty());
+    List<DateTime> dayValues = new List<DateTime>.from(List.empty());
+
+    double millisecond = 6.0;
+    double minMillisecond = 0;
+    double price = 11.0;
+    double minPrice = 0;
+
+    chartList.sort((a, b) {
+      return a.date!.compareTo(b.date!);
+    });
+
+    if (chartList.isNotEmpty) {
+      var date = DateTime.now().subtract(Duration(days: 7));
+      for (var chartData in chartList) {
+        if (chartData.price!.toDouble() > minPrice) {
+          minPrice = chartData.price!;
+        }
+        if (chartData.date!.millisecondsSinceEpoch > minMillisecond) {
+          minMillisecond = chartData.date!.millisecondsSinceEpoch.toDouble();
+        }
+      }
+      for (var chartData in chartList) {
+        dayValues.add(date);
+        date.add(Duration(days: 1));
+        priceValues.add(chartData.price.toString());
+        if (chartData.date!.millisecondsSinceEpoch > millisecond) {
+          millisecond = chartData.date!.millisecondsSinceEpoch.toDouble();
+        }
+
+        if (chartData.price!.toDouble() > price) {
+          price = chartData.price!;
+        }
+
+        if (chartData.price!.toDouble() < minPrice) {
+          minPrice = chartData.price!;
+        }
+
+        if (chartData.date!.millisecondsSinceEpoch < minMillisecond) {
+          minMillisecond = chartData.date!.millisecondsSinceEpoch.toDouble();
+        }
+
+        flSpotList.add(new FlSpot(
+            chartData.date!.millisecondsSinceEpoch.toDouble(),
+            chartData.price!.toDouble()));
+      }
+    }
+
+    return LineChartData(
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: false,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: Colors.black12,
+            strokeWidth: 1,
+            dashArray: [5, 10, 5]
+          );
+        },
+        getDrawingVerticalLine: (value) {
+          return FlLine(
+            color: const Color(0xff37434d),
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        rightTitles: SideTitles(showTitles: false),
+        topTitles: SideTitles(showTitles: false),
+        bottomTitles: SideTitles(
+          showTitles: false,
+          reservedSize: 22,
+          interval: 1,
+          getTextStyles: (context, value) => const TextStyle(
+              color: Color(0xFFFAFAFA),
+              fontWeight: FontWeight.bold,
+              fontSize: 10),
+          getTitles: (values) {
+            switch (values.toInt()) {
+              case 1:
+                return 'SUN';
+              case 3:
+                return 'TUE';
+              case 5:
+                return 'WED';
+              case 7:
+                return 'FRI';
+              case 9:
+                return 'SUN';
+            }
+            return '';
+          },
+          margin: 8,
+        ),
+        leftTitles: SideTitles(
+          showTitles: false,
+          interval: 1,
+          getTextStyles: (context, value) => const TextStyle(
+            color: Color(0xff67727d),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+          getTitles: (value) {
+            switch (value.toInt()) {
+              case 1:
+                return '10k';
+              case 3:
+                return '30k';
+              case 5:
+                return '50k';
+              case 7:
+                return '70k';
+            }
+            return '';
+          },
+          reservedSize: 32,
+          margin: 12,
+        ),
+      ),
+      borderData: FlBorderData(
+          show: true, border: Border.all(color: Colors.transparent, width: 0)),
+      minX: minMillisecond,
+      maxX: millisecond,
+      minY: minPrice,
+      maxY: price,
+      lineBarsData: [
+        LineChartBarData(
+          spots: flSpotList,
+          isCurved: true,
+          colors: gradientColors,
+          barWidth: 3,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            gradientTo: Offset(0, 1),
+            colors: gradientWhiteColors
+                .map((color) => color.withOpacity(0.2))
+                .toList(),
+          ),
+        ),
+      ],
+    );
+
+  }
+
+  int days = 7;
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+  void _onListRefresh() {
+    var date = DateTime.now();
+    Provider.of<CoinPriceProvider>(context, listen: false).getBitCoinMarketChart(date.subtract(Duration(days: days)), date).then((value) {
+      _refreshController.refreshCompleted();
+      setState(() {
+        btcIt = value.data;
+      });
+    }, onError: (error) {
+      print(error);
+      _refreshController.refreshFailed();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
-
-    RefreshController _refreshController = RefreshController(initialRefresh: false);
-    void _onListRefresh() {
-
-    }
 
     AppBar appBar = AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -221,11 +393,40 @@ class _WalletState extends State<_WalletScreen> {
               flex: 1,
               child: Padding(
                 padding:
-                const EdgeInsets.only(left: 20, top: 5, bottom: 5),
-                child: Column(),
+                const EdgeInsets.only(left: 0, top: 0, bottom: 0),
+                child: Column(
+                  children: [
+                    Flexible(child: LineChart(mainData(btcIt))),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(onPressed: () {
+                          days = 1;
+                          _onListRefresh();
+                        }, child: Text("1D",style: TextStyle(color: Color(0xFF4B8800)))),
+                        TextButton(onPressed: () {
+                          days = 7;
+                          _onListRefresh();
+                        }, child: Text("1W",style: TextStyle(color: Color(0xFF4B8800)))),
+                        TextButton(onPressed: () {
+                          days = 30;
+                          _onListRefresh();
+                        }, child: Text("1M",style: TextStyle(color: Color(0xFF4B8800)))),
+                        TextButton(onPressed: () {
+                          days = 180;
+                          _onListRefresh();
+                        }, child: Text("6M",style: TextStyle(color: Color(0xFF4B8800)))),
+                        TextButton(onPressed: () {
+                          days = 360;
+                          _onListRefresh();
+                        }, child: Text("1Y",style: TextStyle(color: Color(0xFF4B8800)))),
+                      ],
+                    )
+                  ],
+                ),
               )),
           Expanded(
-              flex: 1,
+              flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(),
