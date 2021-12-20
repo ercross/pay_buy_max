@@ -291,7 +291,6 @@ class _HomeState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFC9782F)));
 
     AppBar appBar = AppBar(
@@ -884,6 +883,24 @@ class _HomeState extends State<_HomePage> {
               ),
             )
           ],
+        ),
+      ),
+    );
+
+    Container newContainer = Container(
+      height: height,
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Expanded(
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              Text("Welcome,",style: TextStyle(color: Color(0xFFC9782F), fontSize: 18)),
+              Text("Cephas Peter",style: TextStyle(color: Colors.black, fontSize: 18)),
+
+            ],
+          ),
         ),
       ),
     );
