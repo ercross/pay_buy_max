@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fragment_navigate/navigate-control.dart';
+import 'package:fragment_navigate/navigate-support.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
@@ -55,6 +57,8 @@ class _HomeState extends State<_HomePage> {
   late TextEditingController bitcoinController;
   late TextEditingController usdtController;
   late TextEditingController ethController;
+
+
 
   List<Color> gradientColors = [
     Color(0xFFC9782F),
@@ -287,6 +291,7 @@ class _HomeState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFC9782F)));
 
     AppBar appBar = AppBar(
@@ -315,14 +320,6 @@ class _HomeState extends State<_HomePage> {
     );
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
-
-    CoinGeckoResult<List<PricedCoin>> btcItems = Provider.of<CoinPriceProvider>(context, listen: false).bitcoinPrice;
-    CoinGeckoResult<List<PricedCoin>> ethItems = Provider.of<CoinPriceProvider>(context, listen: false).ethereumPrice;
-    CoinGeckoResult<List<PricedCoin>> tetherItems = Provider.of<CoinPriceProvider>(context, listen: false).tetherPrice;
-
-    CoinGeckoResult<List<CoinDataPoint>> bitcoinChart = Provider.of<CoinPriceProvider>(context, listen: false).bitcoinChart;
-    CoinGeckoResult<List<CoinDataPoint>> ethereumChart = Provider.of<CoinPriceProvider>(context, listen: true).ethereumChart;
-    CoinGeckoResult<List<CoinDataPoint>> tetherChart = Provider.of<CoinPriceProvider>(context, listen: true).tetherChart;
 
     RefreshController _refreshController = RefreshController(initialRefresh: false);
     void _onListRefresh() {
@@ -891,219 +888,252 @@ class _HomeState extends State<_HomePage> {
       ),
     );
 
-    TabBarView tabBarView = TabBarView(
-        children: [
-          Expanded(
-            child: container,
+    final _fragNav = FragNavigate(
+        firstKey: ValueKey(HomePage.route),
+        screens: <Posit>[
+          Posit(
+            title: "Home",
+              key: ValueKey(HomePage.route),
+              fragment: container
           ),
-          Expanded(
-            child: AllWalletScreen(),
-          ),
-        ],
-      );
+          Posit(
+            title: "Wallet",
+              key: ValueKey(AllWalletScreen.route),
+              fragment: AllWalletScreen(),
+          )
+        ]
+    );
+    _fragNav.setDrawerContext = context;
 
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            key: key,
-            appBar: appBar,
-            drawer: Drawer(
-              backgroundColor: Color(0xFFC9782F),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFAFAFA),
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/logo.png'),
-                          fit: BoxFit.contain),
-                    ),
-                    child: Center(child: Text('',style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20))),
-                  ),
-                  ListTile(
-                    iconColor: Color(0xFFFAFAFA),
-                    textColor: Color(0xFFFAFAFA),
-                    tileColor: Color(0xFFC9782F),
-                    leading: Icon(Icons.dashboard_rounded),
-                    title: const Text('Dashboard'),
-                    onTap: () {
-                      tabBarView.controller?.animateTo(0,duration: Duration());
-                    },
-                  ),
-                  ExpansionTile(
-                      collapsedTextColor: Color(0xFFFAFAFA),
-                      collapsedIconColor: Color(0xFFFAFAFA),
-                      iconColor: Color(0xFFFAFAFA),
-                      textColor: Color(0xFFFAFAFA),
-                      backgroundColor: Color(0xFFC9782F),
-                      collapsedBackgroundColor: Color(0xFFC9782F),
-                      leading: Icon(Icons.account_balance_wallet),
-                      title: const Text('Wallets'),
-                      children: [
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Wallet Balance',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-                          tabBarView.controller?.animateTo(1,duration: Duration());
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Naira Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Crypto Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                      ]
-                  ),
-                  ExpansionTile(
-                      collapsedTextColor: Color(0xFFFAFAFA),
-                      collapsedIconColor: Color(0xFFFAFAFA),
-                      iconColor: Color(0xFFFAFAFA),
-                      textColor: Color(0xFFFAFAFA),
-                      backgroundColor: Color(0xFFC9782F),
-                      collapsedBackgroundColor: Color(0xFFC9782F),
-                      leading: Icon(Icons.show_chart),
-                      title: const Text('Exchange'),
-                      children: [
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Cryptos',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Gift Cards',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        })
-                      ]
-                  ),
-                  ExpansionTile(
-                      collapsedTextColor: Color(0xFFFAFAFA),
-                      collapsedIconColor: Color(0xFFFAFAFA),
-                      iconColor: Color(0xFFFAFAFA),
-                      textColor: Color(0xFFFAFAFA),
-                      backgroundColor: Color(0xFFC9782F),
-                      collapsedBackgroundColor: Color(0xFFC9782F),
-                      leading: Icon(Icons.book_rounded),
-                      title: const Text('Learn'),
-                      children: [
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Courses',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Plan',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                      ]
-                  ),
-                  ExpansionTile(
-                      collapsedTextColor: Color(0xFFFAFAFA),
-                      collapsedIconColor: Color(0xFFFAFAFA),
-                      iconColor: Color(0xFFFAFAFA),
-                      textColor: Color(0xFFFAFAFA),
-                      backgroundColor: Color(0xFFC9782F),
-                      collapsedBackgroundColor: Color(0xFFC9782F),
-                      leading: Icon(Icons.show_chart),
-                      title: const Text('Investments'),
-                      children: [
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Investments',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Investments Package',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                      ]
-                  ),
-                  ExpansionTile(
-                      collapsedTextColor: Color(0xFFFAFAFA),
-                      collapsedIconColor: Color(0xFFFAFAFA),
-                      iconColor: Color(0xFFFAFAFA),
-                      textColor: Color(0xFFFAFAFA),
-                      backgroundColor: Color(0xFFC9782F),
-                      collapsedBackgroundColor: Color(0xFFC9782F),
-                      leading: Icon(Icons.history_rounded),
-                      title: const Text('My Transactions'),
-                      children: [
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Sell',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Buy',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                      ]
-                  ),
-                  ExpansionTile(
-                      iconColor: Color(0xFFFAFAFA),
-                      textColor: Color(0xFFFAFAFA),
-                      collapsedTextColor: Color(0xFFFAFAFA),
-                      collapsedIconColor: Color(0xFFFAFAFA),
-                      backgroundColor: Color(0xFFC9782F),
-                      collapsedBackgroundColor: Color(0xFFC9782F),
-                      leading: Icon(Icons.money),
-                      title: const Text('Withdrawal'),
-                      children: [
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Naira',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Coin',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Transfer History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Withdrawals',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                        }),
-                      ]
-                  ),
-                  ListTile(
-                    iconColor: Color(0xFFFAFAFA),
-                    textColor: Color(0xFFFAFAFA),
-                    tileColor: Color(0xFFC9782F),
-                    leading: Icon(Icons.person_add_rounded),
-                    title: const Text('My Referrals'),
-                    onTap: () {
-
-                    },
-                  ),
-                  ListTile(
-                    iconColor: Color(0xFFFAFAFA),
-                    textColor: Color(0xFFFAFAFA),
-                    tileColor: Color(0xFFC9782F),
-                    leading: Icon(Icons.admin_panel_settings_rounded),
-                    title: const Text('Admin Messages'),
-                    onTap: () {
-
-                    },
-                  ),
-                  ListTile(
-                    iconColor: Color(0xFFFAFAFA),
-                    textColor: Color(0xFFFAFAFA),
-                    tileColor: Color(0xFFC9782F),
-                    leading: Icon(Icons.settings_rounded),
-                    title: const Text('Settings'),
-                    onTap: () {
-
-                    },
-                  ),
-                  ListTile(
-                    iconColor: Color(0xFFFAFAFA),
-                    textColor: Color(0xFFFAFAFA),
-                    tileColor: Color(0xFFC9782F),
-                    leading: Icon(Icons.logout_rounded),
-                    title: const Text('Log Out'),
-                    onTap: () {
-
-                    },
-                  )
+    return StreamBuilder<FullPosit>(
+        stream: _fragNav.outStreamFragment,
+        builder: (con, s){
+      if(s.data != null){
+        return DefaultTabController(
+            length: s.data!.bottom!.length,
+            child: Scaffold(
+              key: _fragNav.drawerKey,
+              appBar: AppBar(
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark, systemNavigationBarColor: Color(0xFFFAFAFA)),
+                centerTitle: true,
+                backgroundColor: Color(0xFFC9782F),
+                elevation: 0,
+                title: Text((s.data!.title).toString()),
+                bottom: s.data!.bottom!.child,
+                actions: [
+                  IconButton(
+                      icon: new Icon(Icons.email_rounded),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(NotificationScreen.route);
+                      },
+                      color: Color(0xFFFAFAFA)),
+                  IconButton(
+                      icon: new Icon(Icons.notifications_rounded),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(NotificationScreen.route);
+                      },
+                      color: Color(0xFFFAFAFA))
                 ],
               ),
-            ),
-            body: DefaultTabController(length: 2,
-            child: tabBarView),
-          ),
+              drawer: Drawer(
+                backgroundColor: Color(0xFFC9782F),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFAFAFA),
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/logo.png'),
+                            fit: BoxFit.contain),
+                      ),
+                      child: Center(child: Text('',style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20))),
+                    ),
+                    ListTile(
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      tileColor: Color(0xFFC9782F),
+                      leading: Icon(Icons.dashboard_rounded),
+                      title: const Text('Dashboard'),
+                      onTap: () {
+                        //DefaultTabController.of(context)!.animateTo(0);
+                        _fragNav.putPosit(key: ValueKey(HomePage.route),closeDrawer: false);
+                      },
+                    ),
+                    ExpansionTile(
+                        collapsedTextColor: Color(0xFFFAFAFA),
+                        collapsedIconColor: Color(0xFFFAFAFA),
+                        iconColor: Color(0xFFFAFAFA),
+                        textColor: Color(0xFFFAFAFA),
+                        backgroundColor: Color(0xFFC9782F),
+                        collapsedBackgroundColor: Color(0xFFC9782F),
+                        leading: Icon(Icons.account_balance_wallet),
+                        title: const Text('Wallets'),
+                        children: [
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Wallet Balance',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+                            _fragNav.putPosit(key: ValueKey(AllWalletScreen.route),closeDrawer: false);
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Naira Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Crypto Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                        ]
+                    ),
+                    ExpansionTile(
+                        collapsedTextColor: Color(0xFFFAFAFA),
+                        collapsedIconColor: Color(0xFFFAFAFA),
+                        iconColor: Color(0xFFFAFAFA),
+                        textColor: Color(0xFFFAFAFA),
+                        backgroundColor: Color(0xFFC9782F),
+                        collapsedBackgroundColor: Color(0xFFC9782F),
+                        leading: Icon(Icons.show_chart),
+                        title: const Text('Exchange'),
+                        children: [
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Cryptos',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Gift Cards',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          })
+                        ]
+                    ),
+                    ExpansionTile(
+                        collapsedTextColor: Color(0xFFFAFAFA),
+                        collapsedIconColor: Color(0xFFFAFAFA),
+                        iconColor: Color(0xFFFAFAFA),
+                        textColor: Color(0xFFFAFAFA),
+                        backgroundColor: Color(0xFFC9782F),
+                        collapsedBackgroundColor: Color(0xFFC9782F),
+                        leading: Icon(Icons.book_rounded),
+                        title: const Text('Learn'),
+                        children: [
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Courses',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Plan',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                        ]
+                    ),
+                    ExpansionTile(
+                        collapsedTextColor: Color(0xFFFAFAFA),
+                        collapsedIconColor: Color(0xFFFAFAFA),
+                        iconColor: Color(0xFFFAFAFA),
+                        textColor: Color(0xFFFAFAFA),
+                        backgroundColor: Color(0xFFC9782F),
+                        collapsedBackgroundColor: Color(0xFFC9782F),
+                        leading: Icon(Icons.show_chart),
+                        title: const Text('Investments'),
+                        children: [
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Investments',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Investments Package',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                        ]
+                    ),
+                    ExpansionTile(
+                        collapsedTextColor: Color(0xFFFAFAFA),
+                        collapsedIconColor: Color(0xFFFAFAFA),
+                        iconColor: Color(0xFFFAFAFA),
+                        textColor: Color(0xFFFAFAFA),
+                        backgroundColor: Color(0xFFC9782F),
+                        collapsedBackgroundColor: Color(0xFFC9782F),
+                        leading: Icon(Icons.history_rounded),
+                        title: const Text('My Transactions'),
+                        children: [
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Sell',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Buy',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                        ]
+                    ),
+                    ExpansionTile(
+                        iconColor: Color(0xFFFAFAFA),
+                        textColor: Color(0xFFFAFAFA),
+                        collapsedTextColor: Color(0xFFFAFAFA),
+                        collapsedIconColor: Color(0xFFFAFAFA),
+                        backgroundColor: Color(0xFFC9782F),
+                        collapsedBackgroundColor: Color(0xFFC9782F),
+                        leading: Icon(Icons.money),
+                        title: const Text('Withdrawal'),
+                        children: [
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Naira',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Coin',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Transfer History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Withdrawals',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+
+                          }),
+                        ]
+                    ),
+                    ListTile(
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      tileColor: Color(0xFFC9782F),
+                      leading: Icon(Icons.person_add_rounded),
+                      title: const Text('My Referrals'),
+                      onTap: () {
+
+                      },
+                    ),
+                    ListTile(
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      tileColor: Color(0xFFC9782F),
+                      leading: Icon(Icons.admin_panel_settings_rounded),
+                      title: const Text('Admin Messages'),
+                      onTap: () {
+
+                      },
+                    ),
+                    ListTile(
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      tileColor: Color(0xFFC9782F),
+                      leading: Icon(Icons.settings_rounded),
+                      title: const Text('Settings'),
+                      onTap: () {
+
+                      },
+                    ),
+                    ListTile(
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      tileColor: Color(0xFFC9782F),
+                      leading: Icon(Icons.logout_rounded),
+                      title: const Text('Log Out'),
+                      onTap: () {
+
+                      },
+                    )
+                  ],
+                ),
+              ),
+              body: ScreenNavigate(
+                  child: s.data!.fragment,
+                  control: _fragNav
+              ),
+            )
         );
-      },
-    );
+      }
+      return Container();}
+      );
   }
 }

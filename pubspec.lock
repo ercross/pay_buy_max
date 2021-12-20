@@ -247,6 +247,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "9.2.0"
+  fragment_navigate:
+    dependency: "direct main"
+    description:
+      name: fragment_navigate
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.0+2"
   frontend_server_client:
     dependency: transitive
     description:
@@ -499,6 +506,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1+1"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.27.3"
   shared_preferences:
     dependency: "direct main"
     description:

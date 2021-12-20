@@ -34,6 +34,7 @@ dependencies:
   flutter_credit_card: ^3.0.1
   fl_chart: ^0.40.6
   dart_date: ^1.1.0
+  fragment_navigate: ^1.2.0+2
 
 dev_dependencies:
   flutter_test:
