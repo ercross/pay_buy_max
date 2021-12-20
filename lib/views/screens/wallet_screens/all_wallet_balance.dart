@@ -41,24 +41,7 @@ class _AllWalletState extends State<_AllWalletScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
-    AppBar appBar = AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Color(0xFFFAFAFA)),
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Text("All Wallets",
-          style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-          textAlign: TextAlign.start),
-      leading: IconButton(
-          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {
-        Navigator.of(context).pop();
-      }, color: Colors.blueGrey),
-    );
-
-    final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
+    final double height = MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.top);
 
     Container container = Container(
       height: height,
@@ -87,7 +70,6 @@ class _AllWalletState extends State<_AllWalletScreen> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
-            appBar: appBar,
             body: container,
           ),
         );

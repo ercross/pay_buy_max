@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
@@ -56,8 +57,8 @@ class _HomeState extends State<_HomePage> {
   late TextEditingController ethController;
 
   List<Color> gradientColors = [
-    Color(0xFF4B8800),
-    Color(0xFF4B8800),
+    Color(0xFFC9782F),
+    Color(0xFFC9782F),
   ];
 
   List<Color> gradientWhiteColors = [
@@ -282,23 +283,21 @@ class _HomeState extends State<_HomePage> {
   }
 
   late List<CoinDataPoint> btcIt;
+  final GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFF4B8800)));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFC9782F)));
 
     AppBar appBar = AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Color(0xFFFAFAFA)),
+      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark, systemNavigationBarColor: Color(0xFFFAFAFA)),
       centerTitle: true,
-      backgroundColor: Color(0xFF4B8800),
+      backgroundColor: Color(0xFFC9782F),
       elevation: 0,
       title: Center(
           child: Text('PayBuyMax', style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 18), textAlign: TextAlign.center)),
       leading: IconButton(
-          icon: new Icon(Icons.menu), onPressed: () {}, color: Color(0xFFFAFAFA)),
+          icon: new Icon(Icons.menu), onPressed: () {key.currentState?.openDrawer();}, color: Color(0xFFFAFAFA)),
       actions: [
         IconButton(
             icon: new Icon(Icons.email_rounded),
@@ -345,653 +344,722 @@ class _HomeState extends State<_HomePage> {
     Container container = Container(
       height: height,
       width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            height: (height / 2) - appBar.preferredSize.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    opacity: 0.2,
-                    image: AssetImage(
-                        'assets/images/background_image.jpg'),
-                    fit: BoxFit.cover)),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextField(
-                  controller: priceController,
-                  readOnly: true,
-                  enableInteractiveSelection: false,
-                  keyboardType:  TextInputType.text,
-                  textAlign: TextAlign.center,
-                  style:TextStyle(color: Color(0xFFC9782F), fontSize: 60),
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.all(-5)
+      child: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: false,
+        controller: _refreshController,
+        onRefresh: _onListRefresh,
+        onLoading: null,
+        header: MaterialClassicHeader(
+          color: Color(0xFFFAFAFA),
+          backgroundColor: Color(0xFFC9782F),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              height: (height / 2) - appBar.preferredSize.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      opacity: 0.2,
+                      image: AssetImage(
+                          'assets/images/background_image.jpg'),
+                      fit: BoxFit.cover)),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextField(
+                    controller: priceController,
+                    readOnly: true,
+                    enableInteractiveSelection: false,
+                    keyboardType:  TextInputType.text,
+                    textAlign: TextAlign.center,
+                    style:TextStyle(color: Color(0xFFC9782F), fontSize: 60),
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(-5)
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: IntrinsicHeight(
-                        child: IntrinsicWidth(
-                          child: TextField(controller: priceIncreaseController,readOnly: true,textAlign: TextAlign.center,enableInteractiveSelection: false,maxLines: 1,style:TextStyle(color: Color(0xFFC9782F),fontSize: 16),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(0)
-                              )
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: IntrinsicHeight(
+                          child: IntrinsicWidth(
+                            child: TextField(controller: priceIncreaseController,readOnly: true,textAlign: TextAlign.center,enableInteractiveSelection: false,maxLines: 1,style:TextStyle(color: Color(0xFFC9782F),fontSize: 16),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(0)
+                                )
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: IntrinsicWidth(
-                          child: TextField(controller: percentController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: IntrinsicWidth(
+                            child: TextField(controller: percentController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.all(0)
+                                )
+                            )
+                        ),
+                      ),
+                      IntrinsicWidth(
+                          child: TextField(controller: timeController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.all(0)
                               )
                           )
-                      ),
-                    ),
-                    IntrinsicWidth(
-                        child: TextField(controller: timeController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(0)
-                            )
-                        )
-                    )
-                  ],
-                )
-              ],
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: (height / 2) + appBar.preferredSize.height,
-            width: MediaQuery.of(context).size.width,
-            color: Color(0xFFFAFAFA),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: Text('Funds',
-                                style: TextStyle(
-                                    color: Colors.blueGrey, fontSize: 18),
-                                textAlign: TextAlign.start),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Wrap(
-                              alignment: WrapAlignment.end,
-                              children: [
-                                ElevatedButton.icon(
-                                  onPressed: expand,
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Color(0xFF4B8800)),
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                              side: BorderSide(
-                                                  color: Color(0xFF4B8800))))),
-                                  label: Text('Expand'),
-                                  icon: Icon(Icons.list_rounded,
-                                      color: Color(0xFFFAFAFA)),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    )),
-                Expanded(
-                    flex: 6,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 5, bottom: 5),
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
+            Container(
+              height: (height / 2) + appBar.preferredSize.height,
+              width: MediaQuery.of(context).size.width,
+              color: Color(0xFFFAFAFA),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Flexible(
+                      fit: FlexFit.tight,
+                      flex: 1,
+                      child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              width: 220.0,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF4B8800),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  image: DecorationImage(
-                                      opacity: 0.1,
-                                      image: AssetImage(
-                                          'assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover)),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: Text('Funds',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey, fontSize: 18),
+                                  textAlign: TextAlign.start),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 30),
+                              child: Wrap(
+                                alignment: WrapAlignment.end,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, bottom: 8, top: 30),
-                                    child: CircleAvatar(
-                                        backgroundColor: Color(0xFF4B8800),
-                                        child: SvgPicture.asset(
-                                            'assets/images/naira.svg')),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15, bottom: 1, top: 5),
-                                    child: Text('Wallet Balance',
-                                        style: TextStyle(
-                                            color: Color(0xFFFAFAFA),
-                                            fontSize: 20),
-                                        textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: IntrinsicHeight(
-                                      child: TextField(
-                                        controller: walletController,
-                                        readOnly: true,
-                                        enableInteractiveSelection: false,
-                                        keyboardType: TextInputType.text,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 15),
-                                        maxLines: 1,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding:
-                                                EdgeInsets.only(top: -5)),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                              child: ElevatedButton.icon(
-                                                onPressed:(){
-                                                  moreLocalDetails();
-                                                },
-                                                style: ButtonStyle(
-                                                    backgroundColor:
-                                                    MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
-                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                  ElevatedButton.icon(
+                                    onPressed: expand,
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Color(0xFFC9782F)),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                                side: BorderSide(
+                                                    color: Color(0xFFC9782F))))),
+                                    label: Text('Expand'),
+                                    icon: Icon(Icons.list_rounded,
+                                        color: Color(0xFFFAFAFA)),
                                   )
                                 ],
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              width: 200.0,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFC9782F),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  image: DecorationImage(
-                                      opacity: 0.1,
-                                      image: AssetImage(
-                                          'assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, bottom: 8, top: 30),
-                                    child: CircleAvatar(
-                                        backgroundColor: Color(0xFF4B8800),
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/images/bitcoin_logo.png'))),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15, bottom: 1, top: 5),
-                                    child: Text('Bitcoin',
-                                        style: TextStyle(
-                                            color: Color(0xFFFAFAFA),
-                                            fontSize: 20),
-                                        textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: IntrinsicHeight(
-                                      child: TextField(
-                                        controller: bitcoinController,
-                                        readOnly: true,
-                                        enableInteractiveSelection: false,
-                                        keyboardType: TextInputType.text,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 15),
-                                        maxLines: 1,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding:
-                                                EdgeInsets.only(top: -5)),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                              child: ElevatedButton.icon(
-                                                onPressed: (){
-                                                  moreDetails(WalletArguments("Bitcoin","BTC","assets/images/bitcoin_logo.png"));
-                                                },
-                                                style: ButtonStyle(
-                                                    backgroundColor:
-                                                    MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
-                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              width: 200.0,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFC9782F),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  image: DecorationImage(
-                                      opacity: 0.1,
-                                      image: AssetImage(
-                                          'assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, bottom: 8, top: 30),
-                                    child: CircleAvatar(
-                                        backgroundColor: Color(0xFF4B8800),
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/images/ethereum_logo.png'))),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15, bottom: 1, top: 5),
-                                    child: Text('Ethereum',
-                                        style: TextStyle(
-                                            color: Color(0xFFFAFAFA),
-                                            fontSize: 20),
-                                        textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: IntrinsicHeight(
-                                      child: TextField(
-                                        controller: ethController,
-                                        readOnly: true,
-                                        enableInteractiveSelection: false,
-                                        keyboardType: TextInputType.text,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 15),
-                                        maxLines: 1,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding:
-                                                EdgeInsets.only(top: -5)),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                              child: ElevatedButton.icon(
-                                                onPressed: (){
-                                                  moreDetails(WalletArguments("Ethereum","ETH","assets/images/ethereum_logo.png"));
-                                                },
-                                                style: ButtonStyle(
-                                                    backgroundColor:
-                                                    MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
-                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              width: 200.0,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFC9782F),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  image: DecorationImage(
-                                      opacity: 0.1,
-                                      image: AssetImage(
-                                          'assets/images/background_image.jpg'),
-                                      fit: BoxFit.cover)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, bottom: 8, top: 30),
-                                    child: CircleAvatar(
-                                        backgroundColor: Color(0xFF4B8800),
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/images/usdt_logo.png'))),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15, bottom: 1, top: 5),
-                                    child: Text('Tether',
-                                        style: TextStyle(
-                                            color: Color(0xFFFAFAFA),
-                                            fontSize: 20),
-                                        textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: IntrinsicHeight(
-                                      child: TextField(
-                                        controller: usdtController,
-                                        readOnly: true,
-                                        enableInteractiveSelection: false,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 15),
-                                        maxLines: 1,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            contentPadding:
-                                                EdgeInsets.only(top: -5)),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                              child: ElevatedButton.icon(
-                                                onPressed: (){
-                                                  moreDetails(WalletArguments("Tether","USDT","assets/images/usdt_logo.png"));
-                                                },
-                                                style: ButtonStyle(
-                                                    backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                label: Text('Open',style: TextStyle(color:Color(0xFF4B8800)),),
-                                                icon: Icon(Icons.open_in_full_rounded, color: Color(0xFF4B8800)),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+                          )
                         ],
-                      ),
-                    )),
-                Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                      )),
+                  Expanded(
+                      flex: 6,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Material(
-                                  color: Colors.transparent,
-                                  shape: CircleBorder(),
-                                  clipBehavior: Clip.hardEdge,
-                                  child: IconButton(
-                                      icon: new Icon(Icons.book_rounded),
-                                      onPressed: learn,
-                                      color: Colors.blueGrey)),
-                            ),
-                            Container(
-                              height: 90,
-                              width: 90,
-                              child: FloatingActionButton(
-                                child: Icon(
-                                  Icons.show_chart,
-                                  color: Color(0xFFFAFAFA),
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 220.0,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFC9782F),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                        opacity: 0.1,
+                                        image: AssetImage(
+                                            'assets/images/background_image.jpg'),
+                                        fit: BoxFit.cover)),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, bottom: 8, top: 30),
+                                      child: CircleAvatar(
+                                          backgroundColor: Color(0xFFC9782F),
+                                          child: SvgPicture.asset(
+                                              'assets/images/naira.svg')),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 1, top: 5),
+                                      child: Text('Wallet Balance',
+                                          style: TextStyle(
+                                              color: Color(0xFFFAFAFA),
+                                              fontSize: 20),
+                                          textAlign: TextAlign.start),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: IntrinsicHeight(
+                                        child: TextField(
+                                          controller: walletController,
+                                          readOnly: true,
+                                          enableInteractiveSelection: false,
+                                          keyboardType: TextInputType.text,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 15),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              contentPadding:
+                                                  EdgeInsets.only(top: -5)),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                                child: ElevatedButton.icon(
+                                                  onPressed:(){
+                                                    moreLocalDetails();
+                                                  },
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
+                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                backgroundColor: Color(0xFF4B8800),
-                                onPressed: investment,
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: Material(
-                                  color: Colors.transparent,
-                                  shape: CircleBorder(),
-                                  clipBehavior: Clip.hardEdge,
-                                  child: IconButton(
-                                      icon: new Icon(Icons.card_giftcard_rounded),
-                                      onPressed: exchange,
-                                      color: Colors.blueGrey)),
-                            )
+                              padding: const EdgeInsets.all(10),
+                              child: Container(
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFC9782F),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                        opacity: 0.1,
+                                        image: AssetImage(
+                                            'assets/images/background_image.jpg'),
+                                        fit: BoxFit.cover)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, bottom: 8, top: 30),
+                                      child: CircleAvatar(
+                                          backgroundColor: Color(0xFFC9782F),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/bitcoin_logo.png'))),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 1, top: 5),
+                                      child: Text('Bitcoin',
+                                          style: TextStyle(
+                                              color: Color(0xFFFAFAFA),
+                                              fontSize: 20),
+                                          textAlign: TextAlign.start),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: IntrinsicHeight(
+                                        child: TextField(
+                                          controller: bitcoinController,
+                                          readOnly: true,
+                                          enableInteractiveSelection: false,
+                                          keyboardType: TextInputType.text,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 15),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              contentPadding:
+                                                  EdgeInsets.only(top: -5)),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                                child: ElevatedButton.icon(
+                                                  onPressed: (){
+                                                    moreDetails(WalletArguments("Bitcoin","BTC","assets/images/bitcoin_logo.png"));
+                                                  },
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
+                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Container(
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFC9782F),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                        opacity: 0.1,
+                                        image: AssetImage(
+                                            'assets/images/background_image.jpg'),
+                                        fit: BoxFit.cover)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, bottom: 8, top: 30),
+                                      child: CircleAvatar(
+                                          backgroundColor: Color(0xFFC9782F),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/ethereum_logo.png'))),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 1, top: 5),
+                                      child: Text('Ethereum',
+                                          style: TextStyle(
+                                              color: Color(0xFFFAFAFA),
+                                              fontSize: 20),
+                                          textAlign: TextAlign.start),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: IntrinsicHeight(
+                                        child: TextField(
+                                          controller: ethController,
+                                          readOnly: true,
+                                          enableInteractiveSelection: false,
+                                          keyboardType: TextInputType.text,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 15),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              contentPadding:
+                                                  EdgeInsets.only(top: -5)),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                                child: ElevatedButton.icon(
+                                                  onPressed: (){
+                                                    moreDetails(WalletArguments("Ethereum","ETH","assets/images/ethereum_logo.png"));
+                                                  },
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
+                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Container(
+                                width: 200.0,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFC9782F),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                        opacity: 0.1,
+                                        image: AssetImage(
+                                            'assets/images/background_image.jpg'),
+                                        fit: BoxFit.cover)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, bottom: 8, top: 30),
+                                      child: CircleAvatar(
+                                          backgroundColor: Color(0xFFC9782F),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/usdt_logo.png'))),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 1, top: 5),
+                                      child: Text('Tether',
+                                          style: TextStyle(
+                                              color: Color(0xFFFAFAFA),
+                                              fontSize: 20),
+                                          textAlign: TextAlign.start),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: IntrinsicHeight(
+                                        child: TextField(
+                                          controller: usdtController,
+                                          readOnly: true,
+                                          enableInteractiveSelection: false,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 15),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              contentPadding:
+                                                  EdgeInsets.only(top: -5)),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
+                                                child: ElevatedButton.icon(
+                                                  onPressed: (){
+                                                    moreDetails(WalletArguments("Tether","USDT","assets/images/usdt_logo.png"));
+                                                  },
+                                                  style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
+                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ))
-              ],
-            ),
-          )
-        ],
+                      )),
+                  Expanded(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 30),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.hardEdge,
+                                    child: IconButton(
+                                        icon: new Icon(Icons.book_rounded),
+                                        onPressed: learn,
+                                        color: Colors.blueGrey)),
+                              ),
+                              Container(
+                                height: 90,
+                                width: 90,
+                                child: FloatingActionButton(
+                                  child: Icon(
+                                    Icons.show_chart,
+                                    color: Color(0xFFFAFAFA),
+                                  ),
+                                  backgroundColor: Color(0xFFC9782F),
+                                  onPressed: investment,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 30),
+                                child: Material(
+                                    color: Colors.transparent,
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.hardEdge,
+                                    child: IconButton(
+                                        icon: new Icon(Icons.card_giftcard_rounded),
+                                        onPressed: exchange,
+                                        color: Colors.blueGrey)),
+                              )
+                            ],
+                          ),
+                        ),
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
+
+    TabBarView tabBarView = TabBarView(
+        children: [
+          Expanded(
+            child: container,
+          ),
+          Expanded(
+            child: AllWalletScreen(),
+          ),
+        ],
+      );
 
     return LayoutBuilder(
       builder: (_, constraints) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
+            key: key,
             appBar: appBar,
             drawer: Drawer(
+              backgroundColor: Color(0xFFC9782F),
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
                   const DrawerHeader(
                     decoration: BoxDecoration(
-                      color: Color(0xFF4B8800),
+                      color: Color(0xFFFAFAFA),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/logo.png'),
+                          fit: BoxFit.contain),
                     ),
-                    child: Center(child: Text('PayBuyMux',style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20))),
+                    child: Center(child: Text('',style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20))),
                   ),
                   ListTile(
+                    iconColor: Color(0xFFFAFAFA),
+                    textColor: Color(0xFFFAFAFA),
+                    tileColor: Color(0xFFC9782F),
                     leading: Icon(Icons.dashboard_rounded),
                     title: const Text('Dashboard'),
                     onTap: () {
-
+                      tabBarView.controller?.animateTo(0,duration: Duration());
                     },
                   ),
                   ExpansionTile(
-                      leading: Icon(Icons.work),
+                      collapsedTextColor: Color(0xFFFAFAFA),
+                      collapsedIconColor: Color(0xFFFAFAFA),
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      backgroundColor: Color(0xFFC9782F),
+                      collapsedBackgroundColor: Color(0xFFC9782F),
+                      leading: Icon(Icons.account_balance_wallet),
                       title: const Text('Wallets'),
                       children: [
-                        ListTile(title: const Text('Wallet Balance'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Wallet Balance',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+                          tabBarView.controller?.animateTo(1,duration: Duration());
+                        }),
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Naira Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Fund Naira Wallet'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Crypto Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Fund Crypto Wallet'),onTap: () {
-
-                        }),
-                        ListTile(title: const Text('History'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
                       ]
                   ),
                   ExpansionTile(
+                      collapsedTextColor: Color(0xFFFAFAFA),
+                      collapsedIconColor: Color(0xFFFAFAFA),
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      backgroundColor: Color(0xFFC9782F),
+                      collapsedBackgroundColor: Color(0xFFC9782F),
                       leading: Icon(Icons.show_chart),
                       title: const Text('Exchange'),
                       children: [
-                        ListTile(title: const Text('Cryptos'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Cryptos',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Gift Cards'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Gift Cards',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         })
                       ]
                   ),
                   ExpansionTile(
+                      collapsedTextColor: Color(0xFFFAFAFA),
+                      collapsedIconColor: Color(0xFFFAFAFA),
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      backgroundColor: Color(0xFFC9782F),
+                      collapsedBackgroundColor: Color(0xFFC9782F),
                       leading: Icon(Icons.book_rounded),
                       title: const Text('Learn'),
                       children: [
-                        ListTile(title: const Text('Courses'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Courses',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('My Plan'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Plan',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
                       ]
                   ),
                   ExpansionTile(
+                      collapsedTextColor: Color(0xFFFAFAFA),
+                      collapsedIconColor: Color(0xFFFAFAFA),
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      backgroundColor: Color(0xFFC9782F),
+                      collapsedBackgroundColor: Color(0xFFC9782F),
                       leading: Icon(Icons.show_chart),
                       title: const Text('Investments'),
                       children: [
-                        ListTile(title: const Text('My Investments'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Investments',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Investments Package'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Investments Package',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('History'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
                       ]
                   ),
                   ExpansionTile(
+                      collapsedTextColor: Color(0xFFFAFAFA),
+                      collapsedIconColor: Color(0xFFFAFAFA),
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      backgroundColor: Color(0xFFC9782F),
+                      collapsedBackgroundColor: Color(0xFFC9782F),
                       leading: Icon(Icons.history_rounded),
                       title: const Text('My Transactions'),
                       children: [
-                        ListTile(title: const Text('Sell'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Sell',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Buy'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Buy',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
                       ]
                   ),
                   ExpansionTile(
+                      iconColor: Color(0xFFFAFAFA),
+                      textColor: Color(0xFFFAFAFA),
+                      collapsedTextColor: Color(0xFFFAFAFA),
+                      collapsedIconColor: Color(0xFFFAFAFA),
+                      backgroundColor: Color(0xFFC9782F),
+                      collapsedBackgroundColor: Color(0xFFC9782F),
                       leading: Icon(Icons.money),
                       title: const Text('Withdrawal'),
                       children: [
-                        ListTile(title: const Text('Withdraw Naira'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Naira',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Withdraw Coin'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Coin',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('Transfer History'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Transfer History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
-                        ListTile(title: const Text('My Withdrawals'),onTap: () {
+                        ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Withdrawals',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
                         }),
                       ]
                   ),
                   ListTile(
+                    iconColor: Color(0xFFFAFAFA),
+                    textColor: Color(0xFFFAFAFA),
+                    tileColor: Color(0xFFC9782F),
                     leading: Icon(Icons.person_add_rounded),
                     title: const Text('My Referrals'),
                     onTap: () {
@@ -999,6 +1067,9 @@ class _HomeState extends State<_HomePage> {
                     },
                   ),
                   ListTile(
+                    iconColor: Color(0xFFFAFAFA),
+                    textColor: Color(0xFFFAFAFA),
+                    tileColor: Color(0xFFC9782F),
                     leading: Icon(Icons.admin_panel_settings_rounded),
                     title: const Text('Admin Messages'),
                     onTap: () {
@@ -1006,6 +1077,9 @@ class _HomeState extends State<_HomePage> {
                     },
                   ),
                   ListTile(
+                    iconColor: Color(0xFFFAFAFA),
+                    textColor: Color(0xFFFAFAFA),
+                    tileColor: Color(0xFFC9782F),
                     leading: Icon(Icons.settings_rounded),
                     title: const Text('Settings'),
                     onTap: () {
@@ -1013,6 +1087,9 @@ class _HomeState extends State<_HomePage> {
                     },
                   ),
                   ListTile(
+                    iconColor: Color(0xFFFAFAFA),
+                    textColor: Color(0xFFFAFAFA),
+                    tileColor: Color(0xFFC9782F),
                     leading: Icon(Icons.logout_rounded),
                     title: const Text('Log Out'),
                     onTap: () {
@@ -1022,17 +1099,8 @@ class _HomeState extends State<_HomePage> {
                 ],
               ),
             ),
-            body: SmartRefresher(
-                enablePullDown: true,
-                enablePullUp: false,
-                header: MaterialClassicHeader(
-                  color: Color(0xFFFAFAFA),
-                  backgroundColor: Color(0xFF4B8800),
-                ),
-                controller: _refreshController,
-                onRefresh: _onListRefresh,
-                onLoading: null,
-                child: container),
+            body: DefaultTabController(length: 2,
+            child: tabBarView),
           ),
         );
       },
