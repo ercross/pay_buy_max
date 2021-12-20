@@ -10,6 +10,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/home_page.dart';
 import 'package:pay_buy_max/views/screens/investment_screens/investment_screen.dart';
+import 'package:pay_buy_max/views/screens/notification_screens/notification_screen.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 
@@ -29,7 +30,7 @@ void main() {
 }
 
 class PayBuyMax extends StatelessWidget {
-  static const int _duration = 750;
+  static const int _duration = 500;
 
   final List<GetPage<dynamic>> _pages = [
     GetPage(
@@ -96,6 +97,12 @@ class PayBuyMax extends StatelessWidget {
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition:  Transition.rightToLeft),
+    GetPage(
+        name: NotificationScreen.route,
+        page: () => NotificationScreen(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.upToDown),
     GetPage(
         name: LandingPageScaffold.route,
         page: () => LandingPageScaffold(),
