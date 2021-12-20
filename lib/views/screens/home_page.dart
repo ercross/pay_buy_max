@@ -896,8 +896,135 @@ class _HomeState extends State<_HomePage> {
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-              Text("Welcome,",style: TextStyle(color: Color(0xFFC9782F), fontSize: 18)),
-              Text("Cephas Peter",style: TextStyle(color: Colors.black, fontSize: 18)),
+              Text("Welcome,",style: TextStyle(color: Color(0xFFC9782F), fontSize: 15)),
+              Text("Cephas Peter",style: TextStyle(color: Colors.black, fontSize: 25)),
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Container(
+                    height: 250,
+                    child: Card(
+                    color: Color(0xFFFAFAFA),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFFAFAFA)))
+                  )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:15),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Text('Coins', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Wrap(
+                        alignment: WrapAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            onPressed: expand,
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Color(0xFFFAFAFA)))
+                                )
+                            ),
+                            child: Text('NGN',style: TextStyle(color: Colors.black, fontSize: 18)),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('Bitcoin', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                        Text('BTC', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Wrap(
+                      alignment: WrapAlignment.end,
+                      children: [
+                        Column(
+                          children: [
+                            Text('NGN 55,000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                            Text('+ 10.1%', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('Ethereum', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                        Text('ETH', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Wrap(
+                      alignment: WrapAlignment.end,
+                      children: [
+                        Column(
+                          children: [
+                            Text('NGN 3000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                            Text('+ 1.1%', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('Tether', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                        Text('USDT', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Wrap(
+                      alignment: WrapAlignment.end,
+                      children: [
+                        Column(
+                          children: [
+                            Text('NGN 580', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                            Text('+ 1.1%', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:15),
+                child: Text("What do you want to do today?",style: TextStyle(color: Colors.black, fontSize: 15)),
+              ),
 
             ],
           ),
