@@ -96,6 +96,12 @@ class PayBuyMax extends StatelessWidget {
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition:  Transition.rightToLeft),
+    GetPage(
+        name: LandingPageScaffold.route,
+        page: () => LandingPageScaffold(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.upToDown),
   ];
 
   static const String _entry = HomePage.route;

@@ -19,7 +19,7 @@ import 'investment_screens/investment_screen.dart';
 class HomePage extends StatelessWidget {
   const HomePage();
 
-  static const String route = "/landing";
+  static const String route = "/home";
 
   @override
   Widget build(BuildContext context) {
