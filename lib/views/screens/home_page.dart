@@ -285,8 +285,7 @@ class _HomeState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFF4B8800)));
 
     AppBar appBar = AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -294,21 +293,25 @@ class _HomeState extends State<_HomePage> {
           statusBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: Color(0xFFFAFAFA)),
       centerTitle: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color(0xFF4B8800),
       elevation: 0,
       title: Center(
-          child: Text('PayBuyMax',
-              style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-              textAlign: TextAlign.center)),
+          child: Text('PayBuyMax', style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 18), textAlign: TextAlign.center)),
       leading: IconButton(
-          icon: new Icon(Icons.menu), onPressed: () {}, color: Colors.blueGrey),
+          icon: new Icon(Icons.menu), onPressed: () {}, color: Color(0xFFFAFAFA)),
       actions: [
+        IconButton(
+            icon: new Icon(Icons.email_rounded),
+            onPressed: () {
+              Navigator.of(context).pushNamed(NotificationScreen.route);
+            },
+            color: Color(0xFFFAFAFA)),
         IconButton(
             icon: new Icon(Icons.notifications_rounded),
             onPressed: () {
               Navigator.of(context).pushNamed(NotificationScreen.route);
             },
-            color: Colors.blueGrey)
+            color: Color(0xFFFAFAFA))
       ],
     );
 
@@ -884,6 +887,141 @@ class _HomeState extends State<_HomePage> {
           debugShowCheckedModeBanner: false,
           home: Scaffold(
             appBar: appBar,
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF4B8800),
+                    ),
+                    child: Center(child: Text('PayBuyMux',style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20))),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.dashboard_rounded),
+                    title: const Text('Dashboard'),
+                    onTap: () {
+
+                    },
+                  ),
+                  ExpansionTile(
+                      leading: Icon(Icons.work),
+                      title: const Text('Wallets'),
+                      children: [
+                        ListTile(title: const Text('Wallet Balance'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Fund Naira Wallet'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Fund Crypto Wallet'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('History'),onTap: () {
+
+                        }),
+                      ]
+                  ),
+                  ExpansionTile(
+                      leading: Icon(Icons.show_chart),
+                      title: const Text('Exchange'),
+                      children: [
+                        ListTile(title: const Text('Cryptos'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Gift Cards'),onTap: () {
+
+                        })
+                      ]
+                  ),
+                  ExpansionTile(
+                      leading: Icon(Icons.book_rounded),
+                      title: const Text('Learn'),
+                      children: [
+                        ListTile(title: const Text('Courses'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('My Plan'),onTap: () {
+
+                        }),
+                      ]
+                  ),
+                  ExpansionTile(
+                      leading: Icon(Icons.show_chart),
+                      title: const Text('Investments'),
+                      children: [
+                        ListTile(title: const Text('My Investments'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Investments Package'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('History'),onTap: () {
+
+                        }),
+                      ]
+                  ),
+                  ExpansionTile(
+                      leading: Icon(Icons.history_rounded),
+                      title: const Text('My Transactions'),
+                      children: [
+                        ListTile(title: const Text('Sell'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Buy'),onTap: () {
+
+                        }),
+                      ]
+                  ),
+                  ExpansionTile(
+                      leading: Icon(Icons.money),
+                      title: const Text('Withdrawal'),
+                      children: [
+                        ListTile(title: const Text('Withdraw Naira'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Withdraw Coin'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('Transfer History'),onTap: () {
+
+                        }),
+                        ListTile(title: const Text('My Withdrawals'),onTap: () {
+
+                        }),
+                      ]
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.person_add_rounded),
+                    title: const Text('My Referrals'),
+                    onTap: () {
+
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.admin_panel_settings_rounded),
+                    title: const Text('Admin Messages'),
+                    onTap: () {
+
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.settings_rounded),
+                    title: const Text('Settings'),
+                    onTap: () {
+
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.logout_rounded),
+                    title: const Text('Log Out'),
+                    onTap: () {
+
+                    },
+                  )
+                ],
+              ),
+            ),
             body: SmartRefresher(
                 enablePullDown: true,
                 enablePullUp: false,
