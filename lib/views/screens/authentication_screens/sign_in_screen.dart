@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
 
+import '../home_page.dart';
 import '/helpers/text_field_validators.dart';
 import '../../../main.dart';
 import '../../../style_sheet.dart';
@@ -107,6 +108,7 @@ class _SignInPageState extends State<SignInPage> {
   void _saveCredentials() {
     _credentials.clear();
     _formKey.currentState!.save();
+    Navigator.of(context).pushNamed(HomePage.route);
   }
 }
 

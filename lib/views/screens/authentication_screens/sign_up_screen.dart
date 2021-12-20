@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pay_buy_max/views/screens/home_page.dart';
 
 import '../../../helpers/text_field_validators.dart';
 import '../../../main.dart';
@@ -108,6 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void _saveCredentials() {
     _credentials.clear();
     _formKey.currentState!.save();
+    Navigator.of(context).pushNamed(HomePage.route);
   }
 }
 

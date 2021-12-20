@@ -13,6 +13,7 @@ import 'package:pay_buy_max/views/screens/investment_screens/investment_screen.d
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
 import 'package:pay_buy_max/views/screens/notification_screens/notification_screen.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 
 import 'views/screens/chat_support_screen.dart';
@@ -111,6 +112,12 @@ class PayBuyMax extends StatelessWidget {
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.upToDown),
     GetPage(
+        name: LocalWalletScreen.route,
+        page: () => LocalWalletScreen(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.upToDown),
+    GetPage(
         name: LandingPageScaffold.route,
         page: () => LandingPageScaffold(),
         curve: Curves.easeIn,
@@ -118,7 +125,7 @@ class PayBuyMax extends StatelessWidget {
         transition: Transition.upToDown),
   ];
 
-  static const String _entry = HomePage.route;
+  static const String _entry = OnboardingPage.route;
 
   @override
   Widget build(BuildContext context) => Platform.isAndroid

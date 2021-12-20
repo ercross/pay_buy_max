@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:provider/provider.dart';
@@ -98,6 +99,10 @@ class _HomeState extends State<_HomePage> {
 
   void moreDetails(WalletArguments walletArguments) {
     Navigator.of(context).pushNamed(WalletScreen.route,arguments: walletArguments);
+  }
+
+  void moreLocalDetails() {
+    Navigator.of(context).pushNamed(LocalWalletScreen.route);
   }
 
   bool isSameDate(DateTime former, DateTime other) {
@@ -538,7 +543,7 @@ class _HomeState extends State<_HomePage> {
                                               padding: const EdgeInsets.only(right: 16,bottom: 8),
                                               child: ElevatedButton.icon(
                                                 onPressed:(){
-                                                  moreDetails(WalletArguments("Wallet","NGN","assets/images/naira.png"));
+                                                  moreLocalDetails();
                                                 },
                                                 style: ButtonStyle(
                                                     backgroundColor:
