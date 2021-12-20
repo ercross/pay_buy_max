@@ -10,6 +10,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/home_page.dart';
 import 'package:pay_buy_max/views/screens/investment_screens/investment_screen.dart';
+import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
 import 'package:pay_buy_max/views/screens/notification_screens/notification_screen.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
@@ -100,6 +101,12 @@ class PayBuyMax extends StatelessWidget {
     GetPage(
         name: NotificationScreen.route,
         page: () => NotificationScreen(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.upToDown),
+    GetPage(
+        name: LearnScreen.route,
+        page: () => LearnScreen(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.upToDown),
