@@ -904,7 +904,7 @@ class _HomeState extends State<_HomePage> {
                     height: 250,
                     child: Card(
                     color: Color(0xFFFAFAFA),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFFAFAFA)))
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFC9782F)))
                   )
                 ),
               ),
@@ -1025,7 +1025,47 @@ class _HomeState extends State<_HomePage> {
                 padding: const EdgeInsets.only(top:15),
                 child: Text("What do you want to do today?",style: TextStyle(color: Colors.black, fontSize: 15)),
               ),
-
+              GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0
+                ),
+                children: [
+                  Container(
+                    width:150,
+                    height:100,
+                    child: Card(
+                        color: Color(0xFFE5E7FE),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                  ),
+                  Container(
+                    width:150,
+                    height:100,
+                    child: Card(
+                        color: Color(0xFFE5E7FE),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                  ),
+                  Container(
+                    width:150,
+                    height:100,
+                    child: Card(
+                        color: Color(0xFFFEFEF4),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                  ),
+                  Container(
+                    width:150,
+                    height:100,
+                    child: Card(
+                        color: Color(0xFFFEFEF4),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -1038,7 +1078,7 @@ class _HomeState extends State<_HomePage> {
           Posit(
             title: "Home",
               key: ValueKey(HomePage.route),
-              fragment: container
+              fragment: newContainer
           ),
           Posit(
             title: "Wallet",
@@ -1052,39 +1092,35 @@ class _HomeState extends State<_HomePage> {
     return StreamBuilder<FullPosit>(
         stream: _fragNav.outStreamFragment,
         builder: (con, s){
-      if(s.data != null){
-        return DefaultTabController(
-            length: s.data!.bottom!.length,
-            child: Scaffold(
-              key: _fragNav.drawerKey,
-              appBar: AppBar(
-                systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark, systemNavigationBarColor: Color(0xFFFAFAFA)),
-                centerTitle: true,
-                backgroundColor: Color(0xFFC9782F),
-                elevation: 0,
-                title: Text((s.data!.title).toString()),
-                bottom: s.data!.bottom!.child,
-                actions: [
-                  IconButton(
-                      icon: new Icon(Icons.email_rounded),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(NotificationScreen.route);
-                      },
-                      color: Color(0xFFFAFAFA)),
-                  IconButton(
-                      icon: new Icon(Icons.notifications_rounded),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(NotificationScreen.route);
-                      },
-                      color: Color(0xFFFAFAFA))
-                ],
-              ),
-              drawer: Drawer(
-                backgroundColor: Color(0xFFC9782F),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    const DrawerHeader(
+          if(s.data != null){
+            return DefaultTabController(
+                length: s.data!.bottom!.length,
+                child: Scaffold(
+                  key: _fragNav.drawerKey,
+                  appBar: AppBar(
+                    systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark, systemNavigationBarColor: Color(0xFFFAFAFA)),
+                    centerTitle: true,
+                    backgroundColor: Color(0xFFC9782F),
+                    elevation: 0,
+                    title: Text((s.data!.title).toString()),
+                    bottom: s.data!.bottom!.child,
+                    actions: [
+                      IconButton(
+                          icon: new Icon(Icons.email_rounded),
+                          onPressed: () {Navigator.of(context).pushNamed(NotificationScreen.route);},
+                          color: Color(0xFFFAFAFA)),
+                      IconButton(
+                          icon: new Icon(Icons.notifications_rounded),
+                          onPressed: () {Navigator.of(context).pushNamed(NotificationScreen.route);},
+                          color: Color(0xFFFAFAFA))
+                    ],
+                  ),
+                  drawer: Drawer(
+                    backgroundColor: Color(0xFFC9782F),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                        const DrawerHeader(
                       decoration: BoxDecoration(
                         color: Color(0xFFFAFAFA),
                         image: DecorationImage(
@@ -1093,7 +1129,7 @@ class _HomeState extends State<_HomePage> {
                       ),
                       child: Center(child: Text('',style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20))),
                     ),
-                    ListTile(
+                        ListTile(
                       iconColor: Color(0xFFFAFAFA),
                       textColor: Color(0xFFFAFAFA),
                       tileColor: Color(0xFFC9782F),
@@ -1104,7 +1140,7 @@ class _HomeState extends State<_HomePage> {
                         _fragNav.putPosit(key: ValueKey(HomePage.route),closeDrawer: false);
                       },
                     ),
-                    ExpansionTile(
+                        ExpansionTile(
                         collapsedTextColor: Color(0xFFFAFAFA),
                         collapsedIconColor: Color(0xFFFAFAFA),
                         iconColor: Color(0xFFFAFAFA),
@@ -1128,7 +1164,7 @@ class _HomeState extends State<_HomePage> {
                           }),
                         ]
                     ),
-                    ExpansionTile(
+                        ExpansionTile(
                         collapsedTextColor: Color(0xFFFAFAFA),
                         collapsedIconColor: Color(0xFFFAFAFA),
                         iconColor: Color(0xFFFAFAFA),
@@ -1146,7 +1182,7 @@ class _HomeState extends State<_HomePage> {
                           })
                         ]
                     ),
-                    ExpansionTile(
+                        ExpansionTile(
                         collapsedTextColor: Color(0xFFFAFAFA),
                         collapsedIconColor: Color(0xFFFAFAFA),
                         iconColor: Color(0xFFFAFAFA),
@@ -1164,7 +1200,7 @@ class _HomeState extends State<_HomePage> {
                           }),
                         ]
                     ),
-                    ExpansionTile(
+                        ExpansionTile(
                         collapsedTextColor: Color(0xFFFAFAFA),
                         collapsedIconColor: Color(0xFFFAFAFA),
                         iconColor: Color(0xFFFAFAFA),
@@ -1185,7 +1221,7 @@ class _HomeState extends State<_HomePage> {
                           }),
                         ]
                     ),
-                    ExpansionTile(
+                        ExpansionTile(
                         collapsedTextColor: Color(0xFFFAFAFA),
                         collapsedIconColor: Color(0xFFFAFAFA),
                         iconColor: Color(0xFFFAFAFA),
@@ -1203,7 +1239,7 @@ class _HomeState extends State<_HomePage> {
                           }),
                         ]
                     ),
-                    ExpansionTile(
+                        ExpansionTile(
                         iconColor: Color(0xFFFAFAFA),
                         textColor: Color(0xFFFAFAFA),
                         collapsedTextColor: Color(0xFFFAFAFA),
@@ -1227,7 +1263,7 @@ class _HomeState extends State<_HomePage> {
                           }),
                         ]
                     ),
-                    ListTile(
+                        ListTile(
                       iconColor: Color(0xFFFAFAFA),
                       textColor: Color(0xFFFAFAFA),
                       tileColor: Color(0xFFC9782F),
@@ -1237,7 +1273,7 @@ class _HomeState extends State<_HomePage> {
 
                       },
                     ),
-                    ListTile(
+                        ListTile(
                       iconColor: Color(0xFFFAFAFA),
                       textColor: Color(0xFFFAFAFA),
                       tileColor: Color(0xFFC9782F),
@@ -1247,7 +1283,7 @@ class _HomeState extends State<_HomePage> {
 
                       },
                     ),
-                    ListTile(
+                        ListTile(
                       iconColor: Color(0xFFFAFAFA),
                       textColor: Color(0xFFFAFAFA),
                       tileColor: Color(0xFFC9782F),
@@ -1257,7 +1293,7 @@ class _HomeState extends State<_HomePage> {
 
                       },
                     ),
-                    ListTile(
+                        ListTile(
                       iconColor: Color(0xFFFAFAFA),
                       textColor: Color(0xFFFAFAFA),
                       tileColor: Color(0xFFC9782F),
@@ -1267,17 +1303,18 @@ class _HomeState extends State<_HomePage> {
 
                       },
                     )
-                  ],
-                ),
-              ),
-              body: ScreenNavigate(
-                  child: s.data!.fragment,
-                  control: _fragNav
-              ),
-            )
-        );
-      }
-      return Container();}
-      );
+                      ],
+                    ),
+                  ),
+                  body: ScreenNavigate(
+                      child: s.data!.fragment,
+                      control: _fragNav
+                  ),
+                )
+            );
+          }
+          return Container();
+        }
+    );
   }
 }
