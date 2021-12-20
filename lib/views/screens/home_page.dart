@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'investment_screens/investment_screen.dart';
+import 'notification_screens/notification_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
@@ -296,7 +297,9 @@ class _HomeState extends State<_HomePage> {
       actions: [
         IconButton(
             icon: new Icon(Icons.notifications_rounded),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(NotificationScreen.route);
+            },
             color: Colors.blueGrey)
       ],
     );
