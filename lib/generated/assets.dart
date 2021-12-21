@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String assetsImagesNaira = 'assets/images/naira.svg';
+  static const String assetsImagesSubscribe = 'assets/images/subscribe.png';
   static const String fontsFiraSansW300 = 'assets/fonts/FiraSans_w300.ttf';
   static const String fontsFiraSansW400 = 'assets/fonts/FiraSans_w400.ttf';
   static const String fontsFiraSansW500 = 'assets/fonts/FiraSans_w500.ttf';
@@ -10,20 +11,22 @@ class Assets {
   static const String fontsFiraSansW700 = 'assets/fonts/FiraSans_w700.ttf';
   static const String fontsFiraSansW800 = 'assets/fonts/FiraSans_w800.ttf';
   static const String fontsFiraSansW900 = 'assets/fonts/FiraSans_w900.ttf';
-  static const String giftCardsGiftCards1 = 'assets/images/gift_cards/gift-cards1.png';
-  static const String giftCardsGiftCards10 = 'assets/images/gift_cards/gift-cards10.png';
-  static const String giftCardsGiftCards2 = 'assets/images/gift_cards/gift-cards2.png';
-  static const String giftCardsGiftCards3 = 'assets/images/gift_cards/gift-cards3.png';
-  static const String giftCardsGiftCards4 = 'assets/images/gift_cards/gift-cards4.png';
-  static const String giftCardsGiftCards5 = 'assets/images/gift_cards/gift-cards5.png';
-  static const String giftCardsGiftCards6 = 'assets/images/gift_cards/gift-cards6.png';
-  static const String giftCardsGiftCards7 = 'assets/images/gift_cards/gift-cards7.png';
-  static const String giftCardsGiftCards8 = 'assets/images/gift_cards/gift-cards8.png';
-  static const String giftCardsGiftCards9 = 'assets/images/gift_cards/gift-cards9.png';
+  static const String giftCardsGiftCards1 = 'assets/images/gift_cards/giftCards1.png';
+  static const String giftCardsGiftCards10 = 'assets/images/gift_cards/giftCards10.png';
+  static const String giftCardsGiftCards2 = 'assets/images/gift_cards/giftCards2.png';
+  static const String giftCardsGiftCards3 = 'assets/images/gift_cards/giftCards3.png';
+  static const String giftCardsGiftCards4 = 'assets/images/gift_cards/giftCards4.png';
+  static const String giftCardsGiftCards5 = 'assets/images/gift_cards/giftCards5.png';
+  static const String giftCardsGiftCards6 = 'assets/images/gift_cards/giftCards6.png';
+  static const String giftCardsGiftCards7 = 'assets/images/gift_cards/giftCards7.png';
+  static const String giftCardsGiftCards8 = 'assets/images/gift_cards/giftCards8.png';
+  static const String giftCardsGiftCards9 = 'assets/images/gift_cards/giftCards9.png';
   static const String imagesBackgroundImage = 'assets/images/background_image.jpg';
   static const String imagesBitcoinLogo = 'assets/images/bitcoin_logo.png';
   static const String imagesEthereumLogo = 'assets/images/ethereum_logo.png';
   static const String imagesForgotPassword = 'assets/images/forgot_password.png';
+  static const String imagesGiftCard = 'assets/images/gift_card.png';
+  static const String imagesInvest = 'assets/images/invest.png';
   static const String imagesLauncherIcon = 'assets/images/launcher_icon.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogoHome = 'assets/images/logo_home.png';
@@ -32,6 +35,8 @@ class Assets {
   static const String imagesOnboarding2 = 'assets/images/onboarding2.png';
   static const String imagesOnboarding3 = 'assets/images/onboarding3.png';
   static const String imagesSplashScreenLogo = 'assets/images/splash_screen_logo.png';
+  static const String imagesSubscribe = 'assets/images/subscribe.jpg';
   static const String imagesUsdtLogo = 'assets/images/usdt_logo.png';
+  static const String imagesWallet = 'assets/images/wallet.png';
 
 }

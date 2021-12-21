@@ -372,7 +372,7 @@ class _HomeState extends State<_HomePage> {
                                   RoundedRectangleBorder(
                                       borderRadius:
                                       BorderRadius.circular(10.0),
-                                      side: BorderSide(color: Color(0xFFFAFAFA)))
+                                      side: BorderSide(color: Color(0xFFC9782F)))
                               )
                           ),
                           child: Text('NGN',style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold)),
@@ -387,6 +387,12 @@ class _HomeState extends State<_HomePage> {
               padding: const EdgeInsets.all(15.0),
               child: Row(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: Image(image: AssetImage("assets/images/bitcoin_logo.png"))),
+                  ),
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -423,6 +429,12 @@ class _HomeState extends State<_HomePage> {
               padding: const EdgeInsets.all(15),
               child: Row(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: Image(image: AssetImage("assets/images/ethereum_logo.png"))),
+                  ),
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -459,6 +471,12 @@ class _HomeState extends State<_HomePage> {
               padding: const EdgeInsets.all(15),
               child: Row(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: Image(image: AssetImage("assets/images/usdt_logo.png"))),
+                  ),
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -504,22 +522,74 @@ class _HomeState extends State<_HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(right: 8,bottom: 8),
                         child: Container(
-                          height:200,
+                          height:150,
                           child: Card(
-                              elevation: 8,
-                              color: Color(0xFFE5E7FE),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                            elevation: 8,
+                            color: Color(0xFFE5E7FE),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text('Crypto Currency', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                                  Text('Buy and sell crypto currency today', style: TextStyle(color: Colors.black54, fontSize: 15), textAlign: TextAlign.start),
+                                  Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.end,
+                                          runAlignment: WrapAlignment.end,
+                                          children: [
+                                            CircleAvatar(
+                                                backgroundColor: Colors.transparent,
+                                                child: Image(image: AssetImage("assets/images/wallet.png")))
+                                          ],
+                                        ),
+                                      )
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8,bottom: 8),
                         child: Container(
-                          height:200,
+                          height:150,
                           child: Card(
-                              elevation: 8,
-                              color: Color(0xFFE5E7FE),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                            elevation: 8,
+                            color: Color(0xFFE5E7FE),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text('Gift Card', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                                  Text('Buy and sell gift cards today', style: TextStyle(color: Colors.black54, fontSize: 15), textAlign: TextAlign.start),
+                                  Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.end,
+                                          runAlignment: WrapAlignment.end,
+                                          children: [
+                                            CircleAvatar(
+                                                backgroundColor: Colors.transparent,
+                                                child: Image(image: AssetImage("assets/images/gift_card.png")))
+                                          ],
+                                        ),
+                                      )
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -528,24 +598,76 @@ class _HomeState extends State<_HomePage> {
                   TableRow(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 8,bottom: 8),
+                        padding: const EdgeInsets.only(right: 8,top: 8),
                         child: Container(
-                          height:200,
+                          height:150,
                           child: Card(
-                              elevation: 8,
-                              color: Color(0xFFFEFEF4),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                            elevation: 8,
+                            color: Color(0xFFFEFEF4),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text('Invest', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                                  Text('Invest in daily and monthly plans today', style: TextStyle(color: Colors.black54, fontSize: 15), textAlign: TextAlign.start),
+                                  Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.end,
+                                          runAlignment: WrapAlignment.end,
+                                          children: [
+                                            CircleAvatar(
+                                                backgroundColor: Colors.transparent,
+                                                child: Image(image: AssetImage("assets/images/invest.png")))
+                                          ],
+                                        ),
+                                      )
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8,top: 8),
                         child: Container(
-                          height:200,
+                          height:150,
                           child: Card(
-                              elevation: 8,
-                              color: Color(0xFFFEFEF4),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                            elevation: 8,
+                            color: Color(0xFFFEFEF4),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text('Learn', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                                  Text('Subscribe to courses today', style: TextStyle(color: Colors.black54, fontSize: 15), textAlign: TextAlign.start),
+                                  Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Wrap(
+                                          alignment: WrapAlignment.end,
+                                          runAlignment: WrapAlignment.end,
+                                          children: [
+                                            CircleAvatar(
+                                                backgroundColor: Colors.transparent,
+                                                child: Image(image: AssetImage("assets/images/subscribe.png")))
+                                          ],
+                                        ),
+                                      )
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
