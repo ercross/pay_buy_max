@@ -328,25 +328,162 @@ class _HomeState extends State<_HomePage> {
           scrollDirection: Axis.vertical,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15,top: 10),
+              padding: const EdgeInsets.only(left: 25,top: 10),
               child: Text("Welcome,",style: TextStyle(color: Color(0xFFC9782F), fontSize: 18)),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15),
+              padding: const EdgeInsets.only(left: 25),
               child: Text("Cephas Peter",style: TextStyle(color: Colors.black, fontSize: 25,fontWeight: FontWeight.bold)),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10,left: 15,right: 15),
+              padding: const EdgeInsets.only(top: 20,left: 25,right: 25,bottom:10),
               child: Container(
                   height: 250,
                   child: Card(
-                  color: Color(0xFFFAFAFA),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFC9782F)))
+                    color: Color(0xFFFAFAFA),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFC9782F))),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left:15,right:15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text('PayBuyMax', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Wrap(
+                                  alignment: WrapAlignment.end,
+                                  children: [
+                                    IconButton(
+                                        icon: new Icon(Icons.remove_red_eye_outlined),
+                                        onPressed: () {
+
+                                        }
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Text('NGN 50,000', style: TextStyle(color: Color(0xFFC9782F), fontSize: 40,fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Text('Balance', style: TextStyle(color: Colors.black54, fontSize: 16), textAlign: TextAlign.center),
+                            )
+                          ],
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Table(
+                                children: [
+                                  TableRow(
+                                      children: [
+                                        Container(
+                                          height:100,
+                                          width:100,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top:10,bottom:10,right:15,left:15),
+                                            child: Card(
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  IconButton(
+                                                      icon: new Icon(Icons.send_rounded),
+                                                      onPressed: () {
+
+                                                      },
+                                                  ),
+                                                  Text('Send', style: TextStyle(fontSize: 14), textAlign: TextAlign.center)
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height:100,
+                                          width:100,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top:10,bottom:10,right:15,left:15),
+                                            child: Card(
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  IconButton(
+                                                    icon: new Icon(Icons.call_received_rounded),
+                                                    onPressed: () {
+
+                                                    },
+                                                  ),
+                                                  Text('Receive', style: TextStyle(fontSize: 14), textAlign: TextAlign.center)
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height:100,
+                                          width:100,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top:10,bottom:10,right:15,left:15),
+                                            child: Card(
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  IconButton(
+                                                    icon: new Icon(Icons.shopping_cart),
+                                                    onPressed: () {
+
+                                                    },
+                                                  ),
+                                                  Text('Buy', style: TextStyle(fontSize: 14), textAlign: TextAlign.center)
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ]
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                 )
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top:15,right: 15,left: 15),
+              padding: const EdgeInsets.only(top:15,right: 25,left: 25),
               child: Row(
                 children: [
                   Expanded(
@@ -384,7 +521,7 @@ class _HomeState extends State<_HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(25),
               child: Row(
                 children: [
                   Padding(
@@ -426,7 +563,7 @@ class _HomeState extends State<_HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(25),
               child: Row(
                 children: [
                   Padding(
@@ -468,7 +605,7 @@ class _HomeState extends State<_HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(25),
               child: Row(
                 children: [
                   Padding(
@@ -510,11 +647,11 @@ class _HomeState extends State<_HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top:15,left: 15),
+              padding: const EdgeInsets.only(top:15,left: 25),
               child: Text("What do you want to do today?",style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold)),
             ),
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(25),
               child: Table(
                 children: [
                   TableRow(
