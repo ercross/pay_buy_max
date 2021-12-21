@@ -320,631 +320,79 @@ class _HomeState extends State<_HomePage> {
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
 
-    RefreshController _refreshController = RefreshController(initialRefresh: false);
-    void _onListRefresh() {
-      var date = DateTime.now();
-      Provider.of<CoinPriceProvider>(context, listen: false)
-          .getBitCoinMarketChart(date.subtract(Duration(days: 7)), date)
-          .then((value) {
-        _refreshController.refreshCompleted();
-        setState(() {
-          showAvg = !showAvg;
-          btcIt = value.data;
-        });
-      }, onError: (error) {
-        print(error);
-        _refreshController.refreshFailed();
-      });
-    }
-
-    Container container = Container(
+    Container newContainer = Container(
       height: height,
       width: MediaQuery.of(context).size.width,
-      child: SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: false,
-        controller: _refreshController,
-        onRefresh: _onListRefresh,
-        onLoading: null,
-        header: MaterialClassicHeader(
-          color: Color(0xFFFAFAFA),
-          backgroundColor: Color(0xFFC9782F),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
+      child: Expanded(
+        child: ListView(
+          scrollDirection: Axis.vertical,
           children: [
-            Container(
-              height: (height / 2) - appBar.preferredSize.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      opacity: 0.2,
-                      image: AssetImage(
-                          'assets/images/background_image.jpg'),
-                      fit: BoxFit.cover)),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            Padding(
+              padding: const EdgeInsets.only(left: 15,top: 10),
+              child: Text("Welcome,",style: TextStyle(color: Color(0xFFC9782F), fontSize: 18)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text("Cephas Peter",style: TextStyle(color: Colors.black, fontSize: 25,fontWeight: FontWeight.bold)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10,left: 15,right: 15),
+              child: Container(
+                  height: 250,
+                  child: Card(
+                  color: Color(0xFFFAFAFA),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFC9782F)))
+                )
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top:15,right: 15,left: 15),
+              child: Row(
                 children: [
-                  TextField(
-                    controller: priceController,
-                    readOnly: true,
-                    enableInteractiveSelection: false,
-                    keyboardType:  TextInputType.text,
-                    textAlign: TextAlign.center,
-                    style:TextStyle(color: Color(0xFFC9782F), fontSize: 60),
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(-5)
-                    ),
+                  Expanded(
+                    flex: 1,
+                    child: Text('Coins', style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: IntrinsicHeight(
-                          child: IntrinsicWidth(
-                            child: TextField(controller: priceIncreaseController,readOnly: true,textAlign: TextAlign.center,enableInteractiveSelection: false,maxLines: 1,style:TextStyle(color: Color(0xFFC9782F),fontSize: 16),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(0)
-                                )
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: IntrinsicWidth(
-                            child: TextField(controller: percentController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(0)
-                                )
-                            )
-                        ),
-                      ),
-                      IntrinsicWidth(
-                          child: TextField(controller: timeController,readOnly: true,enableInteractiveSelection: false,textAlign: TextAlign.center,maxLines: 1,style:TextStyle(color: Colors.blueGrey,fontSize: 16),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(0)
+                  Expanded(
+                    flex: 1,
+                    child: Wrap(
+                      alignment: WrapAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          onPressed: expand,
+                          style: ButtonStyle(
+                              elevation: MaterialStateProperty.resolveWith<double>((Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed))
+                                  return 10.0;
+                                return 0.0;
+                                },
+                              ),
+                              backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(10.0),
+                                      side: BorderSide(color: Color(0xFFFAFAFA)))
                               )
-                          )
-                      )
-                    ],
+                          ),
+                          child: Text('NGN',style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold)),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
-            Container(
-              height: (height / 2) + appBar.preferredSize.height,
-              width: MediaQuery.of(context).size.width,
-              color: Color(0xFFFAFAFA),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: Text('Funds',
-                                  style: TextStyle(
-                                      color: Colors.blueGrey, fontSize: 18),
-                                  textAlign: TextAlign.start),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Wrap(
-                                alignment: WrapAlignment.end,
-                                children: [
-                                  ElevatedButton.icon(
-                                    onPressed: expand,
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Color(0xFFC9782F)),
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                                side: BorderSide(
-                                                    color: Color(0xFFC9782F))))),
-                                    label: Text('Expand'),
-                                    icon: Icon(Icons.list_rounded,
-                                        color: Color(0xFFFAFAFA)),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      )),
-                  Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20, top: 5, bottom: 5),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                width: 220.0,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFC9782F),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        opacity: 0.1,
-                                        image: AssetImage(
-                                            'assets/images/background_image.jpg'),
-                                        fit: BoxFit.cover)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25, bottom: 8, top: 30),
-                                      child: CircleAvatar(
-                                          backgroundColor: Color(0xFFC9782F),
-                                          child: SvgPicture.asset(
-                                              'assets/images/naira.svg')),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15, bottom: 1, top: 5),
-                                      child: Text('Wallet Balance',
-                                          style: TextStyle(
-                                              color: Color(0xFFFAFAFA),
-                                              fontSize: 20),
-                                          textAlign: TextAlign.start),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: IntrinsicHeight(
-                                        child: TextField(
-                                          controller: walletController,
-                                          readOnly: true,
-                                          enableInteractiveSelection: false,
-                                          keyboardType: TextInputType.text,
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 15),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding:
-                                                  EdgeInsets.only(top: -5)),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                                child: ElevatedButton.icon(
-                                                  onPressed:(){
-                                                    moreLocalDetails();
-                                                  },
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                      MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
-                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFC9782F),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        opacity: 0.1,
-                                        image: AssetImage(
-                                            'assets/images/background_image.jpg'),
-                                        fit: BoxFit.cover)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25, bottom: 8, top: 30),
-                                      child: CircleAvatar(
-                                          backgroundColor: Color(0xFFC9782F),
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/bitcoin_logo.png'))),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15, bottom: 1, top: 5),
-                                      child: Text('Bitcoin',
-                                          style: TextStyle(
-                                              color: Color(0xFFFAFAFA),
-                                              fontSize: 20),
-                                          textAlign: TextAlign.start),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: IntrinsicHeight(
-                                        child: TextField(
-                                          controller: bitcoinController,
-                                          readOnly: true,
-                                          enableInteractiveSelection: false,
-                                          keyboardType: TextInputType.text,
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 15),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding:
-                                                  EdgeInsets.only(top: -5)),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                                child: ElevatedButton.icon(
-                                                  onPressed: (){
-                                                    moreDetails(WalletArguments("Bitcoin","BTC","assets/images/bitcoin_logo.png"));
-                                                  },
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                      MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
-                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFC9782F),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        opacity: 0.1,
-                                        image: AssetImage(
-                                            'assets/images/background_image.jpg'),
-                                        fit: BoxFit.cover)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25, bottom: 8, top: 30),
-                                      child: CircleAvatar(
-                                          backgroundColor: Color(0xFFC9782F),
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/ethereum_logo.png'))),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15, bottom: 1, top: 5),
-                                      child: Text('Ethereum',
-                                          style: TextStyle(
-                                              color: Color(0xFFFAFAFA),
-                                              fontSize: 20),
-                                          textAlign: TextAlign.start),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: IntrinsicHeight(
-                                        child: TextField(
-                                          controller: ethController,
-                                          readOnly: true,
-                                          enableInteractiveSelection: false,
-                                          keyboardType: TextInputType.text,
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 15),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding:
-                                                  EdgeInsets.only(top: -5)),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                                child: ElevatedButton.icon(
-                                                  onPressed: (){
-                                                    moreDetails(WalletArguments("Ethereum","ETH","assets/images/ethereum_logo.png"));
-                                                  },
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                      MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
-                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                width: 200.0,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFC9782F),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        opacity: 0.1,
-                                        image: AssetImage(
-                                            'assets/images/background_image.jpg'),
-                                        fit: BoxFit.cover)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25, bottom: 8, top: 30),
-                                      child: CircleAvatar(
-                                          backgroundColor: Color(0xFFC9782F),
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/usdt_logo.png'))),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15, bottom: 1, top: 5),
-                                      child: Text('Tether',
-                                          style: TextStyle(
-                                              color: Color(0xFFFAFAFA),
-                                              fontSize: 20),
-                                          textAlign: TextAlign.start),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: IntrinsicHeight(
-                                        child: TextField(
-                                          controller: usdtController,
-                                          readOnly: true,
-                                          enableInteractiveSelection: false,
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 15),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding:
-                                                  EdgeInsets.only(top: -5)),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(right: 16,bottom: 8),
-                                                child: ElevatedButton.icon(
-                                                  onPressed: (){
-                                                    moreDetails(WalletArguments("Tether","USDT","assets/images/usdt_logo.png"));
-                                                  },
-                                                  style: ButtonStyle(
-                                                      backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                                  label: Text('Open',style: TextStyle(color:Color(0xFFC9782F)),),
-                                                  icon: Icon(Icons.open_in_full_rounded, color: Color(0xFFC9782F)),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                      flex: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 30),
-                                child: Material(
-                                    color: Colors.transparent,
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.hardEdge,
-                                    child: IconButton(
-                                        icon: new Icon(Icons.book_rounded),
-                                        onPressed: learn,
-                                        color: Colors.blueGrey)),
-                              ),
-                              Container(
-                                height: 90,
-                                width: 90,
-                                child: FloatingActionButton(
-                                  child: Icon(
-                                    Icons.show_chart,
-                                    color: Color(0xFFFAFAFA),
-                                  ),
-                                  backgroundColor: Color(0xFFC9782F),
-                                  onPressed: investment,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 30),
-                                child: Material(
-                                    color: Colors.transparent,
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.hardEdge,
-                                    child: IconButton(
-                                        icon: new Icon(Icons.card_giftcard_rounded),
-                                        onPressed: exchange,
-                                        color: Colors.blueGrey)),
-                              )
-                            ],
-                          ),
-                        ),
-                      ))
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-
-    Container newContainer = Container(
-      height: height,
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Expanded(
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              Text("Welcome,",style: TextStyle(color: Color(0xFFC9782F), fontSize: 15)),
-              Text("Cephas Peter",style: TextStyle(color: Colors.black, fontSize: 25)),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Container(
-                    height: 250,
-                    child: Card(
-                    color: Color(0xFFFAFAFA),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFC9782F)))
-                  )
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:15),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text('Coins', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Wrap(
-                        alignment: WrapAlignment.end,
-                        children: [
-                          ElevatedButton(
-                            onPressed: expand,
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Color(0xFFFAFAFA)))
-                                )
-                            ),
-                            child: Text('NGN',style: TextStyle(color: Colors.black, fontSize: 18)),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Row(
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
                 children: [
                   Expanded(
                     flex: 1,
                     child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text('Bitcoin', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                         Text('BTC', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
@@ -957,6 +405,9 @@ class _HomeState extends State<_HomePage> {
                       alignment: WrapAlignment.end,
                       children: [
                         Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('NGN 55,000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                             Text('+ 10.1%', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
@@ -967,11 +418,17 @@ class _HomeState extends State<_HomePage> {
                   )
                 ],
               ),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
                 children: [
                   Expanded(
                     flex: 1,
                     child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text('Ethereum', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                         Text('ETH', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
@@ -984,6 +441,9 @@ class _HomeState extends State<_HomePage> {
                       alignment: WrapAlignment.end,
                       children: [
                         Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('NGN 3000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                             Text('+ 1.1%', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
@@ -994,11 +454,17 @@ class _HomeState extends State<_HomePage> {
                   )
                 ],
               ),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
                 children: [
                   Expanded(
                     flex: 1,
                     child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text('Tether', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                         Text('USDT', style: TextStyle(color: Colors.black54, fontSize: 18), textAlign: TextAlign.start),
@@ -1011,6 +477,9 @@ class _HomeState extends State<_HomePage> {
                       alignment: WrapAlignment.end,
                       children: [
                         Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('NGN 580', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                             Text('+ 1.1%', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
@@ -1021,53 +490,71 @@ class _HomeState extends State<_HomePage> {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top:15),
-                child: Text("What do you want to do today?",style: TextStyle(color: Colors.black, fontSize: 15)),
-              ),
-              GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4.0,
-                    mainAxisSpacing: 4.0
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top:15,left: 15),
+              child: Text("What do you want to do today?",style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Table(
                 children: [
-                  Container(
-                    width:150,
-                    height:100,
-                    child: Card(
-                        color: Color(0xFFE5E7FE),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
-                    ),
+                  TableRow(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8,bottom: 8),
+                        child: Container(
+                          height:200,
+                          child: Card(
+                              elevation: 8,
+                              color: Color(0xFFE5E7FE),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8,bottom: 8),
+                        child: Container(
+                          height:200,
+                          child: Card(
+                              elevation: 8,
+                              color: Color(0xFFE5E7FE),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width:150,
-                    height:100,
-                    child: Card(
-                        color: Color(0xFFE5E7FE),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
-                    ),
-                  ),
-                  Container(
-                    width:150,
-                    height:100,
-                    child: Card(
-                        color: Color(0xFFFEFEF4),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
-                    ),
-                  ),
-                  Container(
-                    width:150,
-                    height:100,
-                    child: Card(
-                        color: Color(0xFFFEFEF4),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
-                    ),
-                  ),
+                  TableRow(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8,bottom: 8),
+                        child: Container(
+                          height:200,
+                          child: Card(
+                              elevation: 8,
+                              color: Color(0xFFFEFEF4),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8,top: 8),
+                        child: Container(
+                          height:200,
+                          child: Card(
+                              elevation: 8,
+                              color: Color(0xFFFEFEF4),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

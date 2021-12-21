@@ -132,7 +132,7 @@ class PayBuyMax extends StatelessWidget {
         transition: Transition.upToDown),
   ];
 
-  static const String _entry = OnboardingPage.route;
+  static const String _entry = HomePage.route;
 
   @override
   Widget build(BuildContext context) => Platform.isAndroid
