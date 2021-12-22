@@ -830,6 +830,11 @@ class _HomeState extends State<_HomePage> {
             title: "Wallet",
               key: ValueKey(AllWalletScreen.route),
               fragment: AllWalletScreen(),
+          ),
+          Posit(
+            title: "Gift Cards",
+            key: ValueKey(ExchangeScreen.route),
+            fragment: ExchangeScreen(),
           )
         ]
     );
@@ -924,7 +929,7 @@ class _HomeState extends State<_HomePage> {
 
                           }),
                           ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Gift Cards',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
+                            _fragNav.putPosit(key: ValueKey(ExchangeScreen.route),closeDrawer: false);
                           })
                         ]
                     ),

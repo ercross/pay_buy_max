@@ -52,13 +52,200 @@ class _AllWalletState extends State<_AllWalletScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(image: DecorationImage(
+            child: Container(decoration: BoxDecoration(image: DecorationImage(
                   opacity: 0.2,
                   image: AssetImage(
                       'assets/images/background_image.jpg'),
-                  fit: BoxFit.cover)),
+                  fit: BoxFit.cover),),
+              child : ListView(
+                padding: EdgeInsets.zero,
+                scrollDirection: Axis.vertical,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFF5F5F5),
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-1, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image(image: AssetImage("assets/images/bitcoin_logo.png")),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(
+                                      'Bitcoin',
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(color: Color(0xFFC9782F), fontSize: 20),
+                                    ),
+                                    Text(
+                                      'BTC 0.0125',
+                                      textAlign: TextAlign.end,
+                                    ),
+                                    Text(
+                                        'NGN 50,000',
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(color: Color(0xFFC9782F), fontSize: 30)
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFF5F5F5),
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-1, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image(image: AssetImage("assets/images/ethereum_logo.png")),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(
+                                      'Ethereum',
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(color: Color(0xFFC9782F), fontSize: 20),
+                                    ),
+                                    Text(
+                                      'ETH 0.0125',
+                                      textAlign: TextAlign.end,
+                                    ),
+                                    Text(
+                                        'NGN 50,000',
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(color: Color(0xFFC9782F), fontSize: 30)
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFF5F5F5),
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-1, 0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image(image: AssetImage("assets/images/usdt_logo.png")),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(
+                                      'Tether',
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(color: Color(0xFFC9782F), fontSize: 20),
+                                    ),
+                                    Text(
+                                      'USDT 0.0125',
+                                      textAlign: TextAlign.end,
+                                    ),
+                                    Text(
+                                        'NGN 50,000',
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(color: Color(0xFFC9782F), fontSize: 30)
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

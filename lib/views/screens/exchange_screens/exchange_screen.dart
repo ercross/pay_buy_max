@@ -54,25 +54,7 @@ class _ExchangeState extends State<_ExchangeScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
-
-    AppBar appBar = AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Color(0xFFFAFAFA)),
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Text("Gift Cards",
-          style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-          textAlign: TextAlign.start),
-      leading: IconButton(
-          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {
-        Navigator.of(context).pop();
-      }, color: Colors.blueGrey),
-    );
-
-    final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
+    final double height = MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.top);
 
     Container container = Container(
       height: height,
@@ -83,7 +65,6 @@ class _ExchangeState extends State<_ExchangeScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            flex: 1,
             child: Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
@@ -98,47 +79,43 @@ class _ExchangeState extends State<_ExchangeScreen> {
                     mainAxisSpacing: 4.0
                 ),
                 itemBuilder: (context, position) {
-                  return Card(
-                    elevation: 6,
-                    color: Color(0xFF4B8800),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        side: BorderSide(color: Color(0xFF4B8800))
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(exchangeItems.elementAt(position).title,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 20),textAlign: TextAlign.start),
-                        ),
-                        Container(
-                          color:Colors.white30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Container(
-                              height: 100,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(exchangeItems.elementAt(position).asset),
-                                  fit: BoxFit.contain
-                                )
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 6,
+                      color: Color(0xFFFAFAFA),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          side: BorderSide(color: Color(0xFF4B8800))
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                              ),
+                              child: Container(
+                                color:Colors.white30,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(exchangeItems.elementAt(position).asset),
+                                        fit: BoxFit.contain
+                                      )
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ElevatedButton(
-                            onPressed: () {  },
-                            child: Text("Sell",style: TextStyle(color: Color(0xFF4B8800))),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                          ),
-                        )
-                      ],
+                          Text(exchangeItems.elementAt(position).title,style: TextStyle(fontSize: 20),textAlign: TextAlign.start)
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -155,7 +132,6 @@ class _ExchangeState extends State<_ExchangeScreen> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
-            appBar: appBar,
             body: container,
           ),
         );
