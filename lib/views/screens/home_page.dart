@@ -13,6 +13,7 @@ import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
+import 'package:pay_buy_max/views/screens/wallet_screens/fund_local_wallet.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
@@ -841,6 +842,11 @@ class _HomeState extends State<_HomePage> {
             key: ValueKey(InvestmentScreen.route),
             fragment: InvestmentScreen(),
           ),
+          Posit(
+            title: "Fund Wallet Wallet",
+            key: ValueKey(FundLocalWallet.route),
+            fragment: FundLocalWallet(),
+          ),
         ]
     );
     _fragNav.setDrawerContext = context;
@@ -906,11 +912,8 @@ class _HomeState extends State<_HomePage> {
                         leading: Icon(Icons.account_balance_wallet),
                         title: const Text('Wallets'),
                         children: [
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Wallet Balance',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-                            _fragNav.putPosit(key: ValueKey(AllWalletScreen.route),closeDrawer: false);
-                          }),
                           ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Naira Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
+                            _fragNav.putPosit(key: ValueKey(FundLocalWallet.route),closeDrawer: false);
                           }),
                           ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Crypto Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
