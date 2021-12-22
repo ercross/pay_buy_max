@@ -344,6 +344,8 @@ class _HomeState extends State<_HomePage> {
                     color: Color(0xFFFAFAFA),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFC9782F))),
                     child: Column(
+
+
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15),
@@ -843,7 +845,7 @@ class _HomeState extends State<_HomePage> {
             fragment: InvestmentScreen(),
           ),
           Posit(
-            title: "Fund Wallet Wallet",
+            title: "Fund Wallet",
             key: ValueKey(FundLocalWallet.route),
             fragment: FundLocalWallet(),
           ),
@@ -912,11 +914,8 @@ class _HomeState extends State<_HomePage> {
                         leading: Icon(Icons.account_balance_wallet),
                         title: const Text('Wallets'),
                         children: [
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Naira Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Wallets',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
                             _fragNav.putPosit(key: ValueKey(FundLocalWallet.route),closeDrawer: false);
-                          }),
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Fund Crypto Wallet',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
                           }),
                           ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
 
