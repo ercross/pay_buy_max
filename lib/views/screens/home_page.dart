@@ -835,7 +835,12 @@ class _HomeState extends State<_HomePage> {
             title: "Gift Cards",
             key: ValueKey(ExchangeScreen.route),
             fragment: ExchangeScreen(),
-          )
+          ),
+          Posit(
+            title: "Investment",
+            key: ValueKey(InvestmentScreen.route),
+            fragment: InvestmentScreen(),
+          ),
         ]
     );
     _fragNav.setDrawerContext = context;
@@ -962,13 +967,7 @@ class _HomeState extends State<_HomePage> {
                         title: const Text('Investments'),
                         children: [
                           ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Investments',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                          }),
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Investments Package',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                          }),
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
+                            _fragNav.putPosit(key: ValueKey(InvestmentScreen.route),closeDrawer: false);
                           }),
                         ]
                     ),
