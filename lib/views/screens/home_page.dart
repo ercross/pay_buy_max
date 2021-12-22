@@ -20,6 +20,7 @@ import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'exchange_screens/sell_coin.dart';
 import 'investment_screens/investment_screen.dart';
 import 'notification_screens/notification_screen.dart';
 
@@ -849,6 +850,11 @@ class _HomeState extends State<_HomePage> {
             key: ValueKey(FundLocalWallet.route),
             fragment: FundLocalWallet(),
           ),
+          Posit(
+            title: "Trade Crypto",
+            key: ValueKey(SellCoin.route),
+            fragment: SellCoin(),
+          ),
         ]
     );
     _fragNav.setDrawerContext = context;
@@ -932,8 +938,8 @@ class _HomeState extends State<_HomePage> {
                         leading: Icon(Icons.show_chart),
                         title: const Text('Exchange'),
                         children: [
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Cryptos',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
+                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Trade Crypto',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
+                            _fragNav.putPosit(key: ValueKey(SellCoin.route),closeDrawer: false);
                           }),
                           ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Gift Cards',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
                             _fragNav.putPosit(key: ValueKey(ExchangeScreen.route),closeDrawer: false);
