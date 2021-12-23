@@ -220,7 +220,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                 ),
               ),
               Container(
-                height:450,
+                height:400,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -235,7 +235,6 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 15,top: 10),
                           child:  Text('Sell From Wallet', style: TextStyle(color: Colors.black54, fontSize: 20,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
                         ),
-                        Spacer(),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
                           child:  Text('Choose Coin Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),

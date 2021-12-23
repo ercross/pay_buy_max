@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pay_buy_max/views/screens/home_page.dart';
 
 import '../../../helpers/text_field_validators.dart';
@@ -48,11 +47,11 @@ class _SignUpPageState extends State<SignUpPage> {
           MediaQuery.of(context).padding.top + (pageHeight * 0.08),
           pageWidth * 0.1,
           0),
-      child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        key: _formKey,
-        child: Column(
-          children: [
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+            child: Column(
+              children: [
             Image.asset(
               "assets/images/launcher_icon.png",
               fit: BoxFit.contain,
@@ -60,8 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
               width: pageWidth * 0.3,
             ),
             space,
-            Text("Sign up to get started",
-                textAlign: TextAlign.center, style: StyleSheet.black14w500),
+            Text("Sign up to get started", textAlign: TextAlign.center, style: StyleSheet.black14w500),
             SizedBox(height: pageHeight * 0.04),
             AuthenticationTextField(
                 fieldName: "Email",
@@ -70,9 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (Validator.isValidEmail(value ?? ""))
                         _credentials.putIfAbsent("email", () => value ?? "")
                       else
-                        AppOverlay.snackbar(
-                            message:
-                                "invalid email address. please enter a valid email address")
+                        AppOverlay.snackbar(message: "invalid email address. please enter a valid email address")
                     },
                 renderHeight: pageHeight * 0.11,
                 renderWidth: contentWidth),
