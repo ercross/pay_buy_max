@@ -12,6 +12,7 @@ import 'package:fragment_navigate/navigate-support.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
+import 'package:pay_buy_max/views/screens/settings_screens/setting_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/fund_local_wallet.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
@@ -858,6 +859,11 @@ class _HomeState extends State<_HomePage> {
             key: ValueKey(LearnScreen.route),
             fragment: LearnScreen(),
           ),
+          Posit(
+            title: "Settings",
+            key: ValueKey(SettingScreen.route),
+            fragment: SettingScreen(),
+          ),
         ]
     );
     _fragNav.setDrawerContext = context;
@@ -1000,30 +1006,6 @@ class _HomeState extends State<_HomePage> {
                           }),
                         ]
                     ),
-                        ExpansionTile(
-                        iconColor: Color(0xFFFAFAFA),
-                        textColor: Color(0xFFFAFAFA),
-                        collapsedTextColor: Color(0xFFFAFAFA),
-                        collapsedIconColor: Color(0xFFFAFAFA),
-                        backgroundColor: Color(0xFFC9782F),
-                        collapsedBackgroundColor: Color(0xFFC9782F),
-                        leading: Icon(Icons.money),
-                        title: const Text('Withdrawal'),
-                        children: [
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Naira',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                          }),
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Withdraw Coin',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                          }),
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('Transfer History',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                          }),
-                          ListTile(leading: Icon(Icons.arrow_forward_ios_rounded),title: const Text('My Withdrawals',style: TextStyle(color: Color(0xFFFAFAFA))),onTap: () {
-
-                          }),
-                        ]
-                    ),
                         ListTile(
                       iconColor: Color(0xFFFAFAFA),
                       textColor: Color(0xFFFAFAFA),
@@ -1051,7 +1033,7 @@ class _HomeState extends State<_HomePage> {
                       leading: Icon(Icons.settings_rounded),
                       title: const Text('Settings'),
                       onTap: () {
-
+                        _fragNav.putPosit(key: ValueKey(SettingScreen.route),closeDrawer: false);
                       },
                     ),
                         ListTile(
