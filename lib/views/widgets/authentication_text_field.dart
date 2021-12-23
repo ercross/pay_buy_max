@@ -78,8 +78,7 @@ class PasswordAuthField extends StatefulWidget {
   final double width;
   final Function(String) onSaved;
 
-  PasswordAuthField(
-      {required this.onSaved, required this.height, required this.width});
+  PasswordAuthField({required this.onSaved, required this.height, required this.width});
 
   @override
   _PasswordAuthFieldState createState() => _PasswordAuthFieldState();

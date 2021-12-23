@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:pay_buy_max/generated/json/base/json_convert_content.dart';
+import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/views/screens/home_page.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../helpers/text_field_validators.dart';
 import '../../../main.dart';
@@ -66,9 +71,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 leading: Icons.email_rounded,
                 onSaved: (value) => {
                       if (Validator.isValidEmail(value ?? ""))
-                        _credentials.putIfAbsent("email", () => value ?? "")
+                        _credentials["email"] = value ?? ""
                       else
-                        AppOverlay.snackbar(message: "invalid email address. please enter a valid email address")
+                        AppOverlay.snackbar(message: "Invalid email address. please enter a valid email address")
                     },
                 renderHeight: pageHeight * 0.11,
                 renderWidth: contentWidth),
@@ -76,9 +81,14 @@ class _SignUpPageState extends State<SignUpPage> {
             PasswordAuthField(
                 onSaved: (value) {
                   if (value.isEmpty) {
-                    AppOverlay.snackbar(message: "please enter your password");
-                  } else
-                    _credentials.putIfAbsent("password", () => value);
+                    AppOverlay.snackbar(message: "Please enter your password");
+                  } else{
+                    if(value.length>8){
+                      _credentials["password"] = value;
+                    }else{
+                      AppOverlay.snackbar(message: "Password Length Is Too Short");
+                    }
+                  }
                 },
                 height: pageHeight * 0.065,
                 width: contentWidth),
@@ -91,7 +101,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   textAlign: TextAlign.center,
                   style: StyleSheet.white15w400,
                 ),
-                onPressed: _saveCredentials),
+                onPressed: (){
+                  _saveCredentials(context);
+                }),
             space,
             _TermsAndConditionDisclaimer(),
             SizedBox(height: pageHeight * 0.01),
@@ -102,11 +114,63 @@ class _SignUpPageState extends State<SignUpPage> {
     ));
   }
 
-  void _saveCredentials() {
+  void _saveCredentials(BuildContext context) {
     _credentials.clear();
     _formKey.currentState!.save();
-    Navigator.of(context).pushNamed(HomePage.route);
+    _formKey.currentState!.validate();
+    if(!(_credentials["email"] == null || _credentials["password"] == null)){
+      if(_credentials["email"]!.isNotEmpty && _credentials["password"]!.isNotEmpty){
+        if(_credentials["password"]!.length>=8){
+          _signUp(context);
+        }
+      }
+    }
+   // Navigator.of(context).pushNamed(HomePage.route);
   }
+
+  Future<void> _signUp(BuildContext context) async {
+    showLoadingDialog(context);
+
+    final response = await signUp();
+    Navigator.pop(context);
+    if(response.status == true){
+      AppOverlay.snackbar(message: "Account Creation Successful. Please Sign In.");
+      Navigator.of(context).pushNamed(SignInPage.route);
+    }else{
+      if(response.message == null){
+        AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+      }else{
+        AppOverlay.snackbar(message: response.message.toString());
+      }
+    }
+  }
+
+  Future<SignUpResponseEntity> signUp() async{
+    String url = 'https://paybuymax.com/api/signup';
+    final response = await http.post(Uri.parse(url), body: {'email': _credentials["email"], 'password': _credentials["password"]});
+    print(response.body);
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  showLoadingDialog(BuildContext context){
+    AlertDialog alertDialog = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text("Loading...."),
+          )
+        ],
+      ),
+    );
+
+    showDialog(barrierDismissible: false, context:context,
+      builder: (BuildContext context){
+        return alertDialog;
+      });
+  }
+
 }
 
 class _TermsAndConditionDisclaimer extends StatelessWidget {
