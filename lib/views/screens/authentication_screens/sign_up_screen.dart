@@ -112,6 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     ));
+
   }
 
   void _saveCredentials(BuildContext context) {
