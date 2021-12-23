@@ -149,7 +149,6 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<SignUpResponseEntity> signUp() async{
     String url = 'https://paybuymax.com/api/signup';
     final response = await http.post(Uri.parse(url), body: {'email': _credentials["email"], 'password': _credentials["password"]});
-    print(response.body);
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
@@ -160,7 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
           CircularProgressIndicator(),
           Container(
             margin: EdgeInsets.only(left: 10),
-            child: Text("Loading...."),
+            child: Text("Creating Account"),
           )
         ],
       ),

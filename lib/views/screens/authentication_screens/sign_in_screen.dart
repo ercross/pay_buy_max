@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
+import 'package:http/http.dart' as http;
 
 import '../home_page.dart';
 import '/helpers/text_field_validators.dart';
@@ -105,11 +109,62 @@ class _SignInPageState extends State<SignInPage> {
     ));
   }
 
-  void _saveCredentials() {
+  void _saveCredentials(BuildContext context) {
     _credentials.clear();
     _formKey.currentState!.save();
-    Navigator.of(context).pushNamed(HomePage.route);
+    _formKey.currentState!.validate();
+    if(!(_credentials["email"] == null || _credentials["password"] == null)){
+      if(_credentials["email"]!.isNotEmpty && _credentials["password"]!.isNotEmpty){
+        if(_credentials["password"]!.length>=8){
+          _signUp(context);
+        }
+      }
+    }
+    // Navigator.of(context).pushNamed(HomePage.route);
   }
+
+  Future<void> _signUp(BuildContext context) async {
+    showLoadingDialog(context);
+
+    final response = await signUp();
+    Navigator.pop(context);
+    if(response.status == true){
+      AppOverlay.snackbar(message: "Welcome");
+      Navigator.of(context).pushNamed(HomePage.route);
+    }else{
+      if(response.message == null){
+        AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+      }else{
+        AppOverlay.snackbar(message: response.message.toString());
+      }
+    }
+  }
+
+  Future<SignInResponseEntity> signUp() async{
+    String url = 'https://paybuymax.com/api/signin';
+    final response = await http.post(Uri.parse(url), body: {'email': _credentials["email"], 'password': _credentials["password"]});
+    return SignInResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  showLoadingDialog(BuildContext context){
+    AlertDialog alertDialog = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text("Signing you in. Please wait"),
+          )
+        ],
+      ),
+    );
+
+    showDialog(barrierDismissible: false, context:context,
+        builder: (BuildContext context){
+          return alertDialog;
+        });
+  }
+
 }
 
 class _ForgotPasswordText extends StatelessWidget {
@@ -137,6 +192,9 @@ class _ForgotPasswordText extends StatelessWidget {
       ),
     );
   }
+
+
+
 }
 
 class _SignUpPrompt extends StatelessWidget {
