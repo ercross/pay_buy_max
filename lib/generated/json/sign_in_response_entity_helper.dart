@@ -10,6 +10,9 @@ signInResponseEntityFromJson(SignInResponseEntity data, Map<String, dynamic> jso
 	if (json['user'] != null) {
 		data.user = SignInResponseUser().fromJson(json['user']);
 	}
+	if (json['message'] != null) {
+		data.message = json['message'].toString();
+	}
 	return data;
 }
 
@@ -18,6 +21,7 @@ Map<String, dynamic> signInResponseEntityToJson(SignInResponseEntity entity) {
 	data['status'] = entity.status;
 	data['token'] = entity.token;
 	data['user'] = entity.user?.toJson();
+	data['message'] = entity.message;
 	return data;
 }
 
