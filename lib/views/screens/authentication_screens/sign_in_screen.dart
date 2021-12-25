@@ -120,7 +120,6 @@ class _SignInPageState extends State<SignInPage> {
         }
       }
     }
-    // Navigator.of(context).pushNamed(HomePage.route);
   }
 
   Future<void> _signUp(BuildContext context) async {
@@ -135,7 +134,11 @@ class _SignInPageState extends State<SignInPage> {
       if(response.message == null){
         AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
       }else{
-        AppOverlay.snackbar(message: response.message.toString());
+        if(response.message!.isEmpty){
+          AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+        }else{
+          AppOverlay.snackbar(message: response.message.toString());
+        }
       }
     }
   }
@@ -146,7 +149,7 @@ class _SignInPageState extends State<SignInPage> {
     return SignInResponseEntity().fromJson(json.decode(response.body));
   }
 
-  showLoadingDialog(BuildContext context){
+  void showLoadingDialog(BuildContext context){
     AlertDialog alertDialog = AlertDialog(
       content: Row(
         children: [
@@ -159,10 +162,9 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
 
-    showDialog(barrierDismissible: false, context:context,
-        builder: (BuildContext context){
-          return alertDialog;
-        });
+    showDialog(barrierDismissible: false, context:context, builder: (BuildContext context){
+      return alertDialog;
+    });
   }
 
 }
