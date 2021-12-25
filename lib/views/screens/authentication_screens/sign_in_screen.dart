@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pay_buy_max/controllers/providers/user_provider.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../home_page.dart';
 import '/helpers/text_field_validators.dart';
@@ -131,7 +133,7 @@ class _SignInPageState extends State<SignInPage> {
     Navigator.pop(context);
     if(response.status == true){
       //AppOverlay.snackbar(message: "Welcome");
-      Navigator.of(context).pushNamed(HomePage.route);
+      Navigator.of(context).pushNamed(HomePage.route,arguments: response);
     }else{
       if(response.message == null){
         AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
@@ -197,8 +199,6 @@ class _ForgotPasswordText extends StatelessWidget {
     );
   }
 
-
-
 }
 
 class _SignUpPrompt extends StatelessWidget {
@@ -224,4 +224,5 @@ class _SignUpPrompt extends StatelessWidget {
       ),
     );
   }
+
 }

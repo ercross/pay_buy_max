@@ -16,7 +16,9 @@ import 'package:pay_buy_max/views/screens/payment_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
+import 'package:provider/provider.dart';
 
+import 'controllers/providers/user_provider.dart';
 import 'views/screens/chat_support_screen.dart';
 import 'views/screens/authentication_screens/forgot_password_screen.dart';
 import 'views/screens/authentication_screens/sign_in_screen.dart';
@@ -29,7 +31,12 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFFFFFF)));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(PayBuyMax());
+
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
+      ],
+      child: PayBuyMax()));
 }
 
 class PayBuyMax extends StatelessWidget {
@@ -135,12 +142,10 @@ class PayBuyMax extends StatelessWidget {
   static const String _entry = OnboardingPage.route;
 
   @override
-  Widget build(BuildContext context) => Platform.isAndroid
-      ? GetMaterialApp(
+  Widget build(BuildContext context) => Platform.isAndroid ? GetMaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: _entry,
-          getPages: _pages)
-      : GetCupertinoApp(
+          getPages: _pages) : GetCupertinoApp(
           debugShowCheckedModeBanner: false,
           initialRoute: _entry,
           getPages: _pages,
