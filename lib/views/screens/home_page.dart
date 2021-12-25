@@ -1,3 +1,5 @@
+import '../../../style_sheet.dart';
+
 import 'package:coingecko_dart/coingecko_dart.dart';
 import 'package:coingecko_dart/dataClasses/coins/CoinDataPoint.dart';
 import 'package:coingecko_dart/dataClasses/coins/PricedCoin.dart';
@@ -99,12 +101,6 @@ class _HomeState extends State<_HomePage> {
           icon: new Icon(Icons.menu), onPressed: () {key.currentState?.openDrawer();}, color: Color(0xFFFAFAFA)),
       actions: [
         IconButton(
-            icon: new Icon(Icons.email_rounded),
-            onPressed: () {
-              Navigator.of(context).pushNamed(NotificationScreen.route);
-            },
-            color: Color(0xFFFAFAFA)),
-        IconButton(
             icon: new Icon(Icons.notifications_rounded),
             onPressed: () {
               Navigator.of(context).pushNamed(NotificationScreen.route);
@@ -117,6 +113,7 @@ class _HomeState extends State<_HomePage> {
 
     Container newContainer = Container(
       height: height,
+      color: StyleSheet.primaryColor.withOpacity(0.09),
       width: MediaQuery.of(context).size.width,
       child: Flex(
         direction: Axis.vertical,
@@ -180,7 +177,7 @@ class _HomeState extends State<_HomePage> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Expanded(
-                                child: Text('NGN 50,000', style: TextStyle(color: Color(0xFFC9782F), fontSize: 40,fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                                child: Text("NGN "+args.user!.wallet.toString(), style: TextStyle(color: Color(0xFFC9782F), fontSize: 40,fontWeight: FontWeight.bold), textAlign: TextAlign.center),
                               )
                             ],
                           ),
