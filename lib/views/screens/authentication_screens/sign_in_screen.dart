@@ -98,7 +98,9 @@ class _SignInPageState extends State<SignInPage> {
                     textAlign: TextAlign.center,
                     style: StyleSheet.white15w400,
                   ),
-                  onPressed: _saveCredentials),
+                  onPressed:(){
+                    _saveCredentials(context);
+                  }),
               SizedBox(height: pageHeight * 0.04),
               _ForgotPasswordText(),
               _SignUpPrompt()
@@ -128,7 +130,7 @@ class _SignInPageState extends State<SignInPage> {
     final response = await signUp();
     Navigator.pop(context);
     if(response.status == true){
-      AppOverlay.snackbar(message: "Welcome");
+      //AppOverlay.snackbar(message: "Welcome");
       Navigator.of(context).pushNamed(HomePage.route);
     }else{
       if(response.message == null){
