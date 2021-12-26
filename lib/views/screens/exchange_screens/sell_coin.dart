@@ -2,7 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/controllers/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
+
 
 class SellCoin extends StatelessWidget {
   const SellCoin();
@@ -13,8 +16,8 @@ class SellCoin extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<CoinPriceProvider>(
-            create: (context) => CoinPriceProvider()),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
       ],
       child: const SellCoinWidget(),
     );
@@ -30,6 +33,7 @@ class SellCoinWidget extends StatefulWidget {
 }
 
 class _SellCoinWidgetState extends State<SellCoinWidget> {
+  WalletBalanceEntity? walletBalanceEntity;
   late TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String value = "Bitcoin";
@@ -97,118 +101,6 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                                     'NGN 50,000',
                                     textAlign: TextAlign.end,
                                     style: TextStyle( fontSize: 20)
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color(0xFFF5F5F5),
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                          child: Container(
-                            width: 110,
-                            height: 110,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image(image: AssetImage("assets/images/ethereum_logo.png")),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Align(
-                          alignment: AlignmentDirectional(0, 0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text(
-                                  'ETH 0.0125',
-                                  textAlign: TextAlign.end,
-                                ),
-                                Text(
-                                    'NGN 50,000',
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle( fontSize: 30)
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color(0xFFF5F5F5),
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                          child: Container(
-                            width: 110,
-                            height: 110,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image(image: AssetImage("assets/images/usdt_logo.png")),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Align(
-                          alignment: AlignmentDirectional(0, 0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text(
-                                  'USDT 0.0125',
-                                  textAlign: TextAlign.end,
-                                ),
-                                Text(
-                                    'NGN 50,000',
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle( fontSize: 30)
                                 ),
                               ],
                             ),

@@ -152,8 +152,7 @@ class _HomeState extends State<_HomePage> {
                           title: const Text('Dashboard'),
                           onTap: () {
                             //DefaultTabController.of(context)!.animateTo(0);
-                            _fragNav.putPosit(key: ValueKey(HomePage.route),
-                                closeDrawer: false);
+                            _fragNav.putPosit(key: ValueKey(HomePage.route), closeDrawer: false);
                           },
                         ),
                         ExpansionTile(
