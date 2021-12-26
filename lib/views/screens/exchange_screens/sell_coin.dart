@@ -133,27 +133,30 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                       var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
                       int? rate = coin.coinTypes!.dollarRate;
                       String rateText = "USD "+rate!.toString();
-
                       return Padding(
-                        padding: const EdgeInsets.all(25),
+                        padding: const EdgeInsets.all(8),
                         child: Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           color: Color(0xFFF5F5F5),
                           elevation: 6,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    child: CachedNetworkImage(
-                                      imageUrl: coin.coinTypes!.image.toString(),
-                                      placeholder: (context, url) => new CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) => new Icon(Icons.error),
-                                    )),
+                                padding: const EdgeInsets.all(10),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: CircleAvatar(
+                                      backgroundColor: Colors.transparent,
+                                      child: CachedNetworkImage(
+                                        imageUrl: coin.coinTypes!.image.toString(),
+                                        placeholder: (context, url) => new CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) => new Icon(Icons.error),
+                                      )),
+                                ),
                               ),
                               Expanded(
                                 flex: 1,
@@ -171,25 +174,28 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Wrap(
-                                  alignment: WrapAlignment.end,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(coin.coinTypes!.symbol.toString().toUpperCase() +" "+ coin.balance!.toString(), style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                        Text(rateText, style: TextStyle(
-                                            color: Color(0xFFC9782F), fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                      ],
-                                    ),
-                                  ],
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
+                                child: Expanded(
+                                  flex: 1,
+                                  child: Wrap(
+                                    alignment: WrapAlignment.end,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(coin.coinTypes!.symbol.toString().toUpperCase() +" "+ coin.balance!.toString(), style: TextStyle(
+                                              color: Colors.black, fontSize: 18),
+                                              textAlign: TextAlign.start),
+                                          Text(rateText, style: TextStyle(
+                                              color: Color(0xFFC9782F), fontSize: 18),
+                                              textAlign: TextAlign.start),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
@@ -201,62 +207,6 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                     itemCount: 3,
                   );
                 },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color(0xFFF5F5F5),
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                          child: Container(
-                            width: 110,
-                            height: 110,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image(image: AssetImage("assets/images/bitcoin_logo.png")),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Align(
-                          alignment: AlignmentDirectional(0, 0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text(
-                                  'BTC 0.0125',
-                                  textAlign: TextAlign.end,
-                                ),
-                                Text(
-                                    'NGN 50,000',
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle( fontSize: 20)
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ),
               Container(
                 height:400,
