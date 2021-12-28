@@ -267,7 +267,7 @@ class _HomeState extends State<_HomePage> {
                                   key: ValueKey(LearnScreen.route),
                                   closeDrawer: false);
                             }),
-                        ListTile(
+                       /* ListTile(
                           iconColor: Color(0xFFFAFAFA),
                           textColor: Color(0xFFFAFAFA),
                           tileColor: Color(0xFFC9782F),
@@ -286,7 +286,7 @@ class _HomeState extends State<_HomePage> {
                           onTap: () {
 
                           },
-                        ),
+                        ),*/
                         ListTile(
                           iconColor: Color(0xFFFAFAFA),
                           textColor: Color(0xFFFAFAFA),

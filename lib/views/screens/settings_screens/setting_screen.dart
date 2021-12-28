@@ -1,9 +1,16 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
+import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 import 'package:provider/provider.dart';
 import '../../../style_sheet.dart';
+import 'package:http/http.dart' as http;
+
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen();
@@ -32,19 +39,62 @@ class SettingScreenWidget extends StatefulWidget {
 
 class _SettingScreenWidgetState extends State<SettingScreenWidget> {
   late TextEditingController textController;
+  late TextEditingController oldController;
+  late TextEditingController newController;
+  late TextEditingController confirmController;
   late TextEditingController emailController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String value = "International Passport";
+  late SignInResponseEntity args;
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController();
+    oldController = TextEditingController();
+    newController = TextEditingController();
+    confirmController = TextEditingController();
     emailController = TextEditingController.fromValue(TextEditingValue(text: "cephasarowolo@gmail.com"));
+  }
+
+  void _changePassword(){
+    if(oldController.text.isEmpty){
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty");
+    }else if(newController.text.isEmpty){
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty");
+    }else if(confirmController.text.isEmpty){
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty");
+    }else{
+      if(newController.text == confirmController.text){
+        changePassword().then((value){
+          setState(() {
+            if(value.status == true){
+              AppOverlay.snackbar(message: "Success");
+            }else{
+              if(value.message == null){
+                AppOverlay.snackbar(message: "An Error Occurred");
+              }else{
+                AppOverlay.snackbar(message: value.message.toString());
+              }
+            }
+          });
+        });
+      }else{
+        AppOverlay.snackbar(message: "Fields Do Not Match");
+      }
+    }
+  }
+
+  Future<SignUpResponseEntity> changePassword() async{
+    String url = 'https://paybuymax.com/api/update-password';
+    print(args.token.toString());
+    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: {"oldPassword":oldController.text,"password":newController.text,"confirmPassword":confirmController.text});
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
@@ -172,8 +222,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
-                              controller: textController,
+                              controller: oldController,
                               obscureText: false,
+                              keyboardType: TextInputType.visiblePassword,
                               decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
@@ -186,7 +237,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
+                              controller: newController,
                               obscureText: false,
+                              keyboardType: TextInputType.visiblePassword,
                               decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
@@ -199,8 +252,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
-                              controller: textController,
+                              controller: confirmController,
                               obscureText: false,
+                              keyboardType: TextInputType.visiblePassword,
                               decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
@@ -213,7 +267,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                                child: ElevatedButton(onPressed: (){}, child: Text("SUBMIT"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                                child: ElevatedButton(onPressed: (){
+                                  _changePassword();
+                                }, child: Text("SUBMIT"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                               ),
                             ],
                           ),
