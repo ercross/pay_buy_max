@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
+import '../../../style_sheet.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen();
@@ -46,7 +47,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
       body: SafeArea(
         child: Expanded(
           child: ListView(
@@ -74,29 +75,11 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),
@@ -139,29 +122,11 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),
@@ -205,29 +170,11 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),
@@ -237,28 +184,10 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),
@@ -268,29 +197,11 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),
@@ -335,15 +246,19 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(left:15,right:15),
-                            child: DropdownButton(
-                                value: value,
-                                isExpanded: true, items: ["International Passport","Identity Card","Drivers License","Proof Of Residence"].map((String value) {
-                              return DropdownMenuItem(value: value,child: Text(value));
-                            }).toList(), onChanged: (_value){
-                              setState(() {
-                                value = _value as String;
-                              });
-                            }),
+                            child: InputDecorator(
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
+                              child: DropdownButton(
+                                  value: value,
+                                  underline: SizedBox.shrink(),
+                                  isExpanded: true, items: ["International Passport","Identity Card","Drivers License","Proof Of Residence"].map((String value) {
+                                return DropdownMenuItem(value: value,child: Text(value));
+                              }).toList(), onChanged: (_value){
+                                setState(() {
+                                  value = _value as String;
+                                });
+                              }),
+                            ),
                           ),
                         ),
                         Padding(
@@ -352,29 +267,11 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),

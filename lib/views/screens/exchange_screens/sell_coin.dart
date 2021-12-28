@@ -44,7 +44,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
   late TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String value = "Bitcoin";
-  String value2 = "Amount In Dollar";
+  String value2 = "Amount In Naira";
 
   @override
   void initState() {
@@ -209,7 +209,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                 },
               ),
               Container(
-                height:400,
+                height:450,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -230,16 +230,20 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:15,right:15),
-                            child: DropdownButton(
-                                value: value,
-                                isExpanded: true, items: ["Bitcoin","Ethereum"].map((String value) {
-                              return DropdownMenuItem(value: value,child: Text(value));
-                            }).toList(), onChanged: (_value){
-                              setState(() {
-                                value = _value as String;
-                              });
-                            }),
+                            padding: const EdgeInsets.only(left:15,right:15,bottom:15),
+                            child: InputDecorator(
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
+                              child: DropdownButton(
+                                  value: value,
+                                  underline: SizedBox.shrink(),
+                                  isExpanded: true, items: ["Bitcoin","Ethereum"].map((String value) {
+                                return DropdownMenuItem(value: value,child: Text(value));
+                              }).toList(), onChanged: (_value){
+                                setState(() {
+                                  value = _value as String;
+                                });
+                              }),
+                            ),
                           ),
                         ),
                         Padding(
@@ -248,16 +252,20 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:15,right:15),
-                            child: DropdownButton(
-                                value: value2,
-                                isExpanded: true, items: ["Amount In Dollar","Amount In Naira","Amount In Quantity"].map((String value) {
-                              return DropdownMenuItem(value: value,child: Text(value));
-                            }).toList(), onChanged: (_value){
-                              setState(() {
-                                value2 = _value as String;
-                              });
-                            }),
+                            padding: const EdgeInsets.only(left:15,right:15,bottom: 15),
+                            child: InputDecorator(
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
+                              child: DropdownButton(
+                                  value: value2,
+                                  underline: SizedBox.shrink(),
+                                  isExpanded: true, items: ["Amount In Dollar","Amount In Naira","Amount In Quantity"].map((String value) {
+                                return DropdownMenuItem(value: value,child: Text(value));
+                              }).toList(), onChanged: (_value){
+                                setState(() {
+                                  value2 = _value as String;
+                                });
+                              }),
+                            ),
                           ),
                         ),
                         Padding(
@@ -270,25 +278,8 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
+                              keyboardType: TextInputType.numberWithOptions(signed: false,decimal: true),
+                              decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),

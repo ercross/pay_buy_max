@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/views/widgets/chart_container.dart';
+import '../../../style_sheet.dart';
 import 'package:provider/provider.dart';
 
 import 'investment_items.dart';
@@ -47,7 +48,6 @@ class _InvestmentState extends State<_InvestmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
     final double height = MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.top);
 
@@ -61,12 +61,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
         children: [
           Container(
             height: 250,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    opacity: 0.2,
-                    image: AssetImage(
-                        'assets/images/background_image.jpg'),
-                    fit: BoxFit.cover)),
+            color: StyleSheet.primaryColor.withOpacity(0.09),
             child:  ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, position) {
@@ -148,6 +143,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                     Tab(text: "History"),
                   ],
                 ),
+                backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
                 body: TabBarView(
                   children: [
                     Expanded(

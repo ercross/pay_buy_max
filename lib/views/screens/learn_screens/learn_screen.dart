@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../style_sheet.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/generated/assets.dart';
@@ -42,7 +43,7 @@ class _LearnState extends State<_LearnScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
       body: SafeArea(
         child: Expanded(
           child: ListView(
@@ -76,7 +77,7 @@ class _LearnState extends State<_LearnScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                          child: ElevatedButton(onPressed: (){}, child: Text("Learn")),
+                          child: ElevatedButton(onPressed: (){}, child: Text("Learn"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
                     ),
@@ -111,7 +112,7 @@ class _LearnState extends State<_LearnScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                            child: ElevatedButton(onPressed: (){}, child: Text("Learn")),
+                            child: ElevatedButton(onPressed: (){}, child: Text("Learn"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                           )
                         ],
                       ),
@@ -146,7 +147,7 @@ class _LearnState extends State<_LearnScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                            child: ElevatedButton(onPressed: (){}, child: Text("Learn")),
+                            child: ElevatedButton(onPressed: (){}, child: Text("Learn"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                           )
                         ],
                       ),

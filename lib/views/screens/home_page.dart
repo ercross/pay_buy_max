@@ -223,56 +223,6 @@ class _HomeState extends State<_HomePage> {
                             textColor: Color(0xFFFAFAFA),
                             backgroundColor: Color(0xFFC9782F),
                             collapsedBackgroundColor: Color(0xFFC9782F),
-                            leading: Icon(Icons.book_rounded),
-                            title: const Text('Learn'),
-                            children: [
-                              ListTile(leading: Icon(Icons
-                                  .arrow_forward_ios_rounded),
-                                  title: const Text('Courses', style: TextStyle(
-                                      color: Color(0xFFFAFAFA))),
-                                  onTap: () {
-                                    _fragNav.putPosit(
-                                        key: ValueKey(LearnScreen.route),
-                                        closeDrawer: false);
-                                  }),
-                              ListTile(leading: Icon(Icons
-                                  .arrow_forward_ios_rounded),
-                                  title: const Text('My Plan', style: TextStyle(
-                                      color: Color(0xFFFAFAFA))),
-                                  onTap: () {
-
-                                  }),
-                            ]
-                        ),
-                        ExpansionTile(
-                            collapsedTextColor: Color(0xFFFAFAFA),
-                            collapsedIconColor: Color(0xFFFAFAFA),
-                            iconColor: Color(0xFFFAFAFA),
-                            textColor: Color(0xFFFAFAFA),
-                            backgroundColor: Color(0xFFC9782F),
-                            collapsedBackgroundColor: Color(0xFFC9782F),
-                            leading: Icon(Icons.show_chart),
-                            title: const Text('Investments'),
-                            children: [
-                              ListTile(leading: Icon(Icons
-                                  .arrow_forward_ios_rounded),
-                                  title: const Text('My Investments',
-                                      style: TextStyle(
-                                          color: Color(0xFFFAFAFA))),
-                                  onTap: () {
-                                    _fragNav.putPosit(
-                                        key: ValueKey(InvestmentScreen.route),
-                                        closeDrawer: false);
-                                  }),
-                            ]
-                        ),
-                        ExpansionTile(
-                            collapsedTextColor: Color(0xFFFAFAFA),
-                            collapsedIconColor: Color(0xFFFAFAFA),
-                            iconColor: Color(0xFFFAFAFA),
-                            textColor: Color(0xFFFAFAFA),
-                            backgroundColor: Color(0xFFC9782F),
-                            collapsedBackgroundColor: Color(0xFFC9782F),
                             leading: Icon(Icons.history_rounded),
                             title: const Text('My Transactions'),
                             children: [
@@ -292,6 +242,31 @@ class _HomeState extends State<_HomePage> {
                                   }),
                             ]
                         ),
+                        ListTile(
+                            iconColor: Color(0xFFFAFAFA),
+                            textColor: Color(0xFFFAFAFA),
+                            tileColor: Color(0xFFC9782F),
+                            leading: Icon(Icons.show_chart),
+                            title: const Text('My Investments',
+                                style: TextStyle(
+                                    color: Color(0xFFFAFAFA))),
+                            onTap: () {
+                              _fragNav.putPosit(
+                                  key: ValueKey(InvestmentScreen.route),
+                                  closeDrawer: false);
+                            }),
+                        ListTile(
+                            iconColor: Color(0xFFFAFAFA),
+                            textColor: Color(0xFFFAFAFA),
+                            tileColor: Color(0xFFC9782F),
+                            leading: Icon(Icons.book_rounded),
+                            title: const Text('Courses', style: TextStyle(
+                                color: Color(0xFFFAFAFA))),
+                            onTap: () {
+                              _fragNav.putPosit(
+                                  key: ValueKey(LearnScreen.route),
+                                  closeDrawer: false);
+                            }),
                         ListTile(
                           iconColor: Color(0xFFFAFAFA),
                           textColor: Color(0xFFFAFAFA),
