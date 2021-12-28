@@ -54,7 +54,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     oldController = TextEditingController();
     newController = TextEditingController();
     confirmController = TextEditingController();
-    emailController = TextEditingController.fromValue(TextEditingValue(text: "cephasarowolo@gmail.com"));
+    emailController = TextEditingController();
   }
 
   void _changePassword(){
@@ -95,6 +95,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
+    emailController.text = args.user!.email.toString();
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),

@@ -4,13 +4,15 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
+import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 import '../../../style_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_paystack/flutter_paystack.dart';
 
 class FundLocalWallet extends StatelessWidget {
   const FundLocalWallet();
@@ -39,17 +41,22 @@ class FundLocalWalletWidget extends StatefulWidget {
 
 class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
   late TextEditingController textController;
+  late TextEditingController payStackController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   WalletBalanceEntity? walletBalanceEntity;
   late SignInResponseEntity args;
   String value = "Bitcoin Wallet";
   String value2 = "Amount In Naira";
 
+  var publicKey = 'pk_test_a7a31c472e05ec2d22b34e64adef474e28c67414';
+  final plugin = PaystackPlugin();
+
   @override
   void initState() {
     super.initState();
+    plugin.initialize(publicKey: publicKey);
     textController = TextEditingController();
-    textController = TextEditingController();
+    payStackController = TextEditingController();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getWalletInfo();
     });
@@ -83,6 +90,52 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
     return WalletBalanceEntity().fromJson(json.decode(response.body));
   }
 
+  void _fundNairaWallet(){
+    if(textController.text.isEmpty){
+      AppOverlay.snackbar(message: "Amount Cannot Be Empty");
+    }else{
+      fundNairaWallet().then((value){
+        setState(() {
+          if(value.status == true){
+            AppOverlay.snackbar(message: "Success");
+          }else{
+            if(value.message == null){
+              AppOverlay.snackbar(message: "An Error Occurred");
+            }else{
+              AppOverlay.snackbar(message: value.message.toString());
+            }
+          }
+        });
+      });
+    }
+  }
+
+  Future<CheckoutResponse > payWithPayStack(BuildContext context) async {
+    Charge charge = Charge();
+    charge.amount =   int.parse(textController.text);
+    charge.reference = "T-1234jkkwdd";
+    charge.email = args.user!.email.toString();
+
+    CheckoutResponse response = await plugin.checkout(
+      context,
+      method: CheckoutMethod.card, // Defaults to CheckoutMethod.selectable
+      charge: charge,
+    );
+    return response;
+  }
+
+  Future<SignUpResponseEntity> fundNairaWallet() async{
+    String url = 'https://paybuymax.com/api/fundwallet';
+
+    var body = {"email":args.user!.email.toString(),"amount":textController.text,"reference":payStackController.text,"channel":"PAYSTACK","currency":"NGN"};
+    if(!(value2 == "Amount In Naira")){
+      body = {"email":args.user!.email.toString(),"amount":textController.text,"reference":payStackController.text,"channel":"PAYSTACK","currency":"USD"};
+    }
+    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+    print(response.statusCode);
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
@@ -95,7 +148,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-              Builder(
+            /*  Builder(
                 builder: (context) {
                   if(walletBalanceEntity == null){
                     return Center(
@@ -207,9 +260,9 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                     itemCount: 3,
                   );
                 },
-              ),
+              ),*/
               Container(
-                height:450,
+                height:550,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -254,7 +307,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                               child: DropdownButton(
                                   value: value2,
                                   underline: SizedBox.shrink(),
-                                  isExpanded: true, items: ["Amount In Dollar","Amount In Naira","Amount In Quantity"].map((String value) {
+                                  isExpanded: true, items: ["Amount In Dollar","Amount In Naira"/*,"Amount In Quantity"*/].map((String value) {
                                 return DropdownMenuItem(value: value,child: Text(value));
                               }).toList(), onChanged: (_value){
                                 setState(() {
@@ -274,13 +327,58 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                             child: TextFormField(
                               controller: textController,
                               obscureText: false,
+                              keyboardType: TextInputType.number,
                               decoration: const InputDecoration(border: OutlineInputBorder()),
                             ),
                           ),
                         ),
                         Padding(
+                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                          child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            child: TextFormField(
+                              controller: payStackController,
+                              obscureText: false,
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                filled: true,
+                                contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                          child: ElevatedButton(onPressed: (){}, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                          child: ElevatedButton(onPressed: (){
+                            if(value == "Naira Wallet"){
+                              payWithPayStack(context).then((value){
+                                if(value.status == true){
+                                  payStackController.text = value.reference.toString();
+                                  _fundNairaWallet();
+                                }else{
+                                  AppOverlay.snackbar(message: "Transaction Failed");
+                                }
+                              });
+                            }
+                          }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
                     ),
