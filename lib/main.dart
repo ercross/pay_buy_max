@@ -58,13 +58,13 @@ class PayBuyMax extends StatelessWidget {
         page: () => SignUpPage(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
-        transition: Transition.fadeIn),
+        transition: Transition.rightToLeft),
     GetPage(
         name: SignInPage.route,
         page: () => SignInPage(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
-        transition: Transition.fadeIn),
+        transition: Transition.rightToLeft),
     GetPage(
         name: ForgotPasswordPage.route,
         page: () => ForgotPasswordPage(),
@@ -88,7 +88,7 @@ class PayBuyMax extends StatelessWidget {
         page: () => HomePage(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
-        transition: Transition.upToDown),
+        transition: Transition.rightToLeft),
     GetPage(
         name: WalletScreen.route,
         page: () => WalletScreen(),
