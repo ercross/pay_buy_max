@@ -47,7 +47,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   WalletBalanceEntity? walletBalanceEntity;
   late SignInResponseEntity args;
-  double height = 500;
+  double height = 720;
   String value = "Bitcoin Wallet";
   String value2 = "Amount In Naira";
   String value3 = "Fund With Transaction code";
@@ -330,7 +330,6 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                 },
               ),*/
               Container(
-                height:height,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -346,194 +345,223 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                           child:  Text('Fund Your Wallet', style: TextStyle(color: Colors.black54, fontSize: 20,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 5),
                           child:  Text('Wallet Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
-                            child: InputDecorator(
-                              decoration: const InputDecoration(border: OutlineInputBorder()),
-                              child: DropdownButton(
-                                  value: value,
-                                  underline: SizedBox.shrink(),
-                                  isExpanded: true, items: ["Naira Wallet","Bitcoin Wallet","Ethereum Wallet"].map((String value) {
-                                return DropdownMenuItem(value: value,child: Text(value));
-                              }).toList(), onChanged: (_value){
-                                setState(() {
-                                  value = _value as String;
-                                });
-                              }),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                          child:  Text('Medium', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
-                            child: InputDecorator(
-                              decoration: const InputDecoration(border: OutlineInputBorder()),
-                              child: DropdownButton(
-                                  value: value2,
-                                  underline: SizedBox.shrink(),
-                                  isExpanded: true, items: ["Amount In Dollar","Amount In Naira"/*,"Amount In Quantity"*/].map((String value) {
-                                return DropdownMenuItem(value: value,child: Text(value));
-                              }).toList(), onChanged: (_value){
-                                setState(() {
-                                  value2 = _value as String;
-                                });
-                              }),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                          child:  Text('Amount', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
-                            child: TextFormField(
-                              controller: textController,
-                              obscureText: false,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(border: OutlineInputBorder()),
-                            ),
-                          ),
-                        ),
-                        Builder(
-                          builder: (context) {
-                            if(value == "Naira Wallet"){
-                              height = 450;
-                              return Expanded(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                                      child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15,right: 15),
-                                      child: TextFormField(
-                                        controller: payStackController,
-                                        obscureText: false,
-                                        readOnly: true,
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius: BorderRadius.circular(5),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius: BorderRadius.circular(5),
-                                          ),
-                                          filled: true,
-                                          contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }else{
-                              height = 750;
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right:15,bottom: 2,top: 10,left:15),
-                                    child:  Text('Transaction Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
-                                    child: InputDecorator(
-                                      decoration: const InputDecoration(border: OutlineInputBorder()),
-                                      child: DropdownButton(
-                                          value: value3,
-                                          underline: SizedBox.shrink(),
-                                          isExpanded: true, items: ["Fund With Transaction code","Fund With Naira Wallet"].map((String value) {
-                                        return DropdownMenuItem(value: value,child: Text(value));
-                                      }).toList(), onChanged: (_value){
-                                        setState(() {
-                                          value3 = _value as String;
-                                        });
-                                      }),
-                                    ),
-                                  ),
-                                  Builder(
-                                    builder: (context) {
-                                      if(value3 == "Fund With Transaction code"){
-                                        height = 750;
-                                        return  Padding(
-                                          padding: const EdgeInsets.only(left: 15,right: 15),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(right:15,bottom: 2,top: 20),
-                                                child:  Text('Transaction Code', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                              ),
-                                              TextFormField(
-                                                controller: codeController,
-                                                obscureText: false,
-                                                keyboardType: TextInputType.number,
-                                                decoration: const InputDecoration(border: OutlineInputBorder()),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                      height = 550;
-                                      return Column();
-                                    },
-                                  )
-                                ],
-                              );
-                            }
-                            return Spacer();
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left:15,right:15,bottom: 10,top:20),
-                          child: ElevatedButton(onPressed: (){
-                            if(value == "Naira Wallet"){
-                              payWithPayStack(context).then((value){
-                                if(value.status == true){
-                                  payStackController.text = value.reference.toString();
-                                  _fundNairaWallet();
-                                }else{
-                                  AppOverlay.snackbar(message: "Transaction Failed");
-                                }
-                              });
-                            }else{
-                              if(value3 == "Fund With Transaction code"){
-                                if(codeController.text.trim().isEmpty || textController.text.trim().isEmpty){
-                                  AppOverlay.snackbar(message: "Fields Must Not Be Empty");
-                                }else{
-                                  fundCryptoWalletWithTransactionCode();
-                                }
-                              }else{
-                                if(textController.text.trim().isEmpty){
-                                  AppOverlay.snackbar(message: "Fields Must Not Be Empty");
-                                }else{
-                                  fundCryptoWalletFromInternalWallet();
-                                }
-                              }
-                            }
-                          }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
-                        )
+                       Wrap(
+                         children: [
+                           Container(
+                             height: 90,
+                             child: Expanded(
+                               child: Padding(
+                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                 child: InputDecorator(
+                                   decoration: const InputDecoration(border: OutlineInputBorder()),
+                                   child: DropdownButton(
+                                       value: value,
+                                       underline: SizedBox.shrink(),
+                                       isExpanded: true, items: ["Naira Wallet","Bitcoin Wallet","Ethereum Wallet"].map((String value) {
+                                     return DropdownMenuItem(value: value,child: Text(value));
+                                   }).toList(), onChanged: (_value){
+                                     if(value == "Naira Wallet"){
+                                       height = 500;
+                                     }else{
+                                       if(value3 == "Fund With Transaction code"){
+                                         height = 720;
+                                       }else{
+                                         height = 550;
+                                       }
+                                     }
+                                     setState(() {
+                                       value = _value as String;
+                                     });
+                                   }),
+                                 ),
+                               ),
+                             ),
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                             child:  Text('Medium', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                           ),
+                           Container(
+                             height: 90,
+                             child: Expanded(
+                               child: Padding(
+                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                 child: InputDecorator(
+                                   decoration: const InputDecoration(border: OutlineInputBorder()),
+                                   child: DropdownButton(
+                                       value: value2,
+                                       underline: SizedBox.shrink(),
+                                       isExpanded: true, items: ["Amount In Dollar","Amount In Naira"/*,"Amount In Quantity"*/].map((String value) {
+                                     return DropdownMenuItem(value: value,child: Text(value));
+                                   }).toList(), onChanged: (_value){
+                                     setState(() {
+                                       value2 = _value as String;
+                                     });
+                                   }),
+                                 ),
+                               ),
+                             ),
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                             child:  Text('Amount', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                           ),
+                           Expanded(
+                             child: Padding(
+                               padding: const EdgeInsets.only(left: 15,right: 15,bottom:20),
+                               child: TextFormField(
+                                 controller: textController,
+                                 obscureText: false,
+                                 keyboardType: TextInputType.number,
+                                 decoration: const InputDecoration(border: OutlineInputBorder()),
+                               ),
+                             ),
+                           ),
+                           Builder(
+                             builder: (context) {
+                               if(value == "Naira Wallet"){
+                                 return Expanded(
+                                   child: Column(
+                                     mainAxisSize: MainAxisSize.min,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       Padding(
+                                         padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                                         child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                       ),
+                                       Padding(
+                                         padding: const EdgeInsets.only(left: 15,right: 15),
+                                         child: TextFormField(
+                                           controller: payStackController,
+                                           obscureText: false,
+                                           readOnly: true,
+                                           decoration: InputDecoration(
+                                             enabledBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 color: Color(0x00000000),
+                                                 width: 1,
+                                               ),
+                                               borderRadius: BorderRadius.circular(5),
+                                             ),
+                                             focusedBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 color: Color(0x00000000),
+                                                 width: 1,
+                                               ),
+                                               borderRadius: BorderRadius.circular(5),
+                                             ),
+                                             filled: true,
+                                             contentPadding:
+                                             EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                           ),
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+                                 );
+                               }else{
+                                 return Column(
+                                   mainAxisSize: MainAxisSize.min,
+                                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                                   children: [
+                                     Padding(
+                                       padding: const EdgeInsets.only(right:15,bottom: 2,top: 10,left:15),
+                                       child:  Text('Transaction Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                     ),
+                                     Container(
+                                       height:90,
+                                       child: Padding(
+                                         padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                         child: InputDecorator(
+                                           decoration: const InputDecoration(border: OutlineInputBorder()),
+                                           child: DropdownButton(
+                                               value: value3,
+                                               underline: SizedBox.shrink(),
+                                               isExpanded: true, items: ["Fund With Transaction code","Fund With Naira Wallet"].map((String value) {
+                                             return DropdownMenuItem(value: value,child: Text(value));
+                                           }).toList(), onChanged: (_value){
+                                             setState(() {
+                                               if(value == "Naira Wallet"){
+                                                 height = 450;
+                                               }else{
+                                                 if(value3 == "Fund With Transaction code"){
+                                                   height = 720;
+                                                 }else{
+                                                   height = 550;
+                                                 }
+                                               }
+                                               value3 = _value as String;
+                                             });
+                                           }),
+                                         ),
+                                       ),
+                                     ),
+                                     Builder(
+                                       builder: (context) {
+                                         if(value3 == "Fund With Transaction code"){
+                                           return  Padding(
+                                             padding: const EdgeInsets.only(left: 15,right: 15),
+                                             child: Column(
+                                               mainAxisSize: MainAxisSize.max,
+                                               crossAxisAlignment: CrossAxisAlignment.stretch,
+                                               children: [
+                                                 Padding(
+                                                   padding: const EdgeInsets.only(right:15,bottom: 2,top: 20),
+                                                   child:  Text('Transaction Code', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                                 ),
+                                                 TextFormField(
+                                                   controller: codeController,
+                                                   obscureText: false,
+                                                   keyboardType: TextInputType.number,
+                                                   decoration: const InputDecoration(border: OutlineInputBorder()),
+                                                 ),
+                                               ],
+                                             ),
+                                           );
+                                         }
+                                         return Column();
+                                       },
+                                     )
+                                   ],
+                                 );
+                               }
+                               return Spacer();
+                             },
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left:15,right:15,bottom: 10,top:20),
+                             child: ElevatedButton(onPressed: (){
+                               if(value == "Naira Wallet"){
+                                 payWithPayStack(context).then((value){
+                                   if(value.status == true){
+                                     payStackController.text = value.reference.toString();
+                                     _fundNairaWallet();
+                                   }else{
+                                     AppOverlay.snackbar(message: "Transaction Failed");
+                                   }
+                                 });
+                               }else{
+                                 if(value3 == "Fund With Transaction code"){
+                                   if(codeController.text.trim().isEmpty || textController.text.trim().isEmpty){
+                                     AppOverlay.snackbar(message: "Fields Must Not Be Empty");
+                                   }else{
+                                     fundCryptoWalletWithTransactionCode();
+                                   }
+                                 }else{
+                                   if(textController.text.trim().isEmpty){
+                                     AppOverlay.snackbar(message: "Fields Must Not Be Empty");
+                                   }else{
+                                     fundCryptoWalletFromInternalWallet();
+                                   }
+                                 }
+                               }
+                             }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                           )
+                         ],
+                       )
                       ],
                     ),
                   ),
