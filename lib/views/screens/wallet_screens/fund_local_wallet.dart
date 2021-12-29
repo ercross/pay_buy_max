@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,6 +51,11 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
 
   var publicKey = 'pk_test_a7a31c472e05ec2d22b34e64adef474e28c67414';
   final plugin = PaystackPlugin();
+
+  static const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
   void initState() {
@@ -110,10 +116,10 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
     }
   }
 
-  Future<CheckoutResponse > payWithPayStack(BuildContext context) async {
+  Future<CheckoutResponse> payWithPayStack(BuildContext context) async {
     Charge charge = Charge();
     charge.amount =   int.parse(textController.text);
-    charge.reference = "T-1234jkkwdd";
+    charge.reference = "T-"+getRandomString(10);
     charge.email = args.user!.email.toString();
 
     CheckoutResponse response = await plugin.checkout(
