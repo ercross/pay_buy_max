@@ -40,11 +40,15 @@ class HistoryWidget extends StatefulWidget {
 }
 
 class _HistoryWidgetState extends State<HistoryWidget> {
+  WalletBalanceEntity? walletBalanceEntity;
+  late SignInResponseEntity args;
+
+  late TextEditingController textController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getWalletInfo();
     });
@@ -124,7 +128,33 @@ class _HistoryWidgetState extends State<HistoryWidget> {
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: Color(0xFFF5F5F5),
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 200,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Wrap(
+                          alignment: WrapAlignment.end,
+                          children: [
+                            Text("27 November")
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),

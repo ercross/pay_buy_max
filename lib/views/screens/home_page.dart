@@ -22,6 +22,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../style_sheet.dart';
 import 'exchange_screens/sell_coin.dart';
+import 'history/history.dart';
 import 'investment_screens/investment_screen.dart';
 import 'notification_screens/notification_screen.dart';
 
@@ -96,6 +97,21 @@ class _HomeState extends State<_HomePage> {
             title: "Settings",
             key: ValueKey(SettingScreen.route),
             fragment: SettingScreen(),
+          ),
+          Posit(
+            title: "History",
+            key: ValueKey("History"),
+            fragment: History(),
+          ),
+          Posit(
+            title: "History",
+            key: ValueKey("Sell History"),
+            fragment: History(),
+          ),
+          Posit(
+            title: "History",
+            key: ValueKey("Buy History"),
+            fragment: History(),
           ),
         ]
     );
@@ -180,7 +196,9 @@ class _HomeState extends State<_HomePage> {
                                   title: const Text('History', style: TextStyle(
                                       color: Color(0xFFFAFAFA))),
                                   onTap: () {
-
+                                    _fragNav.putPosit(
+                                        key: ValueKey("History"),
+                                        closeDrawer: false);
                                   }),
                             ]
                         ),
@@ -231,14 +249,18 @@ class _HomeState extends State<_HomePage> {
                                   title: const Text('Sell', style: TextStyle(
                                       color: Color(0xFFFAFAFA))),
                                   onTap: () {
-
+                                    _fragNav.putPosit(
+                                        key: ValueKey("Sell History"),
+                                        closeDrawer: false);
                                   }),
                               ListTile(leading: Icon(Icons
                                   .arrow_forward_ios_rounded),
                                   title: const Text('Buy', style: TextStyle(
                                       color: Color(0xFFFAFAFA))),
                                   onTap: () {
-
+                                    _fragNav.putPosit(
+                                        key: ValueKey("Buy History"),
+                                        closeDrawer: false);
                                   }),
                             ]
                         ),
