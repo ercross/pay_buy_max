@@ -42,12 +42,14 @@ class FundLocalWalletWidget extends StatefulWidget {
 
 class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
   late TextEditingController textController;
+  late TextEditingController codeController;
   late TextEditingController payStackController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   WalletBalanceEntity? walletBalanceEntity;
   late SignInResponseEntity args;
   String value = "Bitcoin Wallet";
   String value2 = "Amount In Naira";
+  String value3 = "Fund With Transaction code";
 
   var publicKey = 'pk_test_a7a31c472e05ec2d22b34e64adef474e28c67414';
   final plugin = PaystackPlugin();
@@ -63,6 +65,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
     plugin.initialize(publicKey: publicKey);
     textController = TextEditingController();
     payStackController = TextEditingController();
+    codeController = TextEditingController();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getWalletInfo();
     });
@@ -144,24 +147,32 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
 
   Future<SignUpResponseEntity> fundCryptoWalletFromInternalWallet() async{
     String url = 'https://paybuymax.com/api/buy-coin/internal';
-
-    var body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
-    if(!(value2 == "Amount In Naira")){
-      body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    String coinID = "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a";
+    if(value == "Ethereum Wallet"){
+      coinID = "eb29cac0-fb67-11eb-9951-3380c6ecc4c1";
     }
-    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+
+    var body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
+    if(!(value2 == "Amount In Naira")){
+      body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    }
+    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
     print(response.statusCode);
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
   Future<SignUpResponseEntity> fundCryptoWalletWithTransactionCode() async{
     String url = 'https://paybuymax.com/buy/transaction/code';
-
-    var body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
-    if(!(value2 == "Amount In Naira")){
-      body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    String coinID = "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a";
+    if(value == "Ethereum Wallet"){
+      coinID = "eb29cac0-fb67-11eb-9951-3380c6ecc4c1";
     }
-    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+
+    var body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
+    if(!(value2 == "Amount In Naira")){
+      body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    }
+    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
     print(response.statusCode);
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
@@ -292,7 +303,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                 },
               ),*/
               Container(
-                height:550,
+                height:700,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -366,34 +377,86 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
                           child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15,right: 15),
-                            child: TextFormField(
-                              controller: payStackController,
-                              obscureText: false,
-                              readOnly: true,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
+                        Builder(
+                          builder: (context) {
+                            if(value == "Naira Wallet"){
+                              return Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 15,right: 15),
+                                  child: TextFormField(
+                                    controller: payStackController,
+                                    obscureText: false,
+                                    readOnly: true,
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      filled: true,
+                                      contentPadding:
+                                      EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
+                              );
+                            }else{
+                              return Column(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                      child: InputDecorator(
+                                        decoration: const InputDecoration(border: OutlineInputBorder()),
+                                        child: DropdownButton(
+                                            value: value3,
+                                            underline: SizedBox.shrink(),
+                                            isExpanded: true, items: ["Fund With Transaction code","Fund With Naira Wallet"].map((String value) {
+                                          return DropdownMenuItem(value: value,child: Text(value));
+                                        }).toList(), onChanged: (_value){
+                                          setState(() {
+                                            value3 = _value as String;
+                                          });
+                                        }),
+                                      ),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              ),
-                            ),
-                          ),
+                                  Builder(
+                                    builder: (context) {
+                                      if(value3 == "Fund With Transaction code"){
+                                        return  Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 15,right: 15),
+                                            child: Column(
+                                              children: [
+                                                TextFormField(
+                                                  controller: codeController,
+                                                  obscureText: false,
+                                                  keyboardType: TextInputType.number,
+                                                  decoration: const InputDecoration(border: OutlineInputBorder()),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      return Spacer();
+                                    },
+                                  )
+                                ],
+                              );
+                            }
+                            return Spacer();
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
