@@ -40,13 +40,6 @@ class HistoryWidget extends StatefulWidget {
 }
 
 class _HistoryWidgetState extends State<HistoryWidget> {
-  WalletBalanceEntity? walletBalanceEntity;
-  late SignInResponseEntity args;
-
-  late TextEditingController textController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  String value = "Bitcoin";
-  String value2 = "Amount In Naira";
 
   @override
   void initState() {
