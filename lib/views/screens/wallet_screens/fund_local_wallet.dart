@@ -318,6 +318,10 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 15,top: 10),
                           child:  Text('Fund Your Wallet', style: TextStyle(color: Colors.black54, fontSize: 20,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                          child:  Text('Wallet Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                        ),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
@@ -438,6 +442,10 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                                             padding: const EdgeInsets.only(left: 15,right: 15),
                                             child: Column(
                                               children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                                                  child:  Text('Funding Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                                ),
                                                 TextFormField(
                                                   controller: codeController,
                                                   obscureText: false,
