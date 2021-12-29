@@ -531,34 +531,40 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                                return Spacer();
                              },
                            ),
-                           Padding(
-                             padding: const EdgeInsets.only(left:15,right:15,bottom: 10,top:20),
-                             child: ElevatedButton(onPressed: (){
-                               if(value == "Naira Wallet"){
-                                 payWithPayStack(context).then((value){
-                                   if(value.status == true){
-                                     payStackController.text = value.reference.toString();
-                                     _fundNairaWallet();
+                           Column(
+                             mainAxisSize: MainAxisSize.min,
+                             crossAxisAlignment: CrossAxisAlignment.stretch,
+                             children: [
+                               Padding(
+                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 10,top:20),
+                                 child: ElevatedButton(onPressed: (){
+                                   if(value == "Naira Wallet"){
+                                     payWithPayStack(context).then((value){
+                                       if(value.status == true){
+                                         payStackController.text = value.reference.toString();
+                                         _fundNairaWallet();
+                                       }else{
+                                         AppOverlay.snackbar(message: "Transaction Failed");
+                                       }
+                                     });
                                    }else{
-                                     AppOverlay.snackbar(message: "Transaction Failed");
+                                     if(value3 == "Fund With Transaction code"){
+                                       if(codeController.text.trim().isEmpty || textController.text.trim().isEmpty){
+                                         AppOverlay.snackbar(message: "Fields Must Not Be Empty");
+                                       }else{
+                                         fundCryptoWalletWithTransactionCode();
+                                       }
+                                     }else{
+                                       if(textController.text.trim().isEmpty){
+                                         AppOverlay.snackbar(message: "Fields Must Not Be Empty");
+                                       }else{
+                                         fundCryptoWalletFromInternalWallet();
+                                       }
+                                     }
                                    }
-                                 });
-                               }else{
-                                 if(value3 == "Fund With Transaction code"){
-                                   if(codeController.text.trim().isEmpty || textController.text.trim().isEmpty){
-                                     AppOverlay.snackbar(message: "Fields Must Not Be Empty");
-                                   }else{
-                                     fundCryptoWalletWithTransactionCode();
-                                   }
-                                 }else{
-                                   if(textController.text.trim().isEmpty){
-                                     AppOverlay.snackbar(message: "Fields Must Not Be Empty");
-                                   }else{
-                                     fundCryptoWalletFromInternalWallet();
-                                   }
-                                 }
-                               }
-                             }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                                 }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                               ),
+                             ],
                            )
                          ],
                        )

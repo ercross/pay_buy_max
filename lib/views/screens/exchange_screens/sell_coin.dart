@@ -1,5 +1,8 @@
 
 import 'dart:convert';
+import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
+
 import '../../../style_sheet.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -52,6 +55,40 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
     textController = TextEditingController();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getWalletInfo();
+    });
+  }
+
+  Future<SignUpResponseEntity> fundCryptoWalletFromInternalWallet() async{
+    showLoadingDialog(context);
+
+    String url = 'https://paybuymax.com/api/buy-coin/internal';
+    String coinID = "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a";
+
+    var body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
+    if(!(value2 == "Amount In Naira")){
+      body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    }
+    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+    print(response.statusCode);
+    Navigator.pop(context);
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  void showLoadingDialog(BuildContext context){
+    AlertDialog alertDialog = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text("Performing Transaction. Please wait"),
+          )
+        ],
+      ),
+    );
+
+    showDialog(barrierDismissible: false, context:context, builder: (BuildContext context){
+      return alertDialog;
     });
   }
 
@@ -285,7 +322,13 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                          child: ElevatedButton(onPressed: (){}, child: Text("SELL COIN"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                          child: ElevatedButton(onPressed: (){
+                            if(textController.text.trim().isEmpty){
+                              AppOverlay.snackbar(message: "Amount Must Not Be Empty");
+                            }else{
+                              fundCryptoWalletFromInternalWallet();
+                            }
+                          }, child: Text("SELL COIN"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
                     ),
