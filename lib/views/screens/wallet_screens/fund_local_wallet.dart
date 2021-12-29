@@ -142,6 +142,30 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
+  Future<SignUpResponseEntity> fundCryptoWalletFromInternalWallet() async{
+    String url = 'https://paybuymax.com/api/buy-coin/internal';
+
+    var body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
+    if(!(value2 == "Amount In Naira")){
+      body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    }
+    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+    print(response.statusCode);
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  Future<SignUpResponseEntity> fundCryptoWalletWithTransactionCode() async{
+    String url = 'https://paybuymax.com/buy/transaction/code';
+
+    var body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
+    if(!(value2 == "Amount In Naira")){
+      body = {"coinId":args.user!.email.toString(),"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
+    }
+    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+    print(response.statusCode);
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
