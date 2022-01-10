@@ -52,7 +52,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
   String value2 = "Amount In Naira";
   String value3 = "Fund With Transaction code";
 
-  var publicKey = 'pk_test_a7a31c472e05ec2d22b34e64adef474e28c67414';
+  var publicKey = 'pk_live_f33e851ff1413ae66d2ea22a3e717b35d8513267';
   final plugin = PaystackPlugin();
 
   static const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
