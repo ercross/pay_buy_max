@@ -165,9 +165,19 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                 ),
                                 Expanded(
                                   flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 30, bottom: 15,top: 15),
-                                    child: Text('0.0125', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
+                                        child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 30, bottom: 15),
+                                        child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Expanded(
@@ -177,7 +187,11 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                     child: Wrap(
                                       alignment: WrapAlignment.end,
                                       children: [
-                                        Text('NGN 1000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start)
+                                        Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 30,top: 10),
+                                          child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -208,9 +222,19 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                 ),
                                 Expanded(
                                   flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 30, bottom: 15,top: 15),
-                                    child: Text('0.0125', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
+                                        child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 30, bottom: 15),
+                                        child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Expanded(
@@ -220,7 +244,11 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                     child: Wrap(
                                       alignment: WrapAlignment.end,
                                       children: [
-                                        Text('NGN 1000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start)
+                                        Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 30,top: 10),
+                                          child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                        ),
                                       ],
                                     ),
                                   ),
