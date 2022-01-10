@@ -124,7 +124,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
 
   Future<CheckoutResponse> payWithPayStack(BuildContext context) async {
     Charge charge = Charge();
-    charge.amount =   int.parse(textController.text);
+    charge.amount =   int.parse(textController.text+"00");
     charge.reference = "T-"+getRandomString(10);
     charge.email = args.user!.email.toString();
 
