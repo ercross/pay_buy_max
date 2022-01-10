@@ -434,46 +434,39 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                                Builder(
                                  builder: (context) {
                                    if(value == "Naira Wallet"){
-                                     return Flex(
-                                       direction: Axis.vertical,
+                                     return Column(
+                                       mainAxisSize: MainAxisSize.min,
+                                       crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
-                                         Expanded(
-                                           child: Column(
-                                             mainAxisSize: MainAxisSize.min,
-                                             crossAxisAlignment: CrossAxisAlignment.start,
-                                             children: [
-                                               Padding(
-                                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                                                 child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                               ),
-                                               Padding(
-                                                 padding: const EdgeInsets.only(left: 15,right: 15),
-                                                 child: TextFormField(
-                                                   controller: payStackController,
-                                                   obscureText: false,
-                                                   readOnly: true,
-                                                   decoration: InputDecoration(
-                                                     enabledBorder: OutlineInputBorder(
-                                                       borderSide: BorderSide(
-                                                         color: Color(0x00000000),
-                                                         width: 1,
-                                                       ),
-                                                       borderRadius: BorderRadius.circular(5),
-                                                     ),
-                                                     focusedBorder: OutlineInputBorder(
-                                                       borderSide: BorderSide(
-                                                         color: Color(0x00000000),
-                                                         width: 1,
-                                                       ),
-                                                       borderRadius: BorderRadius.circular(5),
-                                                     ),
-                                                     filled: true,
-                                                     contentPadding:
-                                                     EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                                                   ),
+                                         Padding(
+                                           padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                                           child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                         ),
+                                         Padding(
+                                           padding: const EdgeInsets.only(left: 15,right: 15),
+                                           child: TextFormField(
+                                             controller: payStackController,
+                                             obscureText: false,
+                                             readOnly: true,
+                                             decoration: InputDecoration(
+                                               enabledBorder: OutlineInputBorder(
+                                                 borderSide: BorderSide(
+                                                   color: Color(0x00000000),
+                                                   width: 1,
                                                  ),
+                                                 borderRadius: BorderRadius.circular(5),
                                                ),
-                                             ],
+                                               focusedBorder: OutlineInputBorder(
+                                                 borderSide: BorderSide(
+                                                   color: Color(0x00000000),
+                                                   width: 1,
+                                                 ),
+                                                 borderRadius: BorderRadius.circular(5),
+                                               ),
+                                               filled: true,
+                                               contentPadding:
+                                               EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                             ),
                                            ),
                                          ),
                                        ],
