@@ -212,369 +212,387 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
       key: scaffoldKey,
       backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
       body: SafeArea(
-        child: Expanded(
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-            /*  Builder(
-                builder: (context) {
-                  if(walletBalanceEntity == null){
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(25),
-                        child: CircularProgressIndicator(
-                          color: Color(0xFFC9782F),
-                        ),
-                      ),
-                    );
-                  } else{
-                    if(walletBalanceEntity!.user!.userCoins == null){
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(25),
-                          child: CircularProgressIndicator(
-                            color: Color(0xFFC9782F),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                /*  Builder(
+                    builder: (context) {
+                      if(walletBalanceEntity == null){
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(25),
+                            child: CircularProgressIndicator(
+                              color: Color(0xFFC9782F),
+                            ),
                           ),
-                        ),
-                      );
-                    }else if(walletBalanceEntity!.user!.userCoins!.isEmpty){
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(25),
-                          child: CircularProgressIndicator(
-                            color: Color(0xFFC9782F),
-                          ),
-                        ),
-                      );
-                    }
-                  }
-                  return ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, position) {
-                      var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
-                      int? rate = coin.coinTypes!.dollarRate;
-                      String rateText = "USD "+rate!.toString();
-                      return Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: Color(0xFFF5F5F5),
-                          elevation: 6,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      child: CachedNetworkImage(
-                                        imageUrl: coin.coinTypes!.image.toString(),
-                                        placeholder: (context, url) => new CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => new Icon(Icons.error),
-                                      )),
-                                ),
+                        );
+                      } else{
+                        if(walletBalanceEntity!.user!.userCoins == null){
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(25),
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFC9782F),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(coin.coinTypes!.name.toString(), style: TextStyle(
-                                        color: Colors.black, fontSize: 18),
-                                        textAlign: TextAlign.start),
-                                    Text(coin.coinTypes!.symbol.toString().toUpperCase(), style: TextStyle(
-                                        color: Colors.black54, fontSize: 18),
-                                        textAlign: TextAlign.start),
-                                  ],
-                                ),
+                            ),
+                          );
+                        }else if(walletBalanceEntity!.user!.userCoins!.isEmpty){
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(25),
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFC9782F),
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
-                                child: Expanded(
-                                  flex: 1,
-                                  child: Wrap(
-                                    alignment: WrapAlignment.end,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
+                            ),
+                          );
+                        }
+                      }
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, position) {
+                          var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
+                          int? rate = coin.coinTypes!.dollarRate;
+                          String rateText = "USD "+rate!.toString();
+                          return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0xFFF5F5F5),
+                              elevation: 6,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          child: CachedNetworkImage(
+                                            imageUrl: coin.coinTypes!.image.toString(),
+                                            placeholder: (context, url) => new CircularProgressIndicator(),
+                                            errorWidget: (context, url, error) => new Icon(Icons.error),
+                                          )),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text(coin.coinTypes!.name.toString(), style: TextStyle(
+                                            color: Colors.black, fontSize: 18),
+                                            textAlign: TextAlign.start),
+                                        Text(coin.coinTypes!.symbol.toString().toUpperCase(), style: TextStyle(
+                                            color: Colors.black54, fontSize: 18),
+                                            textAlign: TextAlign.start),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 10),
+                                    child: Expanded(
+                                      flex: 1,
+                                      child: Wrap(
+                                        alignment: WrapAlignment.end,
                                         children: [
-                                          Text(coin.coinTypes!.symbol.toString().toUpperCase() +" "+ coin.balance!.toString(), style: TextStyle(
-                                              color: Colors.black, fontSize: 18),
-                                              textAlign: TextAlign.start),
-                                          Text(rateText, style: TextStyle(
-                                              color: Color(0xFFC9782F), fontSize: 18),
-                                              textAlign: TextAlign.start),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text(coin.coinTypes!.symbol.toString().toUpperCase() +" "+ coin.balance!.toString(), style: TextStyle(
+                                                  color: Colors.black, fontSize: 18),
+                                                  textAlign: TextAlign.start),
+                                              Text(rateText, style: TextStyle(
+                                                  color: Color(0xFFC9782F), fontSize: 18),
+                                                  textAlign: TextAlign.start),
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        shrinkWrap: true,
+                        itemCount: 3,
                       );
                     },
-                    shrinkWrap: true,
-                    itemCount: 3,
-                  );
-                },
-              ),*/
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 6,
-                    color: Color(0xFFFAFAFA),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left:15,right:15,bottom: 15,top: 10),
-                          child:  Text('Fund Your Wallet', style: TextStyle(color: Colors.black54, fontSize: 20,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 5),
-                          child:  Text('Wallet Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                        ),
-                       Wrap(
-                         children: [
-                           Container(
-                             height: 90,
-                             child: Expanded(
-                               child: Padding(
-                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
-                                 child: InputDecorator(
-                                   decoration: const InputDecoration(border: OutlineInputBorder()),
-                                   child: DropdownButton(
-                                       value: value,
-                                       underline: SizedBox.shrink(),
-                                       isExpanded: true, items: ["Naira Wallet","Bitcoin Wallet","Ethereum Wallet"].map((String value) {
-                                     return DropdownMenuItem(value: value,child: Text(value));
-                                   }).toList(), onChanged: (_value){
-                                     if(value == "Naira Wallet"){
-                                       height = 500;
-                                     }else{
-                                       if(value3 == "Fund With Transaction code"){
-                                         height = 720;
-                                       }else{
-                                         height = 550;
-                                       }
-                                     }
-                                     setState(() {
-                                       value = _value as String;
-                                     });
-                                   }),
-                                 ),
-                               ),
-                             ),
-                           ),
-                           Padding(
-                             padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                             child:  Text('Medium', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                           ),
-                           Container(
-                             height: 90,
-                             child: Expanded(
-                               child: Padding(
-                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
-                                 child: InputDecorator(
-                                   decoration: const InputDecoration(border: OutlineInputBorder()),
-                                   child: DropdownButton(
-                                       value: value2,
-                                       underline: SizedBox.shrink(),
-                                       isExpanded: true, items: ["Amount In Dollar","Amount In Naira"/*,"Amount In Quantity"*/].map((String value) {
-                                     return DropdownMenuItem(value: value,child: Text(value));
-                                   }).toList(), onChanged: (_value){
-                                     setState(() {
-                                       value2 = _value as String;
-                                     });
-                                   }),
-                                 ),
-                               ),
-                             ),
-                           ),
-                           Padding(
-                             padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                             child:  Text('Amount', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                           ),
-                           Expanded(
-                             child: Padding(
-                               padding: const EdgeInsets.only(left: 15,right: 15,bottom:20),
-                               child: TextFormField(
-                                 controller: textController,
-                                 obscureText: false,
-                                 keyboardType: TextInputType.number,
-                                 decoration: const InputDecoration(border: OutlineInputBorder()),
-                               ),
-                             ),
-                           ),
-                           Builder(
-                             builder: (context) {
-                               if(value == "Naira Wallet"){
-                                 return Expanded(
-                                   child: Column(
-                                     mainAxisSize: MainAxisSize.min,
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                       Padding(
-                                         padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
-                                         child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                       ),
-                                       Padding(
-                                         padding: const EdgeInsets.only(left: 15,right: 15),
-                                         child: TextFormField(
-                                           controller: payStackController,
-                                           obscureText: false,
-                                           readOnly: true,
-                                           decoration: InputDecoration(
-                                             enabledBorder: OutlineInputBorder(
-                                               borderSide: BorderSide(
-                                                 color: Color(0x00000000),
-                                                 width: 1,
-                                               ),
-                                               borderRadius: BorderRadius.circular(5),
-                                             ),
-                                             focusedBorder: OutlineInputBorder(
-                                               borderSide: BorderSide(
-                                                 color: Color(0x00000000),
-                                                 width: 1,
-                                               ),
-                                               borderRadius: BorderRadius.circular(5),
-                                             ),
-                                             filled: true,
-                                             contentPadding:
-                                             EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                                           ),
-                                         ),
-                                       ),
-                                     ],
-                                   ),
-                                 );
-                               }else{
-                                 return Column(
-                                   mainAxisSize: MainAxisSize.min,
-                                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                  ),*/
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 6,
+                        color: Color(0xFFFAFAFA),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left:15,right:15,bottom: 15,top: 10),
+                              child:  Text('Fund Your Wallet', style: TextStyle(color: Colors.black54, fontSize: 20,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 5),
+                              child:  Text('Wallet Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                            ),
+                           Wrap(
+                             children: [
+                               Container(
+                                 height: 90,
+                                 child: Flex(
+                                   direction: Axis.vertical,
                                    children: [
-                                     Padding(
-                                       padding: const EdgeInsets.only(right:15,bottom: 2,top: 10,left:15),
-                                       child:  Text('Transaction Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                     ),
-                                     Container(
-                                       height:90,
+                                     Expanded(
                                        child: Padding(
                                          padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
                                          child: InputDecorator(
                                            decoration: const InputDecoration(border: OutlineInputBorder()),
                                            child: DropdownButton(
-                                               value: value3,
+                                               value: value,
                                                underline: SizedBox.shrink(),
-                                               isExpanded: true, items: ["Fund With Transaction code","Fund With Naira Wallet"].map((String value) {
+                                               isExpanded: true, items: ["Naira Wallet","Bitcoin Wallet","Ethereum Wallet"].map((String value) {
                                              return DropdownMenuItem(value: value,child: Text(value));
                                            }).toList(), onChanged: (_value){
-                                             setState(() {
-                                               if(value == "Naira Wallet"){
-                                                 height = 450;
+                                             if(value == "Naira Wallet"){
+                                               height = 500;
+                                             }else{
+                                               if(value3 == "Fund With Transaction code"){
+                                                 height = 720;
                                                }else{
-                                                 if(value3 == "Fund With Transaction code"){
-                                                   height = 720;
-                                                 }else{
-                                                   height = 550;
-                                                 }
+                                                 height = 550;
                                                }
-                                               value3 = _value as String;
+                                             }
+                                             setState(() {
+                                               value = _value as String;
                                              });
                                            }),
                                          ),
                                        ),
                                      ),
-                                     Builder(
-                                       builder: (context) {
-                                         if(value3 == "Fund With Transaction code"){
-                                           return  Padding(
-                                             padding: const EdgeInsets.only(left: 15,right: 15),
-                                             child: Column(
-                                               mainAxisSize: MainAxisSize.max,
-                                               crossAxisAlignment: CrossAxisAlignment.stretch,
-                                               children: [
-                                                 Padding(
-                                                   padding: const EdgeInsets.only(right:15,bottom: 2,top: 20),
-                                                   child:  Text('Transaction Code', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                                 ),
-                                                 TextFormField(
-                                                   controller: codeController,
-                                                   obscureText: false,
-                                                   keyboardType: TextInputType.number,
-                                                   decoration: const InputDecoration(border: OutlineInputBorder()),
-                                                 ),
-                                               ],
-                                             ),
-                                           );
-                                         }
-                                         return Column();
-                                       },
-                                     )
                                    ],
-                                 );
-                               }
-                               return Spacer();
-                             },
-                           ),
-                           Column(
-                             mainAxisSize: MainAxisSize.min,
-                             crossAxisAlignment: CrossAxisAlignment.stretch,
-                             children: [
-                               Padding(
-                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 10,top:20),
-                                 child: ElevatedButton(onPressed: (){
-                                   if(value == "Naira Wallet"){
-                                     payWithPayStack(context).then((value){
-                                       if(value.status == true){
-                                         payStackController.text = value.reference.toString();
-                                         _fundNairaWallet();
-                                       }else{
-                                         AppOverlay.snackbar(message: "Transaction Failed");
-                                       }
-                                     });
-                                   }else{
-                                     if(value3 == "Fund With Transaction code"){
-                                       if(codeController.text.trim().isEmpty || textController.text.trim().isEmpty){
-                                         AppOverlay.snackbar(message: "Fields Must Not Be Empty");
-                                       }else{
-                                         fundCryptoWalletWithTransactionCode();
-                                       }
-                                     }else{
-                                       if(textController.text.trim().isEmpty){
-                                         AppOverlay.snackbar(message: "Fields Must Not Be Empty");
-                                       }else{
-                                         fundCryptoWalletFromInternalWallet();
-                                       }
-                                     }
-                                   }
-                                 }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                                 ),
                                ),
+                               Padding(
+                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                                 child:  Text('Medium', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                               ),
+                               Container(
+                                 height: 90,
+                                 child: Flex(
+                                   direction: Axis.vertical,
+                                   children: [
+                                     Expanded(
+                                       child: Padding(
+                                         padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                         child: InputDecorator(
+                                           decoration: const InputDecoration(border: OutlineInputBorder()),
+                                           child: DropdownButton(
+                                               value: value2,
+                                               underline: SizedBox.shrink(),
+                                               isExpanded: true, items: ["Amount In Dollar","Amount In Naira"/*,"Amount In Quantity"*/].map((String value) {
+                                             return DropdownMenuItem(value: value,child: Text(value));
+                                           }).toList(), onChanged: (_value){
+                                             setState(() {
+                                               value2 = _value as String;
+                                             });
+                                           }),
+                                         ),
+                                       ),
+                                     ),
+                                   ],
+                                 ),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                                 child:  Text('Amount', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.only(left: 15,right: 15,bottom:20),
+                                 child: TextFormField(
+                                   controller: textController,
+                                   obscureText: false,
+                                   keyboardType: TextInputType.number,
+                                   decoration: const InputDecoration(border: OutlineInputBorder()),
+                                 ),
+                               ),
+                               Builder(
+                                 builder: (context) {
+                                   if(value == "Naira Wallet"){
+                                     return Flex(
+                                       direction: Axis.vertical,
+                                       children: [
+                                         Expanded(
+                                           child: Column(
+                                             mainAxisSize: MainAxisSize.min,
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             children: [
+                                               Padding(
+                                                 padding: const EdgeInsets.only(left:15,right:15,bottom: 2,top: 10),
+                                                 child:  Text('Reference', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                               ),
+                                               Padding(
+                                                 padding: const EdgeInsets.only(left: 15,right: 15),
+                                                 child: TextFormField(
+                                                   controller: payStackController,
+                                                   obscureText: false,
+                                                   readOnly: true,
+                                                   decoration: InputDecoration(
+                                                     enabledBorder: OutlineInputBorder(
+                                                       borderSide: BorderSide(
+                                                         color: Color(0x00000000),
+                                                         width: 1,
+                                                       ),
+                                                       borderRadius: BorderRadius.circular(5),
+                                                     ),
+                                                     focusedBorder: OutlineInputBorder(
+                                                       borderSide: BorderSide(
+                                                         color: Color(0x00000000),
+                                                         width: 1,
+                                                       ),
+                                                       borderRadius: BorderRadius.circular(5),
+                                                     ),
+                                                     filled: true,
+                                                     contentPadding:
+                                                     EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                                   ),
+                                                 ),
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       ],
+                                     );
+                                   }else{
+                                     return Column(
+                                       mainAxisSize: MainAxisSize.min,
+                                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                                       children: [
+                                         Padding(
+                                           padding: const EdgeInsets.only(right:15,bottom: 2,top: 10,left:15),
+                                           child:  Text('Transaction Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                         ),
+                                         Container(
+                                           height:90,
+                                           child: Padding(
+                                             padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                             child: InputDecorator(
+                                               decoration: const InputDecoration(border: OutlineInputBorder()),
+                                               child: DropdownButton(
+                                                   value: value3,
+                                                   underline: SizedBox.shrink(),
+                                                   isExpanded: true, items: ["Fund With Transaction code","Fund With Naira Wallet"].map((String value) {
+                                                 return DropdownMenuItem(value: value,child: Text(value));
+                                               }).toList(), onChanged: (_value){
+                                                 setState(() {
+                                                   if(value == "Naira Wallet"){
+                                                     height = 450;
+                                                   }else{
+                                                     if(value3 == "Fund With Transaction code"){
+                                                       height = 720;
+                                                     }else{
+                                                       height = 550;
+                                                     }
+                                                   }
+                                                   value3 = _value as String;
+                                                 });
+                                               }),
+                                             ),
+                                           ),
+                                         ),
+                                         Builder(
+                                           builder: (context) {
+                                             if(value3 == "Fund With Transaction code"){
+                                               return  Padding(
+                                                 padding: const EdgeInsets.only(left: 15,right: 15),
+                                                 child: Column(
+                                                   mainAxisSize: MainAxisSize.max,
+                                                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                   children: [
+                                                     Padding(
+                                                       padding: const EdgeInsets.only(right:15,bottom: 2,top: 20),
+                                                       child:  Text('Transaction Code', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                                     ),
+                                                     TextFormField(
+                                                       controller: codeController,
+                                                       obscureText: false,
+                                                       keyboardType: TextInputType.number,
+                                                       decoration: const InputDecoration(border: OutlineInputBorder()),
+                                                     ),
+                                                   ],
+                                                 ),
+                                               );
+                                             }
+                                             return Column();
+                                           },
+                                         )
+                                       ],
+                                     );
+                                   }
+                                   return Spacer();
+                                 },
+                               ),
+                               Column(
+                                 mainAxisSize: MainAxisSize.min,
+                                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                                 children: [
+                                   Padding(
+                                     padding: const EdgeInsets.only(left:15,right:15,bottom: 10,top:20),
+                                     child: ElevatedButton(onPressed: (){
+                                       if(value == "Naira Wallet"){
+                                         payWithPayStack(context).then((value){
+                                           if(value.status == true){
+                                             payStackController.text = value.reference.toString();
+                                             _fundNairaWallet();
+                                           }else{
+                                             AppOverlay.snackbar(message: "Transaction Failed");
+                                           }
+                                         });
+                                       }else{
+                                         if(value3 == "Fund With Transaction code"){
+                                           if(codeController.text.trim().isEmpty || textController.text.trim().isEmpty){
+                                             AppOverlay.snackbar(message: "Fields Must Not Be Empty");
+                                           }else{
+                                             fundCryptoWalletWithTransactionCode();
+                                           }
+                                         }else{
+                                           if(textController.text.trim().isEmpty){
+                                             AppOverlay.snackbar(message: "Fields Must Not Be Empty");
+                                           }else{
+                                             fundCryptoWalletFromInternalWallet();
+                                           }
+                                         }
+                                       }
+                                     }, child: Text("FUND WALLET"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                                   ),
+                                 ],
+                               )
                              ],
                            )
-                         ],
-                       )
-                      ],
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
