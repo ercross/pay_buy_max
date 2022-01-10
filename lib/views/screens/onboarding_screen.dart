@@ -146,6 +146,7 @@ class OnboardingPage extends StatelessWidget {
 
 class _Navigator extends StatelessWidget {
   final CarouselController slideController;
+
   const _Navigator(this.slideController);
 
   @override
@@ -190,6 +191,7 @@ class _Navigator extends StatelessWidget {
 
 class _ProgressIndicator extends StatelessWidget {
   final int active;
+
   const _ProgressIndicator({required this.active});
 
   @override
@@ -213,6 +215,7 @@ class _ProgressIndicator extends StatelessWidget {
 class _Indicator extends StatelessWidget {
   final int index;
   final int active;
+
   const _Indicator({required this.index, required this.active});
 
   @override
@@ -225,6 +228,7 @@ class _Indicator extends StatelessWidget {
 
 class _ActiveIndicator extends StatelessWidget {
   final int index;
+
   const _ActiveIndicator(this.index);
 
   @override
@@ -243,6 +247,7 @@ class _ActiveIndicator extends StatelessWidget {
 
 class _InactiveIndicator extends StatelessWidget {
   final int index;
+
   const _InactiveIndicator(this.index);
 
   @override
