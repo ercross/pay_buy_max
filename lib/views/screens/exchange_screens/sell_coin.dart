@@ -182,8 +182,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                       return ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, position) {
-                          var coin = walletBalanceEntity!.user!.userCoins!
-                              .elementAt(position);
+                          var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
                           int? rate = coin.coinTypes!.dollarRate;
                           String rateText = "USD " + rate!.toString();
                           return Padding(
@@ -240,37 +239,34 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 10, 10, 10),
-                                    child: Expanded(
-                                      flex: 1,
-                                      child: Wrap(
-                                        alignment: WrapAlignment.end,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                  coin.coinTypes!.symbol
-                                                      .toString()
-                                                      .toUpperCase() +
-                                                      " " +
-                                                      coin.balance!.toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18),
-                                                  textAlign: TextAlign.start),
-                                              Text(rateText,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFC9782F),
-                                                      fontSize: 18),
-                                                  textAlign: TextAlign.start),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                    child: Wrap(
+                                      alignment: WrapAlignment.end,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                                coin.coinTypes!.symbol
+                                                    .toString()
+                                                    .toUpperCase() +
+                                                    " " +
+                                                    coin.balance!.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                                textAlign: TextAlign.start),
+                                            Text(rateText,
+                                                style: TextStyle(
+                                                    color: Color(0xFFC9782F),
+                                                    fontSize: 18),
+                                                textAlign: TextAlign.start),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   )
                                 ],
