@@ -101,7 +101,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
         });
   }
 
-  Future<void> _displayPriceInputDialog(BuildContext context1,String planID,String userID) async {
+  Future<void> _displayPriceInputDialog(BuildContext context1,String planID,String userID,InvestmentListPackages investItem) async {
     return showDialog(
         context: context1,
         builder: (context) {
@@ -127,21 +127,32 @@ class _InvestmentState extends State<_InvestmentScreen> {
                 textColor: Colors.white,
                 child: Text('OK'),
                 onPressed: () {
-                  Navigator.pop(context1);
-                  showLoadingDialog(context1, "Investment in progress. Please Wait... ");
-                  sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
-                    Navigator.of(context1).pop();
-                    if(value.success == true){
-                      _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
-                    }else{
-                      if(value.msg == null){
-                        AppOverlay.snackbar(message: "An Error Occurred");
+                  Navigator.of(context1).pop();
+                  var fromPrice = investItem.fromPrice!;
+                  var toPrice = investItem.toPrice!;
+
+                  var amt = int.parse(_textFieldController.text);
+
+                  if(amt < fromPrice){
+                    AppOverlay.snackbar(message: "Amount Less Than Minimum");
+                  }else if(amt > toPrice){
+                    AppOverlay.snackbar(message: "Amount Greater Than Maximum");
+                  }else{
+                    Navigator.pop(context1);
+                    showLoadingDialog(context1, "Investment in progress. Please Wait... ");
+                    sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
+                      if(value.success == true){
+                        _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
                       }else{
-                        AppOverlay.snackbar(message: value.msg.toString());
+                        if(value.msg == null){
+                          AppOverlay.snackbar(message: "An Error Occurred");
+                        }else{
+                          AppOverlay.snackbar(message: value.msg.toString());
+                        }
                       }
-                    }
-                    _textFieldController.text = "";
-                  });
+                      _textFieldController.text = "";
+                    });
+                  }
                 },
               ),
             ],
@@ -314,7 +325,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                         child: ElevatedButton(
                                           onPressed: () {
                                             var investItem = investItems.elementAt(position);
-                                            _displayPriceInputDialog(context, investItem.id!, args.user!.id!);
+                                            _displayPriceInputDialog(context, investItem.id!, args.user!.id!,investItem);
                                           },
                                           child: Text("Invest Now",style: TextStyle(color: Color(0xFF4B8800))),
                                           style: ButtonStyle(
