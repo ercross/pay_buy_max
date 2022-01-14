@@ -9,6 +9,8 @@ import 'package:pay_buy_max/models/wallet/fund_wallet_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_wallet_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_up_response_entity_helper.dart';
+import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
+import 'package:pay_buy_max/generated/json/subscribe_response_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/fund_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_coin_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/all_available_coin_entity.dart';
@@ -43,6 +45,8 @@ class JsonConvert<T> {
 				return fundWalletEntityFromJson(data as FundWalletEntity, json) as T;
 			case SignUpResponseEntity:
 				return signUpResponseEntityFromJson(data as SignUpResponseEntity, json) as T;
+			case SubscribeResponseEntity:
+				return subscribeResponseEntityFromJson(data as SubscribeResponseEntity, json) as T;
 			case FundCoinEntity:
 				return fundCoinEntityFromJson(data as FundCoinEntity, json) as T;
 			case FundCoinData:
@@ -84,6 +88,8 @@ class JsonConvert<T> {
 				return fundWalletEntityToJson(data as FundWalletEntity);
 			case SignUpResponseEntity:
 				return signUpResponseEntityToJson(data as SignUpResponseEntity);
+			case SubscribeResponseEntity:
+				return subscribeResponseEntityToJson(data as SubscribeResponseEntity);
 			case FundCoinEntity:
 				return fundCoinEntityToJson(data as FundCoinEntity);
 			case FundCoinData:
@@ -131,6 +137,9 @@ class JsonConvert<T> {
 		}
 		if(type == (SignUpResponseEntity).toString()){
 			return SignUpResponseEntity().fromJson(json);
+		}
+		if(type == (SubscribeResponseEntity).toString()){
+			return SubscribeResponseEntity().fromJson(json);
 		}
 		if(type == (FundCoinEntity).toString()){
 			return FundCoinEntity().fromJson(json);
@@ -191,6 +200,9 @@ class JsonConvert<T> {
 		}
 		if(<SignUpResponseEntity>[] is M){
 			return data.map<SignUpResponseEntity>((e) => SignUpResponseEntity().fromJson(e)).toList() as M;
+		}
+		if(<SubscribeResponseEntity>[] is M){
+			return data.map<SubscribeResponseEntity>((e) => SubscribeResponseEntity().fromJson(e)).toList() as M;
 		}
 		if(<FundCoinEntity>[] is M){
 			return data.map<FundCoinEntity>((e) => FundCoinEntity().fromJson(e)).toList() as M;

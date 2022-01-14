@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
+import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
 import '../../../style_sheet.dart';
 import 'package:flutter/services.dart';
@@ -80,12 +81,12 @@ class _LearnState extends State<_LearnScreen> {
                     confirmSubscription(planID, _textFieldController.text).then((value){
                       Navigator.of(context1).pop();
                       if(value.success == true){
-                        AppOverlay.snackbar(message: value.msg.toString());
+                        AppOverlay.snackbar(message: value.message.toString());
                       }else{
-                        if(value.msg == null){
+                        if(value.message == null){
                           AppOverlay.snackbar(message: "An Error Occurred");
                         }else{
-                          AppOverlay.snackbar(message: value.msg.toString());
+                          AppOverlay.snackbar(message: value.message.toString());
                         }
                       }
                     });
@@ -106,13 +107,17 @@ class _LearnState extends State<_LearnScreen> {
     return CodeResponseEntity().fromJson(json.decode(response.body));
   }
 
-  Future<CodeResponseEntity> confirmSubscription(String planID, String code) async{
-    String url = 'https://paybuymax.com/api/subscribe/plan';
+  Future<SubscribeResponseEntity> confirmSubscription(String planID, String code) async{
+    try {
+      String url = 'https://paybuymax.com/api/subscribe/plan';
 
-    var body = {"planId":planID,"code":code};
-    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
-    print(response.body);
-    return CodeResponseEntity().fromJson(json.decode(response.body));
+      var body = {"planId":planID,"code":code};
+      final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+      print(response.body);
+      return SubscribeResponseEntity().fromJson(json.decode(response.body));
+    } catch(error){
+      return SubscribeResponseEntity();
+    }
   }
 
   void showLoadingDialog(BuildContext context,String text){
@@ -224,7 +229,21 @@ class _LearnState extends State<_LearnScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
                           child: ElevatedButton(onPressed: (){
-                            _displayTextInputDialog(context,"");
+                            showLoadingDialog(context,"Subscribing. Please wait");
+                            sendOTPCode("money", args.user!.id.toString(), 180000).then((value){
+                              Navigator.pop(context);
+                              setState(() {
+                                if(value.success == true){
+                                  _displayTextInputDialog(context,"b45e70c0-5749-11ec-84ce-cd1b93b8e99d");
+                                }else{
+                                  if(value.msg == null){
+                                    AppOverlay.snackbar(message: "An Error Occurred");
+                                  }else{
+                                    AppOverlay.snackbar(message: value.msg.toString());
+                                  }
+                                }
+                              });
+                            });
                           }, child: Text("Subscribe"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
@@ -260,7 +279,23 @@ class _LearnState extends State<_LearnScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                          child: ElevatedButton(onPressed: (){}, child: Text("Subscribe"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                          child: ElevatedButton(onPressed: (){
+                            showLoadingDialog(context,"Subscribing. Please wait");
+                            sendOTPCode("money", args.user!.id.toString(), 205000).then((value){
+                              Navigator.pop(context);
+                              setState(() {
+                                if(value.success == true){
+                                  _displayTextInputDialog(context,"771983c0-574a-11ec-84ce-cd1b93b8e99d");
+                                }else{
+                                  if(value.msg == null){
+                                    AppOverlay.snackbar(message: "An Error Occurred");
+                                  }else{
+                                    AppOverlay.snackbar(message: value.msg.toString());
+                                  }
+                                }
+                              });
+                            });
+                          }, child: Text("Subscribe"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
                     ),
