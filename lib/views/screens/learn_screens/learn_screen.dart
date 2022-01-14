@@ -1,11 +1,17 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
+import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
+import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 import '../../../style_sheet.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/generated/assets.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen();
@@ -34,6 +40,7 @@ class _LearnScreen extends StatefulWidget {
 class _LearnState extends State<_LearnScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController _textFieldController;
+  late SignInResponseEntity args;
 
   @override
   void initState() {
@@ -41,19 +48,19 @@ class _LearnState extends State<_LearnScreen> {
     _textFieldController = TextEditingController();
   }
 
-  Future<void> _displayTextInputDialog(BuildContext context,String planID) async {
+  Future<void> _displayTextInputDialog(BuildContext context1,String planID) async {
     return showDialog(
-        context: context,
+        context: context1,
         builder: (context) {
           return AlertDialog(
             title: Text('Enter OTP Code'),
             content: TextField(
               controller: _textFieldController,
-              decoration: InputDecoration(hintText: "Enter OTP Code To Confirm Subscription"),
+              decoration: InputDecoration(hintText: "Enter OTP Code To Confirm Subscription",border: OutlineInputBorder()),
             ),
             actions: <Widget>[
               FlatButton(
-                color: Colors.red,
+                color: Colors.black,
                 textColor: Colors.white,
                 child: Text('CANCEL'),
                 onPressed: () {
@@ -63,12 +70,25 @@ class _LearnState extends State<_LearnScreen> {
                 },
               ),
               FlatButton(
-                color: Colors.green,
+                color: Color(0xFFC9782F),
                 textColor: Colors.white,
                 child: Text('OK'),
                 onPressed: () {
                   setState(() {
-                    Navigator.pop(context);
+                    Navigator.pop(context1);
+                    showLoadingDialog(context1, " Confirming Subscription. Please Wait... ");
+                    confirmSubscription(planID, _textFieldController.text).then((value){
+                      Navigator.of(context1).pop();
+                      if(value.success == true){
+                        AppOverlay.snackbar(message: value.msg.toString());
+                      }else{
+                        if(value.msg == null){
+                          AppOverlay.snackbar(message: "An Error Occurred");
+                        }else{
+                          AppOverlay.snackbar(message: value.msg.toString());
+                        }
+                      }
+                    });
                   });
                 },
               ),
@@ -77,10 +97,46 @@ class _LearnState extends State<_LearnScreen> {
         });
   }
 
+  Future<CodeResponseEntity> sendOTPCode(String type, String userID, int amount) async{
+    String url = 'https://paybuymax.com/api/withdraw/code';
 
+    var body = {"type":type,"userId":userID,"amount":amount.toString()};
+    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+    print(response.body);
+    return CodeResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  Future<CodeResponseEntity> confirmSubscription(String planID, String code) async{
+    String url = 'https://paybuymax.com/api/subscribe/plan';
+
+    var body = {"planId":planID,"code":code};
+    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+    print(response.body);
+    return CodeResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  void showLoadingDialog(BuildContext context,String text){
+    AlertDialog alertDialog = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text(text),
+          )
+        ],
+      ),
+    );
+
+    showDialog(barrierDismissible: false, context:context, builder: (BuildContext context){
+      return alertDialog;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
@@ -116,7 +172,23 @@ class _LearnState extends State<_LearnScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                        child: ElevatedButton(onPressed: (){}, child: Text("Learn"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                        child: ElevatedButton(onPressed: (){
+                          showLoadingDialog(context,"Subscribing. Please wait");
+                          sendOTPCode("money", args.user!.id.toString(), 0).then((value){
+                            Navigator.pop(context);
+                            setState(() {
+                              if(value.success == true){
+                                _displayTextInputDialog(context,"14a06d90-5749-11ec-84ce-cd1b93b8e99d");
+                              }else{
+                                if(value.msg == null){
+                                  AppOverlay.snackbar(message: "An Error Occurred");
+                                }else{
+                                  AppOverlay.snackbar(message: value.msg.toString());
+                                }
+                              }
+                            });
+                          });
+                        }, child: Text("Subscribe"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                       )
                     ],
                   ),
@@ -151,7 +223,9 @@ class _LearnState extends State<_LearnScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                          child: ElevatedButton(onPressed: (){}, child: Text("Learn"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                          child: ElevatedButton(onPressed: (){
+                            _displayTextInputDialog(context,"");
+                          }, child: Text("Subscribe"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
                     ),
@@ -186,7 +260,7 @@ class _LearnState extends State<_LearnScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                          child: ElevatedButton(onPressed: (){}, child: Text("Learn"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                          child: ElevatedButton(onPressed: (){}, child: Text("Subscribe"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                         )
                       ],
                     ),

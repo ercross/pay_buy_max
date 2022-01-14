@@ -13,6 +13,8 @@ import 'package:pay_buy_max/models/wallet/fund_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_coin_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/all_available_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/all_available_coin_entity_helper.dart';
+import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
+import 'package:pay_buy_max/generated/json/code_response_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_in_response_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
@@ -51,6 +53,8 @@ class JsonConvert<T> {
 				return allAvailableCoinEntityFromJson(data as AllAvailableCoinEntity, json) as T;
 			case AllAvailableCoinProducts:
 				return allAvailableCoinProductsFromJson(data as AllAvailableCoinProducts, json) as T;
+			case CodeResponseEntity:
+				return codeResponseEntityFromJson(data as CodeResponseEntity, json) as T;
 			case SignInResponseEntity:
 				return signInResponseEntityFromJson(data as SignInResponseEntity, json) as T;
 			case SignInResponseUser:
@@ -90,6 +94,8 @@ class JsonConvert<T> {
 				return allAvailableCoinEntityToJson(data as AllAvailableCoinEntity);
 			case AllAvailableCoinProducts:
 				return allAvailableCoinProductsToJson(data as AllAvailableCoinProducts);
+			case CodeResponseEntity:
+				return codeResponseEntityToJson(data as CodeResponseEntity);
 			case SignInResponseEntity:
 				return signInResponseEntityToJson(data as SignInResponseEntity);
 			case SignInResponseUser:
@@ -140,6 +146,9 @@ class JsonConvert<T> {
 		}
 		if(type == (AllAvailableCoinProducts).toString()){
 			return AllAvailableCoinProducts().fromJson(json);
+		}
+		if(type == (CodeResponseEntity).toString()){
+			return CodeResponseEntity().fromJson(json);
 		}
 		if(type == (SignInResponseEntity).toString()){
 			return SignInResponseEntity().fromJson(json);
@@ -197,6 +206,9 @@ class JsonConvert<T> {
 		}
 		if(<AllAvailableCoinProducts>[] is M){
 			return data.map<AllAvailableCoinProducts>((e) => AllAvailableCoinProducts().fromJson(e)).toList() as M;
+		}
+		if(<CodeResponseEntity>[] is M){
+			return data.map<CodeResponseEntity>((e) => CodeResponseEntity().fromJson(e)).toList() as M;
 		}
 		if(<SignInResponseEntity>[] is M){
 			return data.map<SignInResponseEntity>((e) => SignInResponseEntity().fromJson(e)).toList() as M;
