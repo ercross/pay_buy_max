@@ -101,72 +101,86 @@ class _InvestmentState extends State<_InvestmentScreen> {
           Container(
             height: 250,
             color: StyleSheet.primaryColor.withOpacity(0.09),
-            child:  ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, position) {
-                return Container(
-                  width: 250,
-                  height: 250,
-                  child: Center(
+            child:  Builder(
+              builder: (context) {
+                if (investItems.isEmpty) {
+                  return Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        elevation: 6,
-                        color: Color(0xFF4B8800),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            side: BorderSide(color: Color(0xFF4B8800))
-                        ),
-                        child: Container(
-                          width: 250,
-                          height: 250,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  opacity: 0.15,
-                                  image: AssetImage('assets/images/background_image.jpg'),
-                                  fit: BoxFit.cover)),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Padding(
-                                  padding: const EdgeInsets.only(left: 10,top: 10),
-                                  child: Text(investItems.elementAt(position).name!,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 25),textAlign: TextAlign.start),
+                      padding: const EdgeInsets.all(25),
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFC9782F),
+                      ),
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, position) {
+                    return Container(
+                      width: 250,
+                      height: 250,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 6,
+                            color: Color(0xFF4B8800),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                side: BorderSide(color: Color(0xFF4B8800))
+                            ),
+                            child: Container(
+                              width: 250,
+                              height: 250,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      opacity: 0.15,
+                                      image: AssetImage('assets/images/background_image.jpg'),
+                                      fit: BoxFit.cover)),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10,top: 10),
+                                        child: Text(investItems.elementAt(position).name!,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 25),textAlign: TextAlign.start),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10,top: 5),
+                                        child: Text("NGN "+ investItems.elementAt(position).fromPrice.toString()+" - "+"NGN "+investItems.elementAt(position).toPrice.toString(),style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                      ),
+                                      Spacer(flex: 1),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10,top: 5),
+                                        child: Text(investItems.elementAt(position).commission.toString()+" %",style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10,top: 5),
+                                        child: Text(investItems.elementAt(position).duration.toString()+" Months",style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: ElevatedButton(
+                                          onPressed: () {  },
+                                          child: Text("Invest Now",style: TextStyle(color: Color(0xFF4B8800))),
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
+                                        ),
+                                      )
+                                    ]
                                 ),
-                                  Padding(
-                                  padding: const EdgeInsets.only(left: 10,top: 5),
-                                  child: Text(investItems.elementAt(position).fromPrice.toString()+"-"+investItems.elementAt(position).toPrice.toString(),style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
-                                ),
-                                  Spacer(flex: 1),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10,top: 5),
-                                    child: Text(investItems.elementAt(position).commission.toString()+" %",style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
-                                  ),
-                                  Padding(
-                                  padding: const EdgeInsets.only(left: 10,top: 5),
-                                  child: Text(investItems.elementAt(position).duration.toString()+" Months",style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
-                                ),
-                                  Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {  },
-                                    child: Text("Invest Now",style: TextStyle(color: Color(0xFF4B8800))),
-                                    style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
-                                  ),
-                                )
-                              ]
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
+                  itemCount: investItems.length,
                 );
               },
-              itemCount: investItems.length,
             ),
           ),
           Expanded(child: DefaultTabController(
