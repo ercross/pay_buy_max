@@ -352,119 +352,115 @@ class _InvestmentState extends State<_InvestmentScreen> {
                 backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
                 body: TabBarView(
                   children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, position) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    top: BorderSide(color: Colors.black12,width: 1.0)
-                                )
-                            ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Transform.rotate(
-                                      angle: -1,
-                                      child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                    ListView.builder(
+                      itemBuilder: (context, position) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  top: BorderSide(color: Colors.black12,width: 1.0)
+                              )
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Transform.rotate(
+                                    angle: -1,
+                                    child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
+                                      child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30, bottom: 15),
+                                      child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                    ),
+                                  ],
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
+                                  child: Wrap(
+                                    alignment: WrapAlignment.end,
                                     children: [
+                                      Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                        child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                        child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                        padding: const EdgeInsets.only(left: 30,top: 10),
+                                        child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
-                                    child: Wrap(
-                                      alignment: WrapAlignment.end,
-                                      children: [
-                                        Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 30,top: 10),
-                                          child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: 10,
-                      ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: 10,
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, position) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    top: BorderSide(color: Colors.black12,width: 1.0)
-                                )
-                            ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Transform.rotate(
-                                      angle: -1,
-                                      child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                    ListView.builder(
+                      itemBuilder: (context, position) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  top: BorderSide(color: Colors.black12,width: 1.0)
+                              )
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Transform.rotate(
+                                    angle: -1,
+                                    child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
+                                      child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30, bottom: 15),
+                                      child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                    ),
+                                  ],
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
+                                  child: Wrap(
+                                    alignment: WrapAlignment.end,
                                     children: [
+                                      Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                        child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                        child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                        padding: const EdgeInsets.only(left: 30,top: 10),
+                                        child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
-                                    child: Wrap(
-                                      alignment: WrapAlignment.end,
-                                      children: [
-                                        Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 30,top: 10),
-                                          child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: 10,
-                      ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: 10,
                     ),
                   ],
                 ),
