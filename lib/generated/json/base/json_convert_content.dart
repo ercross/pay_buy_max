@@ -17,6 +17,8 @@ import 'package:pay_buy_max/models/wallet/fund_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_coin_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/all_available_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/all_available_coin_entity_helper.dart';
+import 'package:pay_buy_max/models/invest/investment_list_entity.dart';
+import 'package:pay_buy_max/generated/json/investment_list_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
 import 'package:pay_buy_max/generated/json/code_response_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
@@ -63,6 +65,10 @@ class JsonConvert<T> {
 				return allAvailableCoinEntityFromJson(data as AllAvailableCoinEntity, json) as T;
 			case AllAvailableCoinProducts:
 				return allAvailableCoinProductsFromJson(data as AllAvailableCoinProducts, json) as T;
+			case InvestmentListEntity:
+				return investmentListEntityFromJson(data as InvestmentListEntity, json) as T;
+			case InvestmentListPackages:
+				return investmentListPackagesFromJson(data as InvestmentListPackages, json) as T;
 			case CodeResponseEntity:
 				return codeResponseEntityFromJson(data as CodeResponseEntity, json) as T;
 			case SignInResponseEntity:
@@ -110,6 +116,10 @@ class JsonConvert<T> {
 				return allAvailableCoinEntityToJson(data as AllAvailableCoinEntity);
 			case AllAvailableCoinProducts:
 				return allAvailableCoinProductsToJson(data as AllAvailableCoinProducts);
+			case InvestmentListEntity:
+				return investmentListEntityToJson(data as InvestmentListEntity);
+			case InvestmentListPackages:
+				return investmentListPackagesToJson(data as InvestmentListPackages);
 			case CodeResponseEntity:
 				return codeResponseEntityToJson(data as CodeResponseEntity);
 			case SignInResponseEntity:
@@ -171,6 +181,12 @@ class JsonConvert<T> {
 		}
 		if(type == (AllAvailableCoinProducts).toString()){
 			return AllAvailableCoinProducts().fromJson(json);
+		}
+		if(type == (InvestmentListEntity).toString()){
+			return InvestmentListEntity().fromJson(json);
+		}
+		if(type == (InvestmentListPackages).toString()){
+			return InvestmentListPackages().fromJson(json);
 		}
 		if(type == (CodeResponseEntity).toString()){
 			return CodeResponseEntity().fromJson(json);
@@ -240,6 +256,12 @@ class JsonConvert<T> {
 		}
 		if(<AllAvailableCoinProducts>[] is M){
 			return data.map<AllAvailableCoinProducts>((e) => AllAvailableCoinProducts().fromJson(e)).toList() as M;
+		}
+		if(<InvestmentListEntity>[] is M){
+			return data.map<InvestmentListEntity>((e) => InvestmentListEntity().fromJson(e)).toList() as M;
+		}
+		if(<InvestmentListPackages>[] is M){
+			return data.map<InvestmentListPackages>((e) => InvestmentListPackages().fromJson(e)).toList() as M;
 		}
 		if(<CodeResponseEntity>[] is M){
 			return data.map<CodeResponseEntity>((e) => CodeResponseEntity().fromJson(e)).toList() as M;

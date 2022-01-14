@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/models/invest/investment_list_entity.dart';
 import 'package:pay_buy_max/views/widgets/chart_container.dart';
 import '../../../style_sheet.dart';
 import 'package:provider/provider.dart';
@@ -34,16 +35,12 @@ class _InvestmentScreen extends StatefulWidget {
 }
 
 class _InvestmentState extends State<_InvestmentScreen> {
-  late List<InvestmentItems> investItems;
+  late List<InvestmentListPackages> investItems;
 
   @override
   void initState() {
     super.initState();
-    investItems = new List<InvestmentItems>.from(List.empty());
-    investItems.add(InvestmentItems("Bronze Plan", "50.0K - 500.0K", "10 %", "3 Months"));
-    investItems.add(InvestmentItems("Silver Plan", "501.0K - 1.0M", "20 %", "6 Months"));
-    investItems.add(InvestmentItems("Gold Plan", "1.0M - 5.0M", "30 %", "9 Months"));
-    investItems.add(InvestmentItems("Diamond Plan", "5.0M - 50.0M", "50 %", "12 Months"));
+    investItems = new List<InvestmentListPackages>.from(List.empty());
   }
 
   @override
@@ -93,20 +90,20 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                 children: [
                                   Padding(
                                   padding: const EdgeInsets.only(left: 10,top: 10),
-                                  child: Text(investItems.elementAt(position).title,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 25),textAlign: TextAlign.start),
+                                  child: Text(investItems.elementAt(position).name!,style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 25),textAlign: TextAlign.start),
                                 ),
                                   Padding(
                                   padding: const EdgeInsets.only(left: 10,top: 5),
-                                  child: Text(investItems.elementAt(position).price,style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                  child: Text(investItems.elementAt(position).fromPrice.toString()+"-"+investItems.elementAt(position).toPrice.toString(),style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
                                 ),
                                   Spacer(flex: 1),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10,top: 5),
-                                    child: Text(investItems.elementAt(position).commission,style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                    child: Text(investItems.elementAt(position).commission.toString()+" %",style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
                                   ),
                                   Padding(
                                   padding: const EdgeInsets.only(left: 10,top: 5),
-                                  child: Text(investItems.elementAt(position).duration,style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
+                                  child: Text(investItems.elementAt(position).duration.toString()+" Months",style: TextStyle(color: Colors.white60, fontSize: 15),textAlign: TextAlign.start),
                                 ),
                                   Padding(
                                   padding: const EdgeInsets.all(10.0),
