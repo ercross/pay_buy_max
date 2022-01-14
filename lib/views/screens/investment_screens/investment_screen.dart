@@ -130,7 +130,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                   Navigator.pop(context1);
                   showLoadingDialog(context1, "Investment in progress. Please Wait... ");
                   sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
-                    Navigator.pop(context1);
+                    Navigator.of(context1).pop();
                     if(value.success == true){
                       _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
                     }else{
@@ -252,7 +252,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
             height: 250,
             color: StyleSheet.primaryColor.withOpacity(0.09),
             child:  Builder(
-              builder: (context) {
+              builder: (context2) {
                 if (investItems.isEmpty) {
                   return Center(
                     child: Padding(
@@ -265,7 +265,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                 }
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, position) {
+                  itemBuilder: (context1, position) {
                     return Container(
                       width: 250,
                       height: 250,
