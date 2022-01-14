@@ -127,8 +127,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
 
   Future<WalletBalanceEntity> getWalletInfo() async {
     String url = 'https://paybuymax.com/api/user';
-    final response = await http
-        .get(Uri.parse(url), headers: {"Authorization": args.token.toString()});
+    final response = await http.get(Uri.parse(url), headers: {"Authorization": args.token.toString()});
     return WalletBalanceEntity().fromJson(json.decode(response.body));
   }
 
