@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
+import 'package:pay_buy_max/models/learn/course_list_entity.dart';
 import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
 import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
@@ -42,6 +43,7 @@ class _LearnState extends State<_LearnScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController _textFieldController;
   late SignInResponseEntity args;
+  late List<CourseListCourses>? courses;
 
   @override
   void initState() {
