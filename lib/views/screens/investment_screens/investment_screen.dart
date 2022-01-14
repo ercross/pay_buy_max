@@ -61,6 +61,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
             title: Text('Enter OTP Code'),
             content: TextField(
               controller: _textFieldController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: "Enter OTP Code To Confirm Subscription",border: OutlineInputBorder()),
             ),
             actions: <Widget>[
@@ -109,6 +110,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
             title: Text('Enter Amount'),
             content: TextField(
               controller: _textFieldController,
+              keyboardType: TextInputType.numberWithOptions(signed: false,decimal: false),
               decoration: InputDecoration(hintText: "Enter Amount You Want To Invest",border: OutlineInputBorder()),
             ),
             actions: <Widget>[
@@ -127,31 +129,35 @@ class _InvestmentState extends State<_InvestmentScreen> {
                 textColor: Colors.white,
                 child: Text('OK'),
                 onPressed: () {
-                  Navigator.of(context1).pop();
-                  var fromPrice = investItem.fromPrice!;
-                  var toPrice = investItem.toPrice!;
+                  try {
+                    Navigator.of(context1).pop();
+                    var fromPrice = investItem.fromPrice!;
+                    var toPrice = investItem.toPrice!;
 
-                  var amt = int.parse(_textFieldController.text);
+                    var amt = double.parse(_textFieldController.text);
 
-                  if(amt < fromPrice){
-                    AppOverlay.snackbar(message: "Amount Less Than Minimum");
-                  }else if(amt > toPrice){
-                    AppOverlay.snackbar(message: "Amount Greater Than Maximum");
-                  }else{
-                    Navigator.pop(context1);
-                    showLoadingDialog(context1, "Investment in progress. Please Wait... ");
-                    sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
-                      if(value.success == true){
-                        _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
-                      }else{
-                        if(value.msg == null){
-                          AppOverlay.snackbar(message: "An Error Occurred");
+                    if(amt < fromPrice){
+                      AppOverlay.snackbar(message: "Amount Less Than Minimum");
+                    }else if(amt > toPrice){
+                      AppOverlay.snackbar(message: "Amount Greater Than Maximum");
+                    }else{
+                      Navigator.pop(context1);
+                      showLoadingDialog(context1, "Investment in progress. Please Wait... ");
+                      sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
+                        if(value.success == true){
+                          _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
                         }else{
-                          AppOverlay.snackbar(message: value.msg.toString());
+                          if(value.msg == null){
+                            AppOverlay.snackbar(message: "An Error Occurred");
+                          }else{
+                            AppOverlay.snackbar(message: value.msg.toString());
+                          }
                         }
-                      }
-                      _textFieldController.text = "";
-                    });
+                        _textFieldController.text = "";
+                      });
+                    }
+                  } catch(e){
+                    AppOverlay.snackbar(message: "Enter a valid amount");
                   }
                 },
               ),

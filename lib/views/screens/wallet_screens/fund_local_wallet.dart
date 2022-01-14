@@ -424,7 +424,6 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                                        ],
                                      );
                                    }
-                                   return Spacer();
                                  },
                                ),
                                Column(

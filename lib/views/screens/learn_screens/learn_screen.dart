@@ -62,6 +62,7 @@ class _LearnState extends State<_LearnScreen> {
             title: Text('Enter OTP Code'),
             content: TextField(
               controller: _textFieldController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: "Enter OTP Code To Confirm Subscription",border: OutlineInputBorder()),
             ),
             actions: <Widget>[
