@@ -11,6 +11,8 @@ import 'package:pay_buy_max/models/learn/course_list_entity.dart';
 import 'package:pay_buy_max/generated/json/course_list_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_up_response_entity_helper.dart';
+import 'package:pay_buy_max/models/invest/investment_history_entity.dart';
+import 'package:pay_buy_max/generated/json/investment_history_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
 import 'package:pay_buy_max/generated/json/subscribe_response_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/fund_coin_entity.dart';
@@ -53,6 +55,12 @@ class JsonConvert<T> {
 				return courseListCoursesFromJson(data as CourseListCourses, json) as T;
 			case SignUpResponseEntity:
 				return signUpResponseEntityFromJson(data as SignUpResponseEntity, json) as T;
+			case InvestmentHistoryEntity:
+				return investmentHistoryEntityFromJson(data as InvestmentHistoryEntity, json) as T;
+			case InvestmentHistoryInvestments:
+				return investmentHistoryInvestmentsFromJson(data as InvestmentHistoryInvestments, json) as T;
+			case InvestmentHistoryInvestmentsPackage:
+				return investmentHistoryInvestmentsPackageFromJson(data as InvestmentHistoryInvestmentsPackage, json) as T;
 			case SubscribeResponseEntity:
 				return subscribeResponseEntityFromJson(data as SubscribeResponseEntity, json) as T;
 			case FundCoinEntity:
@@ -104,6 +112,12 @@ class JsonConvert<T> {
 				return courseListCoursesToJson(data as CourseListCourses);
 			case SignUpResponseEntity:
 				return signUpResponseEntityToJson(data as SignUpResponseEntity);
+			case InvestmentHistoryEntity:
+				return investmentHistoryEntityToJson(data as InvestmentHistoryEntity);
+			case InvestmentHistoryInvestments:
+				return investmentHistoryInvestmentsToJson(data as InvestmentHistoryInvestments);
+			case InvestmentHistoryInvestmentsPackage:
+				return investmentHistoryInvestmentsPackageToJson(data as InvestmentHistoryInvestmentsPackage);
 			case SubscribeResponseEntity:
 				return subscribeResponseEntityToJson(data as SubscribeResponseEntity);
 			case FundCoinEntity:
@@ -163,6 +177,15 @@ class JsonConvert<T> {
 		}
 		if(type == (SignUpResponseEntity).toString()){
 			return SignUpResponseEntity().fromJson(json);
+		}
+		if(type == (InvestmentHistoryEntity).toString()){
+			return InvestmentHistoryEntity().fromJson(json);
+		}
+		if(type == (InvestmentHistoryInvestments).toString()){
+			return InvestmentHistoryInvestments().fromJson(json);
+		}
+		if(type == (InvestmentHistoryInvestmentsPackage).toString()){
+			return InvestmentHistoryInvestmentsPackage().fromJson(json);
 		}
 		if(type == (SubscribeResponseEntity).toString()){
 			return SubscribeResponseEntity().fromJson(json);
@@ -238,6 +261,15 @@ class JsonConvert<T> {
 		}
 		if(<SignUpResponseEntity>[] is M){
 			return data.map<SignUpResponseEntity>((e) => SignUpResponseEntity().fromJson(e)).toList() as M;
+		}
+		if(<InvestmentHistoryEntity>[] is M){
+			return data.map<InvestmentHistoryEntity>((e) => InvestmentHistoryEntity().fromJson(e)).toList() as M;
+		}
+		if(<InvestmentHistoryInvestments>[] is M){
+			return data.map<InvestmentHistoryInvestments>((e) => InvestmentHistoryInvestments().fromJson(e)).toList() as M;
+		}
+		if(<InvestmentHistoryInvestmentsPackage>[] is M){
+			return data.map<InvestmentHistoryInvestmentsPackage>((e) => InvestmentHistoryInvestmentsPackage().fromJson(e)).toList() as M;
 		}
 		if(<SubscribeResponseEntity>[] is M){
 			return data.map<SubscribeResponseEntity>((e) => SubscribeResponseEntity().fromJson(e)).toList() as M;

@@ -291,17 +291,17 @@ class _InvestmentState extends State<_InvestmentScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
                             elevation: 6,
-                            color: Color(0xFF4B8800),
+                            color: Color(0xFFC9782F),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                                side: BorderSide(color: Color(0xFF4B8800))
+                                side: BorderSide(color: Color(0xFFC9782F))
                             ),
                             child: Container(
                               width: 250,
                               height: 250,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      opacity: 0.15,
+                                      opacity: 0.10,
                                       image: AssetImage('assets/images/background_image.jpg'),
                                       fit: BoxFit.cover)),
                               child: Align(
@@ -333,7 +333,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                             var investItem = investItems.elementAt(position);
                                             _displayPriceInputDialog(context, investItem.id!, args.user!.id!,investItem);
                                           },
-                                          child: Text("Invest Now",style: TextStyle(color: Color(0xFF4B8800))),
+                                          child: Text("Invest Now",style: TextStyle(color: Color(0xFFC9782F))),
                                           style: ButtonStyle(
                                               backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
                                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFFAFAFA))))),
@@ -354,16 +354,15 @@ class _InvestmentState extends State<_InvestmentScreen> {
             ),
           ),
           Expanded(child: DefaultTabController(
-              length: 2,
+              length: 1,
               child:Scaffold(
                 appBar:  TabBar(
-                  indicatorColor: Color(0xFF4B8800),
-                  labelColor: Color(0xFF4B8800),
+                  indicatorColor: Color(0xFFC9782F),
+                  labelColor: Color(0xFFC9782F),
                   unselectedLabelColor: Colors.black45,
                   indicatorWeight: 1,
                   tabs: [
-                    Tab(text: "My Investments",),
-                    Tab(text: "History"),
+                    Tab(text: "Investments History",),
                   ],
                 ),
                 backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),
@@ -383,7 +382,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                 padding: const EdgeInsets.only(left: 15),
                                 child: Transform.rotate(
                                     angle: -1,
-                                    child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
+                                    child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFFC9782F))),
                               ),
                               Expanded(
                                 flex: 1,
@@ -393,62 +392,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                      child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                      child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
-                                  child: Wrap(
-                                    alignment: WrapAlignment.end,
-                                    children: [
-                                      Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 30,top: 10),
-                                        child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                    ListView.builder(
-                      itemBuilder: (context, position) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(color: Colors.black12,width: 1.0)
-                              )
-                          ),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Transform.rotate(
-                                    angle: -1,
-                                    child: Icon(Icons.arrow_right_alt_outlined, color: Color(0xFF4B8800))),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                      child: Text('Bronze Plan', style: TextStyle(color: Color(0xFF4B8800), fontSize: 18), textAlign: TextAlign.start),
+                                      child: Text('Bronze Plan', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 30, bottom: 15),
