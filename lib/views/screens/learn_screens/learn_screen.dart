@@ -99,12 +99,19 @@ class _LearnState extends State<_LearnScreen> {
   }
 
   Future<CodeResponseEntity> sendOTPCode(String type, String userID, int amount) async{
-    String url = 'https://paybuymax.com/api/withdraw/code';
+    try {
+      String url = 'https://paybuymax.com/api/withdraw/code';
 
-    var body = {"type":type,"userId":userID,"amount":amount.toString()};
-    final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
-    print(response.body);
-    return CodeResponseEntity().fromJson(json.decode(response.body));
+      var body = {"type":type,"userId":userID,"amount":amount.toString()};
+      final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+      print(response.body);
+      return CodeResponseEntity().fromJson(json.decode(response.body));
+    } catch(e){
+      var error = CodeResponseEntity();
+      error.msg = "An Error Occurred";
+      error.success = false;
+      return error;
+    }
   }
 
   Future<SubscribeResponseEntity> confirmSubscription(String planID, String code) async{
@@ -115,8 +122,26 @@ class _LearnState extends State<_LearnScreen> {
       final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
       print(response.body);
       return SubscribeResponseEntity().fromJson(json.decode(response.body));
-    } catch(error){
-      return SubscribeResponseEntity();
+    } catch(e){
+      var error = SubscribeResponseEntity();
+      error.message = "An Error Occurred";
+      error.success = false;
+      return error;
+    }
+  }
+
+  Future<SubscribeResponseEntity> getCoursesList(String planID, String code) async{
+    try {
+      String url = 'https://paybuymax.com/api/courses';
+
+      final response = await http.get(Uri.parse(url),headers: {"Authorization":args.token.toString()});
+      print(response.body);
+      return SubscribeResponseEntity().fromJson(json.decode(response.body));
+    } catch(e){
+      var error = SubscribeResponseEntity();
+      error.message = "An Error Occurred";
+      error.success = false;
+      return error;
     }
   }
 

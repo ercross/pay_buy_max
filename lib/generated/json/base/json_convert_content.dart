@@ -7,6 +7,8 @@ import 'package:pay_buy_max/models/wallet/user_entity.dart';
 import 'package:pay_buy_max/generated/json/user_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/fund_wallet_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_wallet_entity_helper.dart';
+import 'package:pay_buy_max/models/learn/course_list_entity.dart';
+import 'package:pay_buy_max/generated/json/course_list_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_up_response_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
@@ -43,6 +45,10 @@ class JsonConvert<T> {
 				return userUserUserCoinsCoinTypesFromJson(data as UserUserUserCoinsCoinTypes, json) as T;
 			case FundWalletEntity:
 				return fundWalletEntityFromJson(data as FundWalletEntity, json) as T;
+			case CourseListEntity:
+				return courseListEntityFromJson(data as CourseListEntity, json) as T;
+			case CourseListCourses:
+				return courseListCoursesFromJson(data as CourseListCourses, json) as T;
 			case SignUpResponseEntity:
 				return signUpResponseEntityFromJson(data as SignUpResponseEntity, json) as T;
 			case SubscribeResponseEntity:
@@ -86,6 +92,10 @@ class JsonConvert<T> {
 				return userUserUserCoinsCoinTypesToJson(data as UserUserUserCoinsCoinTypes);
 			case FundWalletEntity:
 				return fundWalletEntityToJson(data as FundWalletEntity);
+			case CourseListEntity:
+				return courseListEntityToJson(data as CourseListEntity);
+			case CourseListCourses:
+				return courseListCoursesToJson(data as CourseListCourses);
 			case SignUpResponseEntity:
 				return signUpResponseEntityToJson(data as SignUpResponseEntity);
 			case SubscribeResponseEntity:
@@ -134,6 +144,12 @@ class JsonConvert<T> {
 		}
 		if(type == (FundWalletEntity).toString()){
 			return FundWalletEntity().fromJson(json);
+		}
+		if(type == (CourseListEntity).toString()){
+			return CourseListEntity().fromJson(json);
+		}
+		if(type == (CourseListCourses).toString()){
+			return CourseListCourses().fromJson(json);
 		}
 		if(type == (SignUpResponseEntity).toString()){
 			return SignUpResponseEntity().fromJson(json);
@@ -197,6 +213,12 @@ class JsonConvert<T> {
 		}
 		if(<FundWalletEntity>[] is M){
 			return data.map<FundWalletEntity>((e) => FundWalletEntity().fromJson(e)).toList() as M;
+		}
+		if(<CourseListEntity>[] is M){
+			return data.map<CourseListEntity>((e) => CourseListEntity().fromJson(e)).toList() as M;
+		}
+		if(<CourseListCourses>[] is M){
+			return data.map<CourseListCourses>((e) => CourseListCourses().fromJson(e)).toList() as M;
 		}
 		if(<SignUpResponseEntity>[] is M){
 			return data.map<SignUpResponseEntity>((e) => SignUpResponseEntity().fromJson(e)).toList() as M;
