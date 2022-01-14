@@ -1,14 +1,16 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
+import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/invest/investment_list_entity.dart';
 import 'package:pay_buy_max/views/widgets/chart_container.dart';
 import '../../../style_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
-import 'investment_items.dart';
 
 class InvestmentScreen extends StatelessWidget {
   const InvestmentScreen();
@@ -36,15 +38,55 @@ class _InvestmentScreen extends StatefulWidget {
 
 class _InvestmentState extends State<_InvestmentScreen> {
   late List<InvestmentListPackages> investItems;
+  late SignInResponseEntity args;
 
   @override
   void initState() {
     super.initState();
     investItems = new List<InvestmentListPackages>.from(List.empty());
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _getInvestmentListList();
+    });
+  }
+
+  void _getInvestmentListList() {
+    getInvestmentListList().then((value) {
+      setState(() {
+        if (value.status == true) {
+          investItems = value.packages!;
+        } else {
+          investItems = List<InvestmentListPackages>.from(List.empty());
+          /*if(response.message == null){
+        AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+      }else{
+        if(response.message!.isEmpty){
+          AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+        }else{
+          AppOverlay.snackbar(message: response.message.toString());
+        }
+      }*/
+        }
+      });
+    });
+  }
+
+  Future<InvestmentListEntity> getInvestmentListList() async{
+    try {
+      String url = 'https://paybuymax.com/api/packages';
+
+      final response = await http.get(Uri.parse(url),headers: {"Authorization":args.token.toString()});
+      print(response.body);
+      return InvestmentListEntity().fromJson(json.decode(response.body));
+    } catch(e){
+      var error = InvestmentListEntity();
+      error.status = false;
+      return error;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
 
     final double height = MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.top);
 
