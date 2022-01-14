@@ -33,11 +33,51 @@ class _LearnScreen extends StatefulWidget {
 
 class _LearnState extends State<_LearnScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late TextEditingController _textFieldController;
 
   @override
   void initState() {
     super.initState();
+    _textFieldController = TextEditingController();
   }
+
+  Future<void> _displayTextInputDialog(BuildContext context,String planID) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Enter OTP Code'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter OTP Code To Confirm Subscription"),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              FlatButton(
+                color: Colors.green,
+                textColor: Colors.white,
+                child: Text('OK'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
