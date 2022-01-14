@@ -6,11 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/invest/investment_list_entity.dart';
+import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
+import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
 import 'package:pay_buy_max/views/widgets/chart_container.dart';
+import 'package:pay_buy_max/views/widgets/overlays.dart';
 import '../../../style_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 
 class InvestmentScreen extends StatelessWidget {
   const InvestmentScreen();
@@ -39,14 +41,144 @@ class _InvestmentScreen extends StatefulWidget {
 class _InvestmentState extends State<_InvestmentScreen> {
   late List<InvestmentListPackages> investItems;
   late SignInResponseEntity args;
+  late TextEditingController _textFieldController;
 
   @override
   void initState() {
     super.initState();
+    _textFieldController = TextEditingController();
     investItems = new List<InvestmentListPackages>.from(List.empty());
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getInvestmentListList();
     });
+  }
+
+  Future<void> _displayTextInputDialog(BuildContext context1,String planID,String amount,String userID) async {
+    return showDialog(
+        context: context1,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Enter OTP Code'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter OTP Code To Confirm Subscription",border: OutlineInputBorder()),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.black,
+                textColor: Colors.white,
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              FlatButton(
+                color: Color(0xFFC9782F),
+                textColor: Colors.white,
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context1);
+                  showLoadingDialog(context1, " Confirming Investment. Please Wait... ");
+                  confirmSubscription(planID, _textFieldController.text,amount,userID).then((value){
+                    Navigator.of(context1).pop();
+                    if(value.success == true){
+                      AppOverlay.snackbar(message: value.message.toString());
+                    }else{
+                      if(value.message == null){
+                        AppOverlay.snackbar(message: "An Error Occurred");
+                      }else{
+                        AppOverlay.snackbar(message: value.message.toString());
+                      }
+                    }
+                    _textFieldController.text = "";
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<void> _displayPriceInputDialog(BuildContext context1,String planID,String userID) async {
+    return showDialog(
+        context: context1,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Enter Amount'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter Amount You Want To Invest",border: OutlineInputBorder()),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.black,
+                textColor: Colors.white,
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              FlatButton(
+                color: Color(0xFFC9782F),
+                textColor: Colors.white,
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context1);
+                  showLoadingDialog(context1, "Investment in progress. Please Wait... ");
+                  sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
+                    Navigator.pop(context1);
+                    if(value.success == true){
+                      _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
+                    }else{
+                      if(value.msg == null){
+                        AppOverlay.snackbar(message: "An Error Occurred");
+                      }else{
+                        AppOverlay.snackbar(message: value.msg.toString());
+                      }
+                    }
+                    _textFieldController.text = "";
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<CodeResponseEntity> sendOTPCode(String type, String userID, String amount) async{
+    try {
+      String url = 'https://paybuymax.com/api/withdraw/code';
+
+      var body = {"type":type,"userId":userID,"amount":amount};
+      final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+      print(response.body);
+      return CodeResponseEntity().fromJson(json.decode(response.body));
+    } catch(e){
+      var error = CodeResponseEntity();
+      error.msg = "An Error Occurred";
+      error.success = false;
+      return error;
+    }
+  }
+
+  Future<SubscribeResponseEntity> confirmSubscription(String packageId, String code,String amount,String userID) async{
+    try {
+      String url = 'https://paybuymax.com/api/invest-now';
+
+      var body = {"package_id":packageId,"code":code,"amount":amount,"user_id":userID};
+      final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
+      print(response.body);
+      return SubscribeResponseEntity().fromJson(json.decode(response.body));
+    } catch(e){
+      var error = SubscribeResponseEntity();
+      error.message = "An Error Occurred";
+      error.success = false;
+      return error;
+    }
   }
 
   void _getInvestmentListList() {
@@ -82,6 +214,24 @@ class _InvestmentState extends State<_InvestmentScreen> {
       error.status = false;
       return error;
     }
+  }
+
+  void showLoadingDialog(BuildContext context,String text){
+    AlertDialog alertDialog = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text(text),
+          )
+        ],
+      ),
+    );
+
+    showDialog(barrierDismissible: false, context:context, builder: (BuildContext context){
+      return alertDialog;
+    });
   }
 
   @override
@@ -162,7 +312,10 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: ElevatedButton(
-                                          onPressed: () {  },
+                                          onPressed: () {
+                                            var investItem = investItems.elementAt(position);
+                                            _displayPriceInputDialog(context, investItem.id!, args.user!.id!);
+                                          },
                                           child: Text("Invest Now",style: TextStyle(color: Color(0xFF4B8800))),
                                           style: ButtonStyle(
                                               backgroundColor: MaterialStateProperty.all(Color(0xFFFAFAFA)),
