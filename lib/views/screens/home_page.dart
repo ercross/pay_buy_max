@@ -495,11 +495,14 @@ class _HomeStateContainer extends State<_HomeContainer> {
       bankMap.putIfAbsent(bankListEntity.data!.elementAt(i).name.toString(), () => bankListEntity.data!.elementAt(i).code.toString());
     }
 
+    value1 = banks.elementAt(0);
+
     return showDialog(
+        barrierDismissible: false,
         context: context1,
         builder: (context) {
           return AlertDialog(
-            title: Text('Send', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.start),
+            title: Text('Withdraw', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.start),
             content: StatefulBuilder(
               builder: (BuildContext context,StateSetter setState){
                 return Column(
@@ -642,17 +645,20 @@ class _HomeStateContainer extends State<_HomeContainer> {
                   });
                 },
               ),
-              FlatButton(
-                color: Color(0xFFC9782F),
-                textColor: Colors.white,
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context1);
-                  _amtFieldController.text = "";
-                  _accFieldController.text = "";
-                  _otpFieldController.text = "";
-                  _nameFieldController.text = "";
-                },
+              Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: FlatButton(
+                  color: Color(0xFFC9782F),
+                  textColor: Colors.white,
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context1);
+                    _amtFieldController.text = "";
+                    _accFieldController.text = "";
+                    _otpFieldController.text = "";
+                    _nameFieldController.text = "";
+                  },
+                ),
               ),
             ],
           );
@@ -662,48 +668,64 @@ class _HomeStateContainer extends State<_HomeContainer> {
   void showWalletDialog(BuildContext context){
     AlertDialog alertDialog = AlertDialog(
       content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ElevatedButton(
-            onPressed: () {
-
-            },
-            child: Text("Withdraw From Naira Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                showTransferDialog(context);
+              },
+              child: Text("Withdraw From Naira Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+            ),
           ),
-          ElevatedButton(
-            onPressed: () {
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
 
-            },
-            child: Text("Withdraw From Bitcoin Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+              },
+              child: Text("Withdraw From Bitcoin Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+            ),
           ),
-          ElevatedButton(
-            onPressed: () {
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
 
-            },
-            child: Text("Withdraw From Ethereum Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+              },
+              child: Text("Withdraw From Ethereum Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+            ),
           ),
-          ElevatedButton(
-            onPressed: () {
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
 
-            },
-            child: Text("Withdraw From Tether Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+              },
+              child: Text("Withdraw From Tether Wallet",style: TextStyle(color: Color(0xFFFAFAFA))),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFC9782F)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),side: BorderSide(color: Color(0xFFC9782F))))),
+            ),
           )
         ],
       ),
     );
 
-    showDialog(barrierDismissible: false, context:context, builder: (BuildContext context){
+    showDialog(barrierDismissible: true, context:context, builder: (BuildContext context){
       return alertDialog;
     });
   }
@@ -928,7 +950,7 @@ class _HomeStateContainer extends State<_HomeContainer> {
                                                         icon: new Icon(
                                                             Icons.send_rounded),
                                                         onPressed: () {
-                                                          showTransferDialog(context);
+                                                          showWalletDialog(context);
                                                         },
                                                       ),
                                                       Text('Withdraw',

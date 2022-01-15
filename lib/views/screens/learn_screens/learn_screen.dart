@@ -56,6 +56,7 @@ class _LearnState extends State<_LearnScreen> {
 
   Future<void> _displayTextInputDialog(BuildContext context1,String planID) async {
     return showDialog(
+        barrierDismissible: false,
         context: context1,
         builder: (context) {
           return AlertDialog(
@@ -76,28 +77,31 @@ class _LearnState extends State<_LearnScreen> {
                   });
                 },
               ),
-              FlatButton(
-                color: Color(0xFFC9782F),
-                textColor: Colors.white,
-                child: Text('OK'),
-                onPressed: () {
-                  setState(() {
-                    Navigator.pop(context1);
-                    showLoadingDialog(context1, " Confirming Subscription. Please Wait... ");
-                    confirmSubscription(planID, _textFieldController.text).then((value){
-                      Navigator.of(context1).pop();
-                      if(value.success == true){
-                        AppOverlay.snackbar(message: value.message.toString());
-                      }else{
-                        if(value.message == null){
-                          AppOverlay.snackbar(message: "An Error Occurred");
-                        }else{
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: FlatButton(
+                  color: Color(0xFFC9782F),
+                  textColor: Colors.white,
+                  child: Text('OK'),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context1);
+                      showLoadingDialog(context1, " Confirming Subscription. Please Wait... ");
+                      confirmSubscription(planID, _textFieldController.text).then((value){
+                        Navigator.of(context1).pop();
+                        if(value.success == true){
                           AppOverlay.snackbar(message: value.message.toString());
+                        }else{
+                          if(value.message == null){
+                            AppOverlay.snackbar(message: "An Error Occurred");
+                          }else{
+                            AppOverlay.snackbar(message: value.message.toString());
+                          }
                         }
-                      }
+                      });
                     });
-                  });
-                },
+                  },
+                ),
               ),
             ],
           );

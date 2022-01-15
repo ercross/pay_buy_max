@@ -58,6 +58,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
 
   Future<void> _displayTextInputDialog(BuildContext context1,String planID,String amount,String userID) async {
     return showDialog(
+        barrierDismissible: false,
         context: context1,
         builder: (context) {
           return AlertDialog(
@@ -108,6 +109,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
 
   Future<void> _displayPriceInputDialog(BuildContext context1,String planID,String userID,InvestmentListPackages investItem) async {
     return showDialog(
+        barrierDismissible: false,
         context: context1,
         builder: (context) {
           return AlertDialog(
@@ -128,43 +130,46 @@ class _InvestmentState extends State<_InvestmentScreen> {
                   });
                 },
               ),
-              FlatButton(
-                color: Color(0xFFC9782F),
-                textColor: Colors.white,
-                child: Text('OK'),
-                onPressed: () {
-                  try {
-                    //Navigator.of(context1).pop();
-                    var fromPrice = investItem.fromPrice!;
-                    var toPrice = investItem.toPrice!;
+              Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: FlatButton(
+                  color: Color(0xFFC9782F),
+                  textColor: Colors.white,
+                  child: Text('OK'),
+                  onPressed: () {
+                    try {
+                      //Navigator.of(context1).pop();
+                      var fromPrice = investItem.fromPrice!;
+                      var toPrice = investItem.toPrice!;
 
-                    var amt = double.parse(_textFieldController.text);
+                      var amt = double.parse(_textFieldController.text);
 
-                    if(amt < fromPrice){
-                      AppOverlay.snackbar(message: "Amount Less Than Minimum");
-                    }else if(amt > toPrice){
-                      AppOverlay.snackbar(message: "Amount Greater Than Maximum");
-                    }else{
-                      Navigator.pop(context1);
-                      showLoadingDialog(context1, "Investment in progress. Please Wait... ");
-                      sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
+                      if(amt < fromPrice){
+                        AppOverlay.snackbar(message: "Amount Less Than Minimum");
+                      }else if(amt > toPrice){
+                        AppOverlay.snackbar(message: "Amount Greater Than Maximum");
+                      }else{
                         Navigator.pop(context1);
-                        if(value.success == true){
-                          _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
-                        }else{
-                          if(value.msg == null){
-                            AppOverlay.snackbar(message: "An Error Occurred");
+                        showLoadingDialog(context1, "Investment in progress. Please Wait... ");
+                        sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
+                          Navigator.pop(context1);
+                          if(value.success == true){
+                            _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
                           }else{
-                            AppOverlay.snackbar(message: value.msg.toString());
+                            if(value.msg == null){
+                              AppOverlay.snackbar(message: "An Error Occurred");
+                            }else{
+                              AppOverlay.snackbar(message: value.msg.toString());
+                            }
                           }
-                        }
-                        _textFieldController.text = "";
-                      });
+                          _textFieldController.text = "";
+                        });
+                      }
+                    } catch(e){
+                      AppOverlay.snackbar(message: "Enter a valid amount");
                     }
-                  } catch(e){
-                    AppOverlay.snackbar(message: "Enter a valid amount");
-                  }
-                },
+                  },
+                ),
               ),
             ],
           );
