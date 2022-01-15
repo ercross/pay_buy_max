@@ -665,6 +665,22 @@ class _HomeStateContainer extends State<_HomeContainer> {
         });
   }
 
+  Future<void> showCryptoTransferDialog(String type){
+    var coins = walletBalanceEntity!.user!.userCoins!;
+    String value1 = "";
+    var coinList = List<String>.from(List.empty());
+    var coinMap = {"":""};
+
+    for(int i = 0;i< coins.length;i++){
+      coinList.add(coins.elementAt(i).coinTypes!.name!);
+      coinMap.putIfAbsent(coins.elementAt(i).coinTypes!.name!, () => coins.elementAt(i).coinId!);
+    }
+
+    value1 = type;
+
+    return null;
+  }
+
   void showWalletDialog(BuildContext context){
     AlertDialog alertDialog = AlertDialog(
       content: Column(
@@ -1151,8 +1167,7 @@ class _HomeStateContainer extends State<_HomeContainer> {
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, position) {
-                        var coin = walletBalanceEntity!.user!.userCoins!
-                            .elementAt(position);
+                        var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
                         int? rate = coin.coinTypes!.dollarRate;
 
                         String rateText = "USD " + rate!.toString();
