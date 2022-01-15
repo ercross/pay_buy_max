@@ -7,6 +7,8 @@ import 'package:pay_buy_max/models/wallet/user_entity.dart';
 import 'package:pay_buy_max/generated/json/user_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/fund_wallet_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_wallet_entity_helper.dart';
+import 'package:pay_buy_max/models/history/deposit_history_entity.dart';
+import 'package:pay_buy_max/generated/json/deposit_history_entity_helper.dart';
 import 'package:pay_buy_max/models/learn/course_list_entity.dart';
 import 'package:pay_buy_max/generated/json/course_list_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
@@ -49,6 +51,10 @@ class JsonConvert<T> {
 				return userUserUserCoinsCoinTypesFromJson(data as UserUserUserCoinsCoinTypes, json) as T;
 			case FundWalletEntity:
 				return fundWalletEntityFromJson(data as FundWalletEntity, json) as T;
+			case DepositHistoryEntity:
+				return depositHistoryEntityFromJson(data as DepositHistoryEntity, json) as T;
+			case DepositHistoryDeposits:
+				return depositHistoryDepositsFromJson(data as DepositHistoryDeposits, json) as T;
 			case CourseListEntity:
 				return courseListEntityFromJson(data as CourseListEntity, json) as T;
 			case CourseListCourses:
@@ -106,6 +112,10 @@ class JsonConvert<T> {
 				return userUserUserCoinsCoinTypesToJson(data as UserUserUserCoinsCoinTypes);
 			case FundWalletEntity:
 				return fundWalletEntityToJson(data as FundWalletEntity);
+			case DepositHistoryEntity:
+				return depositHistoryEntityToJson(data as DepositHistoryEntity);
+			case DepositHistoryDeposits:
+				return depositHistoryDepositsToJson(data as DepositHistoryDeposits);
 			case CourseListEntity:
 				return courseListEntityToJson(data as CourseListEntity);
 			case CourseListCourses:
@@ -168,6 +178,12 @@ class JsonConvert<T> {
 		}
 		if(type == (FundWalletEntity).toString()){
 			return FundWalletEntity().fromJson(json);
+		}
+		if(type == (DepositHistoryEntity).toString()){
+			return DepositHistoryEntity().fromJson(json);
+		}
+		if(type == (DepositHistoryDeposits).toString()){
+			return DepositHistoryDeposits().fromJson(json);
 		}
 		if(type == (CourseListEntity).toString()){
 			return CourseListEntity().fromJson(json);
@@ -252,6 +268,12 @@ class JsonConvert<T> {
 		}
 		if(<FundWalletEntity>[] is M){
 			return data.map<FundWalletEntity>((e) => FundWalletEntity().fromJson(e)).toList() as M;
+		}
+		if(<DepositHistoryEntity>[] is M){
+			return data.map<DepositHistoryEntity>((e) => DepositHistoryEntity().fromJson(e)).toList() as M;
+		}
+		if(<DepositHistoryDeposits>[] is M){
+			return data.map<DepositHistoryDeposits>((e) => DepositHistoryDeposits().fromJson(e)).toList() as M;
 		}
 		if(<CourseListEntity>[] is M){
 			return data.map<CourseListEntity>((e) => CourseListEntity().fromJson(e)).toList() as M;
