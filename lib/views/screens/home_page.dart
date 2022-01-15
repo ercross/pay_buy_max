@@ -665,7 +665,7 @@ class _HomeStateContainer extends State<_HomeContainer> {
         });
   }
 
-  Future<void> showCryptoTransferDialog(String type){
+  Future<void> showCryptoTransferDialog(String type,BuildContext context1){
     var coins = walletBalanceEntity!.user!.userCoins!;
     String value1 = "";
     var coinList = List<String>.from(List.empty());
@@ -678,7 +678,140 @@ class _HomeStateContainer extends State<_HomeContainer> {
 
     value1 = type;
 
-    return null;
+    return showDialog(
+        barrierDismissible: false,
+        context: context1,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Withdraw From Crypto Wallet', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.start),
+            content: StatefulBuilder(
+              builder: (BuildContext context,StateSetter setState){
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child:  Text('Amount To Send', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: TextField(
+                        controller: _amtFieldController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFC9782F),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),hintText: "Enter Amount",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child:  Text('Crypto Type', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                    ),
+                    Container(
+                      height: 50,
+                      child: InputDecorator(
+                        decoration: InputDecoration(focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFC9782F),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                        child: DropdownButton(
+                            value: value1,
+                            underline: SizedBox.shrink(),
+                            isExpanded: true, items: coinList.map((String value) {
+                          return DropdownMenuItem(value: value,child: Text(value));
+                        }).toList(), onChanged: (_value){
+                          setState(() {
+                            value1 = _value as String;
+                          });
+                        }),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child:  Text('Wallet Address', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: TextField(
+                        controller: _accFieldController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFC9782F),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter Wallet Address",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child:  Text('OTP Code', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: TextField(
+                        controller: _otpFieldController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFC9782F),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            hintText: "Enter OTP Code",
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.black,
+                textColor: Colors.white,
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    _amtFieldController.text = "";
+                    _accFieldController.text = "";
+                    _otpFieldController.text = "";
+                    _nameFieldController.text = "";
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: FlatButton(
+                  color: Color(0xFFC9782F),
+                  textColor: Colors.white,
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context1);
+                    _amtFieldController.text = "";
+                    _accFieldController.text = "";
+                    _otpFieldController.text = "";
+                    _nameFieldController.text = "";
+                  },
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   void showWalletDialog(BuildContext context){
