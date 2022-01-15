@@ -52,11 +52,12 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State<_HomePage> {
+  late FragNavigate _fragNav;
   final color = const Color(0xFFC9782F);
 
   @override
   Widget build(BuildContext context) {
-    final _fragNav = FragNavigate(
+    _fragNav = FragNavigate(
         firstKey: ValueKey(HomePage.route),
         screens: <Posit>[
           Posit(

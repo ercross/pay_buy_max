@@ -162,7 +162,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
       body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"usd"};
     }
     final response = await http.post(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: body);
-    print(response.statusCode);
+    print(response.body);
     Navigator.pop(context);
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
