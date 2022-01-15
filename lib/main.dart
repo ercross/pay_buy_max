@@ -139,8 +139,8 @@ class PayBuyMax extends StatelessWidget {
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.upToDown),
     GetPage(
-        name: Withdraw.route,
-        page: () => Withdraw(),
+        name: WithdrawScreen.route,
+        page: () => WithdrawScreen(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.rightToLeft),

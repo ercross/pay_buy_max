@@ -17,6 +17,7 @@ import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dar
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_arguments.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
+import 'package:pay_buy_max/views/screens/withdraw/withdraw.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -628,7 +629,7 @@ class _HomeStateContainer extends State<_HomeContainer> {
                                                         icon: new Icon(
                                                             Icons.send_rounded),
                                                         onPressed: () {
-
+                                                          Navigator.of(context).pushNamed(WithdrawScreen.route);
                                                         },
                                                       ),
                                                       Text('Send',
