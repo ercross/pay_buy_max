@@ -16,6 +16,7 @@ import 'package:pay_buy_max/views/screens/payment_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
+import 'package:pay_buy_max/views/screens/withdraw/withdraw.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/providers/user_provider.dart';
@@ -137,6 +138,12 @@ class PayBuyMax extends StatelessWidget {
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.upToDown),
+    GetPage(
+        name: Withdraw.route,
+        page: () => Withdraw(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.rightToLeft),
   ];
 
   static const String _entry = OnboardingPage.route;
