@@ -52,6 +52,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
     investItems = new List<InvestmentListPackages>.from(List.empty());
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getInvestmentListList();
+      _getInvestmentHistoryList();
     });
   }
 
@@ -86,6 +87,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                   showLoadingDialog(context1, " Confirming Investment. Please Wait... ");
                   confirmSubscription(planID, _textFieldController.text,amount,userID).then((value){
                     Navigator.of(context1).pop();
+                    _getInvestmentHistoryList();
                     if(value.success == true){
                       AppOverlay.snackbar(message: value.message.toString());
                     }else{
@@ -132,7 +134,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                 child: Text('OK'),
                 onPressed: () {
                   try {
-                    Navigator.of(context1).pop();
+                    //Navigator.of(context1).pop();
                     var fromPrice = investItem.fromPrice!;
                     var toPrice = investItem.toPrice!;
 
@@ -146,6 +148,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                       Navigator.pop(context1);
                       showLoadingDialog(context1, "Investment in progress. Please Wait... ");
                       sendOTPCode("money", args.user!.id.toString(),_textFieldController.text).then((value){
+                        Navigator.pop(context1);
                         if(value.success == true){
                           _displayTextInputDialog(context1,planID,_textFieldController.text,userID);
                         }else{
@@ -236,6 +239,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
   }
 
   void _getInvestmentHistoryList() {
+    print("sssssss");
     getInvestmentHistoryList().then((value) {
       setState(() {
         if (value.success == true) {
@@ -421,6 +425,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                         }
                         return ListView.builder(
                           itemBuilder: (context3, position) {
+                            var currentPackage = history!.investments!.elementAt(position);
                             return Container(
                               decoration: BoxDecoration(
                                   border: Border(
@@ -431,9 +436,7 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 15),
-                                    child: Transform.rotate(
-                                        angle: -1,
-                                        child: Icon(Icons.show_chart, color: Color(0xFFC9782F))),
+                                    child: Icon(Icons.show_chart, color: Color(0xFFC9782F)),
                                   ),
                                   Expanded(
                                     flex: 1,
@@ -443,11 +446,11 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                          child: Text('Bronze Plan', style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                                          child: Text(currentPackage.package!.name.toString() + " - ("+currentPackage.status.toString().toUpperCase()+")", style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                          child: Text('50.0k - 500.0k', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                          child: Text(currentPackage.package!.fromPrice.toString() + " - " + currentPackage.package!.toPrice.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
                                         ),
                                       ],
                                     ),
@@ -459,10 +462,14 @@ class _InvestmentState extends State<_InvestmentScreen> {
                                       child: Wrap(
                                         alignment: WrapAlignment.end,
                                         children: [
-                                          Text('NGN 50000', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 30,top: 10),
-                                            child: Text('27 November 2022', style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                          Column(
+                                            children: [
+                                              Text(currentPackage.amount.toString().trim() +' NGN', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.end),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 10),
+                                                child: Text(currentPackage.duration.toString().trim()+" Days", style: TextStyle(fontSize: 15), textAlign: TextAlign.end),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
