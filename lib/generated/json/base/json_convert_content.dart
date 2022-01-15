@@ -11,6 +11,8 @@ import 'package:pay_buy_max/models/history/deposit_history_entity.dart';
 import 'package:pay_buy_max/generated/json/deposit_history_entity_helper.dart';
 import 'package:pay_buy_max/models/learn/course_list_entity.dart';
 import 'package:pay_buy_max/generated/json/course_list_entity_helper.dart';
+import 'package:pay_buy_max/models/transfer/bank_list_entity.dart';
+import 'package:pay_buy_max/generated/json/bank_list_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_up_response_entity_helper.dart';
 import 'package:pay_buy_max/models/invest/investment_history_entity.dart';
@@ -59,6 +61,10 @@ class JsonConvert<T> {
 				return courseListEntityFromJson(data as CourseListEntity, json) as T;
 			case CourseListCourses:
 				return courseListCoursesFromJson(data as CourseListCourses, json) as T;
+			case BankListEntity:
+				return bankListEntityFromJson(data as BankListEntity, json) as T;
+			case BankListData:
+				return bankListDataFromJson(data as BankListData, json) as T;
 			case SignUpResponseEntity:
 				return signUpResponseEntityFromJson(data as SignUpResponseEntity, json) as T;
 			case InvestmentHistoryEntity:
@@ -120,6 +126,10 @@ class JsonConvert<T> {
 				return courseListEntityToJson(data as CourseListEntity);
 			case CourseListCourses:
 				return courseListCoursesToJson(data as CourseListCourses);
+			case BankListEntity:
+				return bankListEntityToJson(data as BankListEntity);
+			case BankListData:
+				return bankListDataToJson(data as BankListData);
 			case SignUpResponseEntity:
 				return signUpResponseEntityToJson(data as SignUpResponseEntity);
 			case InvestmentHistoryEntity:
@@ -190,6 +200,12 @@ class JsonConvert<T> {
 		}
 		if(type == (CourseListCourses).toString()){
 			return CourseListCourses().fromJson(json);
+		}
+		if(type == (BankListEntity).toString()){
+			return BankListEntity().fromJson(json);
+		}
+		if(type == (BankListData).toString()){
+			return BankListData().fromJson(json);
 		}
 		if(type == (SignUpResponseEntity).toString()){
 			return SignUpResponseEntity().fromJson(json);
@@ -280,6 +296,12 @@ class JsonConvert<T> {
 		}
 		if(<CourseListCourses>[] is M){
 			return data.map<CourseListCourses>((e) => CourseListCourses().fromJson(e)).toList() as M;
+		}
+		if(<BankListEntity>[] is M){
+			return data.map<BankListEntity>((e) => BankListEntity().fromJson(e)).toList() as M;
+		}
+		if(<BankListData>[] is M){
+			return data.map<BankListData>((e) => BankListData().fromJson(e)).toList() as M;
 		}
 		if(<SignUpResponseEntity>[] is M){
 			return data.map<SignUpResponseEntity>((e) => SignUpResponseEntity().fromJson(e)).toList() as M;

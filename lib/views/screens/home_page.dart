@@ -366,10 +366,18 @@ class _HomeStateContainer extends State<_HomeContainer> {
   bool isDollar = true;
   bool showBalance = true;
   String currency = "NGN";
+  late TextEditingController _amtFieldController;
+  late TextEditingController _accFieldController;
+  late TextEditingController _otpFieldController;
+  late TextEditingController _nameFieldController;
 
   @override
   void initState() {
     super.initState();
+    _amtFieldController = TextEditingController();
+    _accFieldController = TextEditingController();
+    _otpFieldController = TextEditingController();
+    _nameFieldController = TextEditingController();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _getWalletInfo();
     });
@@ -425,6 +433,134 @@ class _HomeStateContainer extends State<_HomeContainer> {
 
   void moreLocalDetails() {
     Navigator.of(context).pushNamed(LocalWalletScreen.route);
+  }
+
+  Future<void> showTransferDialog(BuildContext context1) async {
+    return showDialog(
+        context: context1,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Send', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.start),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child:  Text('Amount To Send', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 1),
+                  child: TextField(
+                    controller: _amtFieldController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFC9782F),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),hintText: "Enter Amount",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child:  Text('Account Number', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 1),
+                  child: TextField(
+                    controller: _accFieldController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFC9782F),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        hintText: "Enter Account Number",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child:  Text('Account Name', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 1),
+                  child: TextFormField(
+                    controller: _nameFieldController,
+                    obscureText: false,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      hintText: "Account Name",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFC9782F),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      filled: true,
+                      contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child:  Text('OTP Code', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 1),
+                  child: TextField(
+                    controller: _otpFieldController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFC9782F),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        hintText: "Enter OTP Code",
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.black,
+                textColor: Colors.white,
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              FlatButton(
+                color: Color(0xFFC9782F),
+                textColor: Colors.white,
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context1);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   final GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
@@ -629,7 +765,7 @@ class _HomeStateContainer extends State<_HomeContainer> {
                                                         icon: new Icon(
                                                             Icons.send_rounded),
                                                         onPressed: () {
-                                                          Navigator.of(context).pushNamed(WithdrawScreen.route);
+                                                          showTransferDialog(context);
                                                         },
                                                       ),
                                                       Text('Send',
