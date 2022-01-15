@@ -502,7 +502,7 @@ class _HomeStateContainer extends State<_HomeContainer> {
         context: context1,
         builder: (context) {
           return AlertDialog(
-            title: Text('Withdraw', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.start),
+            title: Text('Withdraw From Naira Wallet', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.start),
             content: StatefulBuilder(
               builder: (BuildContext context,StateSetter setState){
                 return Column(
