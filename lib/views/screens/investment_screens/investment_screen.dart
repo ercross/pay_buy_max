@@ -235,6 +235,32 @@ class _InvestmentState extends State<_InvestmentScreen> {
     }
   }
 
+  void _getInvestmentHistoryList() {
+    getInvestmentHistoryList().then((value) {
+      setState(() {
+        if (value.success == true) {
+          history = value;
+        } else {
+          history = null;
+        }
+      });
+    });
+  }
+
+  Future<InvestmentHistoryEntity> getInvestmentHistoryList() async{
+    try {
+      String url = 'https://paybuymax.com/api/my-investment-history';
+
+      final response = await http.get(Uri.parse(url),headers: {"Authorization":args.token.toString()});
+      print(response.body);
+      return InvestmentHistoryEntity().fromJson(json.decode(response.body));
+    } catch(e){
+      var error = InvestmentHistoryEntity();
+      error.success = false;
+      return error;
+    }
+  }
+
   void showLoadingDialog(BuildContext context,String text){
     AlertDialog alertDialog = AlertDialog(
       content: Row(
