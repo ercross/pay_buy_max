@@ -14,6 +14,8 @@ import 'package:pay_buy_max/models/transfer/withdraw_naira_entity.dart';
 import 'package:pay_buy_max/models/transfer/withdraw_coin_entity.dart';
 import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
 import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart';
+import 'package:pay_buy_max/views/screens/history/history_buy.dart';
+import 'package:pay_buy_max/views/screens/history/history_sell.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
 import 'package:pay_buy_max/views/screens/settings_screens/setting_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
@@ -1560,19 +1562,19 @@ class _HomeState extends State<_HomePage> {
             fragment: SettingScreen(),
           ),
           Posit(
-            title: "History",
-            key: ValueKey("History"),
+            title: "Fund History",
+            key: ValueKey(History.route),
             fragment: History(),
           ),
           Posit(
-            title: "History",
-            key: ValueKey("Sell History"),
-            fragment: History(),
+            title: "Sell History",
+            key: ValueKey(HistoryBuy.route),
+            fragment: HistoryBuy(),
           ),
           Posit(
-            title: "History",
-            key: ValueKey("Buy History"),
-            fragment: History(),
+            title: "Buy History",
+            key: ValueKey(HistorySell.route),
+            fragment: HistorySell(),
           ),
         ]
     );
@@ -1709,20 +1711,20 @@ class _HomeState extends State<_HomePage> {
                             children: [
                               ListTile(leading: Icon(Icons
                                   .arrow_forward_ios_rounded),
-                                  title: const Text('Sell', style: TextStyle(
+                                  title: const Text('Sell History', style: TextStyle(
                                       color: Color(0xFFFAFAFA))),
                                   onTap: () {
                                     _fragNav.putPosit(
-                                        key: ValueKey("Sell History"),
+                                        key: ValueKey(HistoryBuy.route),
                                         closeDrawer: true);
                                   }),
                               ListTile(leading: Icon(Icons
                                   .arrow_forward_ios_rounded),
-                                  title: const Text('Buy', style: TextStyle(
+                                  title: const Text('Buy History', style: TextStyle(
                                       color: Color(0xFFFAFAFA))),
                                   onTap: () {
                                     _fragNav.putPosit(
-                                        key: ValueKey("Buy History"),
+                                        key: ValueKey(HistorySell.route),
                                         closeDrawer: true);
                                   }),
                             ]
