@@ -827,685 +827,689 @@ class _HomeState extends State<_HomePage> {
         direction: Axis.vertical,
         children: [
           Expanded(
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 26, top: 10),
-                  child: Text("Welcome,", style: TextStyle(color: Color(0xFFC9782F), fontSize: 18)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 26),
-                  child: Builder(
-                    builder: (context) {
-                      if (args.user!.name != null && args.user!.name.toString().isNotEmpty) {
-                        return Text(args.user!.name.toString(),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold));
-                      }
-                      else if (args.user!.email != null && args.user!.email.toString().isNotEmpty) {
-                        return Text(args.user!.email.toString(),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold));
-                      }
-                      return Text("", style: TextStyle(color: Colors.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold));
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 25, right: 25, bottom: 10),
-                  child: Container(
-                      height: 250,
-                      child: Card(
-                        color: Color(0xFFFAFAFA),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            side: BorderSide(color: Color(0xFFC9782F))),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15, right: 15),
+            child: StatefulBuilder(
+              builder: (BuildContext context1,StateSetter setState){
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 26, top: 10),
+                      child: Text("Welcome,", style: TextStyle(color: Color(0xFFC9782F), fontSize: 18)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 26),
+                      child: Builder(
+                        builder: (context) {
+                          if (args.user!.name != null && args.user!.name.toString().isNotEmpty) {
+                            return Text(args.user!.name.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold));
+                          }
+                          else if (args.user!.email != null && args.user!.email.toString().isNotEmpty) {
+                            return Text(args.user!.email.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold));
+                          }
+                          return Text("", style: TextStyle(color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold));
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 20, left: 25, right: 25, bottom: 10),
+                      child: Container(
+                          height: 250,
+                          child: Card(
+                            color: Color(0xFFFAFAFA),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                side: BorderSide(color: Color(0xFFC9782F))),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text('PayBuyMax', style: TextStyle(
+                                            color: Colors.black54, fontSize: 18),
+                                            textAlign: TextAlign.start),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.end,
+                                          children: [
+                                            IconButton(
+                                                icon: new Icon(
+                                                    Icons.remove_red_eye_outlined),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    showBalance = !showBalance;
+                                                  });
+                                                }
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                        child: Builder(
+                                            builder: (context) {
+                                              if (!showBalance) {
+                                                return Text("*****",
+                                                    style: TextStyle(
+                                                        color: Color(0xFFC9782F),
+                                                        fontSize: 40,
+                                                        fontWeight: FontWeight
+                                                            .bold),
+                                                    textAlign: TextAlign.center);
+                                              }
+                                              return Text("NGN " +
+                                                  args.user!.wallet.toString(),
+                                                  style: TextStyle(
+                                                      color: Color(0xFFC9782F),
+                                                      fontSize: 40,
+                                                      fontWeight: FontWeight.bold),
+                                                  textAlign: TextAlign.center);
+                                            }
+                                        )
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text('Balance', style: TextStyle(
+                                          color: Colors.black54, fontSize: 16),
+                                          textAlign: TextAlign.center),
+                                    )
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Table(
+                                        children: [
+                                          TableRow(
+                                              children: [
+                                                Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        top: 10,
+                                                        bottom: 10,
+                                                        right: 15,
+                                                        left: 15),
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius
+                                                              .all(
+                                                              Radius.circular(10))),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .stretch,
+                                                        mainAxisSize: MainAxisSize
+                                                            .max,
+                                                        children: [
+                                                          IconButton(
+                                                            icon: new Icon(
+                                                                Icons.send_rounded),
+                                                            onPressed: () {
+                                                              showWalletDialog(context);
+                                                            },
+                                                          ),
+                                                          Text('Withdraw',
+                                                              style: TextStyle(
+                                                                  fontSize: 14),
+                                                              textAlign: TextAlign
+                                                                  .center)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        top: 10,
+                                                        bottom: 10,
+                                                        right: 15,
+                                                        left: 15),
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius
+                                                              .all(
+                                                              Radius.circular(10))),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .stretch,
+                                                        mainAxisSize: MainAxisSize
+                                                            .max,
+                                                        children: [
+                                                          IconButton(
+                                                            icon: new Icon(Icons
+                                                                .call_received_rounded),
+                                                            onPressed: () {
+                                                              _fragNav.putPosit(key: ValueKey(FundLocalWallet.route), closeDrawer: true);
+                                                            },
+                                                          ),
+                                                          Text('Fund',
+                                                              style: TextStyle(
+                                                                  fontSize: 14),
+                                                              textAlign: TextAlign
+                                                                  .center)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        top: 10,
+                                                        bottom: 10,
+                                                        right: 15,
+                                                        left: 15),
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius
+                                                              .all(
+                                                              Radius.circular(10))),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .stretch,
+                                                        mainAxisSize: MainAxisSize
+                                                            .max,
+                                                        children: [
+                                                          IconButton(
+                                                            icon: new Icon(Icons.show_chart),
+                                                            onPressed: () {
+                                                              _fragNav.putPosit(key: ValueKey(InvestmentScreen.route), closeDrawer: true);
+                                                            },
+                                                          ),
+                                                          Text('Invest',
+                                                              style: TextStyle(
+                                                                  fontSize: 14),
+                                                              textAlign: TextAlign
+                                                                  .center)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ]
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15, right: 25, left: 25),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text('Coins', style: TextStyle(color: Colors
+                                .black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.start),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Wrap(
+                              alignment: WrapAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (!isDollar) {
+                                        isDollar = true;
+                                        currency = "NGN";
+                                      } else {
+                                        isDollar = false;
+                                        currency = "USD";
+                                      }
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                      elevation: MaterialStateProperty.resolveWith<
+                                          double>((Set<MaterialState> states) {
+                                        if (states.contains(MaterialState.pressed))
+                                          return 10.0;
+                                        return 0.0;
+                                      },
+                                      ),
+                                      backgroundColor: MaterialStateProperty.all(
+                                          Color(0xFFFAFAFA)),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10.0),
+                                              side: BorderSide(
+                                                  color: Color(0xFFC9782F)))
+                                      )
+                                  ),
+                                  child: Text(currency, style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Builder(
+                      builder: (context) {
+                        if (walletBalanceEntity == null) {
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(25),
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFC9782F),
+                              ),
+                            ),
+                          );
+                        } else {
+                          if (walletBalanceEntity!.user!.userCoins == null) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(25),
+                                child: CircularProgressIndicator(
+                                  color: Color(0xFFC9782F),
+                                ),
+                              ),
+                            );
+                          } else
+                          if (walletBalanceEntity!.user!.userCoins!.isEmpty) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(25),
+                                child: CircularProgressIndicator(
+                                  color: Color(0xFFC9782F),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, position) {
+                            var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
+                            int? rate = coin.coinTypes!.dollarRate;
+
+                            String rateText = "USD " + rate!.toString();
+                            if (!isDollar) {
+                              rate = coin.coinTypes!.rate;
+                              rateText = "NGN " + coin.coinTypes!.rate.toString();
+                            }
+
+                            return Padding(
+                              padding: const EdgeInsets.all(25),
                               child: Row(
                                 children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: CircleAvatar(
+                                        backgroundColor: Colors.transparent,
+                                        child: CachedNetworkImage(
+                                          imageUrl: coin.coinTypes!.image
+                                              .toString(),
+                                          placeholder: (context,
+                                              url) => new CircularProgressIndicator(),
+                                          errorWidget: (context, url,
+                                              error) => new Icon(Icons.error),
+                                        )),
+                                  ),
                                   Expanded(
                                     flex: 1,
-                                    child: Text('PayBuyMax', style: TextStyle(
-                                        color: Colors.black54, fontSize: 18),
-                                        textAlign: TextAlign.start),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .stretch,
+                                      children: [
+                                        Text(coin.coinTypes!.name.toString(),
+                                            style: TextStyle(
+                                                color: Colors.black, fontSize: 18),
+                                            textAlign: TextAlign.start),
+                                        Text(coin.coinTypes!.symbol.toString()
+                                            .toUpperCase(), style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 18),
+                                            textAlign: TextAlign.start),
+                                      ],
+                                    ),
                                   ),
                                   Expanded(
                                     flex: 1,
                                     child: Wrap(
                                       alignment: WrapAlignment.end,
                                       children: [
-                                        IconButton(
-                                            icon: new Icon(
-                                                Icons.remove_red_eye_outlined),
-                                            onPressed: () {
-                                              setState(() {
-                                                showBalance = !showBalance;
-                                              });
-                                            }
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                    child: Builder(
-                                        builder: (context) {
-                                          if (!showBalance) {
-                                            return Text("*****",
-                                                style: TextStyle(
-                                                    color: Color(0xFFC9782F),
-                                                    fontSize: 40,
-                                                    fontWeight: FontWeight
-                                                        .bold),
-                                                textAlign: TextAlign.center);
-                                          }
-                                          return Text("NGN " +
-                                              args.user!.wallet.toString(),
-                                              style: TextStyle(
-                                                  color: Color(0xFFC9782F),
-                                                  fontSize: 40,
-                                                  fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center);
-                                        }
-                                    )
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text('Balance', style: TextStyle(
-                                      color: Colors.black54, fontSize: 16),
-                                      textAlign: TextAlign.center),
-                                )
-                              ],
-                            ),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Table(
-                                    children: [
-                                      TableRow(
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .end,
                                           children: [
-                                            Container(
-                                              height: 100,
-                                              width: 100,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10,
-                                                    bottom: 10,
-                                                    right: 15,
-                                                    left: 15),
-                                                child: Card(
-                                                  elevation: 3,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius.circular(10))),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .stretch,
-                                                    mainAxisSize: MainAxisSize
-                                                        .max,
-                                                    children: [
-                                                      IconButton(
-                                                        icon: new Icon(
-                                                            Icons.send_rounded),
-                                                        onPressed: () {
-                                                          showWalletDialog(context);
-                                                        },
-                                                      ),
-                                                      Text('Withdraw',
-                                                          style: TextStyle(
-                                                              fontSize: 14),
-                                                          textAlign: TextAlign
-                                                              .center)
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 100,
-                                              width: 100,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10,
-                                                    bottom: 10,
-                                                    right: 15,
-                                                    left: 15),
-                                                child: Card(
-                                                  elevation: 3,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius.circular(10))),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .stretch,
-                                                    mainAxisSize: MainAxisSize
-                                                        .max,
-                                                    children: [
-                                                      IconButton(
-                                                        icon: new Icon(Icons
-                                                            .call_received_rounded),
-                                                        onPressed: () {
-                                                          _fragNav.putPosit(key: ValueKey(FundLocalWallet.route), closeDrawer: true);
-                                                        },
-                                                      ),
-                                                      Text('Fund',
-                                                          style: TextStyle(
-                                                              fontSize: 14),
-                                                          textAlign: TextAlign
-                                                              .center)
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 100,
-                                              width: 100,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10,
-                                                    bottom: 10,
-                                                    right: 15,
-                                                    left: 15),
-                                                child: Card(
-                                                  elevation: 3,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius.circular(10))),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .stretch,
-                                                    mainAxisSize: MainAxisSize
-                                                        .max,
-                                                    children: [
-                                                      IconButton(
-                                                        icon: new Icon(Icons.show_chart),
-                                                        onPressed: () {
-                                                          _fragNav.putPosit(key: ValueKey(InvestmentScreen.route), closeDrawer: true);
-                                                        },
-                                                      ),
-                                                      Text('Invest',
-                                                          style: TextStyle(
-                                                              fontSize: 14),
-                                                          textAlign: TextAlign
-                                                              .center)
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ]
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15, right: 25, left: 25),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text('Coins', style: TextStyle(color: Colors
-                            .black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.start),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Wrap(
-                          alignment: WrapAlignment.end,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  if (!isDollar) {
-                                    isDollar = true;
-                                    currency = "NGN";
-                                  } else {
-                                    isDollar = false;
-                                    currency = "USD";
-                                  }
-                                });
-                              },
-                              style: ButtonStyle(
-                                  elevation: MaterialStateProperty.resolveWith<
-                                      double>((Set<MaterialState> states) {
-                                    if (states.contains(MaterialState.pressed))
-                                      return 10.0;
-                                    return 0.0;
-                                  },
-                                  ),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color(0xFFFAFAFA)),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                          side: BorderSide(
-                                              color: Color(0xFFC9782F)))
-                                  )
-                              ),
-                              child: Text(currency, style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Builder(
-                  builder: (context) {
-                    if (walletBalanceEntity == null) {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(25),
-                          child: CircularProgressIndicator(
-                            color: Color(0xFFC9782F),
-                          ),
-                        ),
-                      );
-                    } else {
-                      if (walletBalanceEntity!.user!.userCoins == null) {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(25),
-                            child: CircularProgressIndicator(
-                              color: Color(0xFFC9782F),
-                            ),
-                          ),
-                        );
-                      } else
-                      if (walletBalanceEntity!.user!.userCoins!.isEmpty) {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(25),
-                            child: CircularProgressIndicator(
-                              color: Color(0xFFC9782F),
-                            ),
-                          ),
-                        );
-                      }
-                    }
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, position) {
-                        var coin = walletBalanceEntity!.user!.userCoins!.elementAt(position);
-                        int? rate = coin.coinTypes!.dollarRate;
-
-                        String rateText = "USD " + rate!.toString();
-                        if (!isDollar) {
-                          rate = coin.coinTypes!.rate;
-                          rateText = "NGN " + coin.coinTypes!.rate.toString();
-                        }
-
-                        return Padding(
-                          padding: const EdgeInsets.all(25),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    child: CachedNetworkImage(
-                                      imageUrl: coin.coinTypes!.image
-                                          .toString(),
-                                      placeholder: (context,
-                                          url) => new CircularProgressIndicator(),
-                                      errorWidget: (context, url,
-                                          error) => new Icon(Icons.error),
-                                    )),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .stretch,
-                                  children: [
-                                    Text(coin.coinTypes!.name.toString(),
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                        textAlign: TextAlign.start),
-                                    Text(coin.coinTypes!.symbol.toString()
-                                        .toUpperCase(), style: TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 18),
-                                        textAlign: TextAlign.start),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Wrap(
-                                  alignment: WrapAlignment.end,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .end,
-                                      children: [
-                                        Text(coin.coinTypes!.symbol.toString()
-                                            .toUpperCase() + " " +
-                                            coin.balance!.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
+                                            Text(coin.coinTypes!.symbol.toString()
+                                                .toUpperCase() + " " +
+                                                coin.balance!.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                                textAlign: TextAlign.start),
+                                            Text(rateText, style: TextStyle(
+                                                color: Color(0xFFC9782F),
                                                 fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                        Text(rateText, style: TextStyle(
-                                            color: Color(0xFFC9782F),
-                                            fontSize: 18),
-                                            textAlign: TextAlign.start),
+                                                textAlign: TextAlign.start),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                          shrinkWrap: true,
+                          itemCount: 3,
                         );
                       },
-                      shrinkWrap: true,
-                      itemCount: 3,
-                    );
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15, left: 25),
-                  child: Text("What do you want to do today?", style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Table(
-                    children: [
-                      TableRow(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15, left: 25),
+                      child: Text("What do you want to do today?", style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: Table(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8, bottom: 8),
-                            child: Container(
-                              height: 150,
-                              child: GestureDetector(
-                                onTap: (){
-                                  _fragNav.putPosit(
-                                      key: ValueKey(SellCoin.route),
-                                      closeDrawer: true);
-                                },
-                                child: Card(
-                                  elevation: 8,
-                                  color: Color(0xFFE5E7FE),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .stretch,
-                                      children: [
-                                        Text('Crypto Currency', style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                        Text('Buy and sell crypto currency today',
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 15),
-                                            textAlign: TextAlign.start),
-                                        Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Wrap(
-                                                alignment: WrapAlignment.end,
-                                                runAlignment: WrapAlignment.end,
-                                                children: [
-                                                  CircleAvatar(
-                                                      backgroundColor: Colors
-                                                          .transparent,
-                                                      child: Image(
-                                                          image: AssetImage(
-                                                              "assets/images/wallet.png")))
-                                                ],
-                                              ),
+                          TableRow(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8, bottom: 8),
+                                child: Container(
+                                  height: 150,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      _fragNav.putPosit(
+                                          key: ValueKey(SellCoin.route),
+                                          closeDrawer: true);
+                                    },
+                                    child: Card(
+                                      elevation: 8,
+                                      color: Color(0xFFE5E7FE),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .stretch,
+                                          children: [
+                                            Text('Crypto Currency', style: TextStyle(
+                                                color: Colors.black, fontSize: 18),
+                                                textAlign: TextAlign.start),
+                                            Text('Buy and sell crypto currency today',
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 15),
+                                                textAlign: TextAlign.start),
+                                            Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Wrap(
+                                                    alignment: WrapAlignment.end,
+                                                    runAlignment: WrapAlignment.end,
+                                                    children: [
+                                                      CircleAvatar(
+                                                          backgroundColor: Colors
+                                                              .transparent,
+                                                          child: Image(
+                                                              image: AssetImage(
+                                                                  "assets/images/wallet.png")))
+                                                    ],
+                                                  ),
+                                                )
                                             )
-                                        )
-                                      ],
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, bottom: 8),
-                            child: Container(
-                              height: 150,
-                              child: GestureDetector(
-                                onTap: (){
-                                  _fragNav.putPosit(
-                                      key: ValueKey(ExchangeScreen.route),
-                                      closeDrawer: true);
-                                },
-                                child: Card(
-                                  elevation: 8,
-                                  color: Color(0xFFE5E7FE),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .stretch,
-                                      children: [
-                                        Text('Gift Card', style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                        Text('Buy and sell gift cards today',
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 15),
-                                            textAlign: TextAlign.start),
-                                        Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Wrap(
-                                                alignment: WrapAlignment.end,
-                                                runAlignment: WrapAlignment.end,
-                                                children: [
-                                                  CircleAvatar(
-                                                      backgroundColor: Colors
-                                                          .transparent,
-                                                      child: Image(
-                                                          image: AssetImage(
-                                                              "assets/images/gift_card.png")))
-                                                ],
-                                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8, bottom: 8),
+                                child: Container(
+                                  height: 150,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      _fragNav.putPosit(
+                                          key: ValueKey(ExchangeScreen.route),
+                                          closeDrawer: true);
+                                    },
+                                    child: Card(
+                                      elevation: 8,
+                                      color: Color(0xFFE5E7FE),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .stretch,
+                                          children: [
+                                            Text('Gift Card', style: TextStyle(
+                                                color: Colors.black, fontSize: 18),
+                                                textAlign: TextAlign.start),
+                                            Text('Buy and sell gift cards today',
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 15),
+                                                textAlign: TextAlign.start),
+                                            Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Wrap(
+                                                    alignment: WrapAlignment.end,
+                                                    runAlignment: WrapAlignment.end,
+                                                    children: [
+                                                      CircleAvatar(
+                                                          backgroundColor: Colors
+                                                              .transparent,
+                                                          child: Image(
+                                                              image: AssetImage(
+                                                                  "assets/images/gift_card.png")))
+                                                    ],
+                                                  ),
+                                                )
                                             )
-                                        )
-                                      ],
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
+                          TableRow(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8, top: 8),
+                                child: Container(
+                                    height: 150,
+                                    child:
+                                    GestureDetector(
+                                      onTap: (){
+                                        _fragNav.putPosit(
+                                            key: ValueKey(InvestmentScreen.route),
+                                            closeDrawer: true);
+                                      },
+                                      child: Card(
+                                        elevation: 8,
+                                        color: Color(0xFFFEFEF4),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .stretch,
+                                            children: [
+                                              Text('Invest', style: TextStyle(
+                                                  color: Colors.black, fontSize: 18),
+                                                  textAlign: TextAlign.start),
+                                              Text(
+                                                  'Invest in daily and monthly plans today',
+                                                  style: TextStyle(
+                                                      color: Colors.black54,
+                                                      fontSize: 15),
+                                                  textAlign: TextAlign.start),
+                                              Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Wrap(
+                                                      alignment: WrapAlignment.end,
+                                                      runAlignment: WrapAlignment.end,
+                                                      children: [
+                                                        CircleAvatar(
+                                                            backgroundColor: Colors
+                                                                .transparent,
+                                                            child: Image(
+                                                                image: AssetImage(
+                                                                    "assets/images/invest.png")))
+                                                      ],
+                                                    ),
+                                                  )
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8, top: 8),
+                                child: Container(
+                                  height: 150,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      _fragNav.putPosit(
+                                          key: ValueKey(LearnScreen.route),
+                                          closeDrawer: true);
+                                    },
+                                    child: Card(
+                                      elevation: 8,
+                                      color: Color(0xFFFEFEF4),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .stretch,
+                                          children: [
+                                            Text('Learn', style: TextStyle(
+                                                color: Colors.black, fontSize: 18),
+                                                textAlign: TextAlign.start),
+                                            Text('Subscribe to courses today',
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 15),
+                                                textAlign: TextAlign.start),
+                                            Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Wrap(
+                                                    alignment: WrapAlignment.end,
+                                                    runAlignment: WrapAlignment.end,
+                                                    children: [
+                                                      CircleAvatar(
+                                                          backgroundColor: Colors
+                                                              .transparent,
+                                                          child: Image(
+                                                              image: AssetImage(
+                                                                  "assets/images/subscribe.png")))
+                                                    ],
+                                                  ),
+                                                )
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8, top: 8),
-                            child: Container(
-                              height: 150,
-                              child:
-                              GestureDetector(
-                                onTap: (){
-                                  _fragNav.putPosit(
-                                      key: ValueKey(InvestmentScreen.route),
-                                      closeDrawer: true);
-                                },
-                                child: Card(
-                                  elevation: 8,
-                                  color: Color(0xFFFEFEF4),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .stretch,
-                                      children: [
-                                        Text('Invest', style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                        Text(
-                                            'Invest in daily and monthly plans today',
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 15),
-                                            textAlign: TextAlign.start),
-                                        Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Wrap(
-                                                alignment: WrapAlignment.end,
-                                                runAlignment: WrapAlignment.end,
-                                                children: [
-                                                  CircleAvatar(
-                                                      backgroundColor: Colors
-                                                          .transparent,
-                                                      child: Image(
-                                                          image: AssetImage(
-                                                              "assets/images/invest.png")))
-                                                ],
-                                              ),
-                                            )
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, top: 8),
-                            child: Container(
-                              height: 150,
-                              child: GestureDetector(
-                                onTap: (){
-                                  _fragNav.putPosit(
-                                      key: ValueKey(LearnScreen.route),
-                                      closeDrawer: true);
-                                },
-                                child: Card(
-                                  elevation: 8,
-                                  color: Color(0xFFFEFEF4),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .stretch,
-                                      children: [
-                                        Text('Learn', style: TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                            textAlign: TextAlign.start),
-                                        Text('Subscribe to courses today',
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 15),
-                                            textAlign: TextAlign.start),
-                                        Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Wrap(
-                                                alignment: WrapAlignment.end,
-                                                runAlignment: WrapAlignment.end,
-                                                children: [
-                                                  CircleAvatar(
-                                                      backgroundColor: Colors
-                                                          .transparent,
-                                                      child: Image(
-                                                          image: AssetImage(
-                                                              "assets/images/subscribe.png")))
-                                                ],
-                                              ),
-                                            )
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
+                    )
+                  ],
+                );
+              },
             ),
           ),
         ],
