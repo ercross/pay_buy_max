@@ -7,6 +7,7 @@ import 'package:pay_buy_max/controllers/providers/user_provider.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/models/history/coin_buy_transactions_entity.dart';
+import 'package:pay_buy_max/models/history/coin_sell_transactions_entity.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class HistoryBuyWidget extends StatefulWidget {
 }
 
 class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
-  CoinBuyTransactionsEntity? coinBuyTransactionsEntity;
+  CoinSellTransactionsEntity? coinSellTransactionsEntity;
   late SignInResponseEntity args;
 
   late TextEditingController textController;
@@ -49,21 +50,21 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       getDepositHistoryBuy().then((value) {
         setState(() {
-          coinBuyTransactionsEntity = value;
+          coinSellTransactionsEntity = value;
         });
       });
     });
   }
 
-  Future<CoinBuyTransactionsEntity> getDepositHistoryBuy() async {
+  Future<CoinSellTransactionsEntity> getDepositHistoryBuy() async {
     try{
       String url = 'https://paybuymax.com/api/view-my-internal-buy';
 
       final response = await http.get(Uri.parse(url), headers: {"Authorization": args.token.toString()});
       print(response.statusCode);
-      return CoinBuyTransactionsEntity().fromJson(json.decode(response.body));
+      return CoinSellTransactionsEntity().fromJson(json.decode(response.body));
     }catch(e){
-      var historyBuy = CoinBuyTransactionsEntity();
+      var historyBuy = CoinSellTransactionsEntity();
       historyBuy.status = false;
       return historyBuy;
     }
@@ -103,7 +104,7 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
           children: [
             Builder(
               builder: (context2) {
-                if (coinBuyTransactionsEntity == null){
+                if (coinSellTransactionsEntity == null){
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(25),
@@ -113,7 +114,7 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
                     ),
                   );
                 }
-                if (coinBuyTransactionsEntity!.transactions!.isEmpty) {
+                if (coinSellTransactionsEntity!.transactions!.isEmpty) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(25),
@@ -126,7 +127,7 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
                 }
                 return ListView.builder(
                   itemBuilder: (context3, position) {
-                    var currentPackage = coinBuyTransactionsEntity!.transactions!.elementAt(position);
+                    var currentPackage = coinSellTransactionsEntity!.transactions!.elementAt(position);
                     var title = currentPackage.coin!.name.toString();
 
                     return Container(
@@ -153,7 +154,7 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                  child: Text(currentPackage.medium.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                  child: Text(currentPackage.sellBy.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
                                 ),
                               ],
                             ),
@@ -182,7 +183,7 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
                       ),
                     );
                   },
-                  itemCount: coinBuyTransactionsEntity!.transactions!.length,
+                  itemCount: coinSellTransactionsEntity!.transactions!.length,
                 );
               },
             ),

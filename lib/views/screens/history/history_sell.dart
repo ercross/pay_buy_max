@@ -167,7 +167,7 @@ class _HistorySellWidgetState extends State<HistorySellWidget> {
                                 children: [
                                   Column(
                                     children: [
-                                      Text(currentPackage.qty.toString().trim() +' ' + currentPackage.coin!.name!, style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.end),
+                                      Text(currentPackage.qty.toString().trim() +' ' + currentPackage.coin!.symbol!.toUpperCase(), style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.end),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Text(currentPackage.nairaAmount.toString() + " NGN", style: TextStyle(fontSize: 15), textAlign: TextAlign.end),
