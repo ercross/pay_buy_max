@@ -804,7 +804,7 @@ class _HomeState extends State<_HomePage> {
         IconButton(
             icon: new Icon(Icons.notifications_rounded),
             onPressed: () {
-              Navigator.of(context).pushNamed(NotificationScreen.route);
+              Navigator.of(context).pushNamed(NotificationScreen.route,arguments: args);
             },
             color: Color(0xFFFAFAFA))
       ],

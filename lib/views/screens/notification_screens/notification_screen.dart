@@ -99,7 +99,7 @@ class _NotificationState extends State<_NotificationScreen> {
         children: [
           Builder(
             builder: (context2) {
-              if (coinSellTransactionsEntity == null){
+              if (notificationsEntity == null){
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.all(25),
@@ -109,7 +109,7 @@ class _NotificationState extends State<_NotificationScreen> {
                   ),
                 );
               }
-              if (coinSellTransactionsEntity!.transactions!.isEmpty) {
+              if (notificationsEntity!.notifications!.isEmpty) {
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.all(25),
@@ -122,8 +122,8 @@ class _NotificationState extends State<_NotificationScreen> {
               }
               return ListView.builder(
                 itemBuilder: (context3, position) {
-                  var currentPackage = coinSellTransactionsEntity!.transactions!.elementAt(position);
-                  var title = currentPackage.coin!.name.toString();
+                  var currentPackage = notificationsEntity!.notifications!.elementAt(position);
+                  var title = currentPackage.message.toString();
 
                   return Container(
                     decoration: BoxDecoration(
@@ -135,7 +135,7 @@ class _NotificationState extends State<_NotificationScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
-                          child: Icon(Icons.history, color: Color(0xFFC9782F)),
+                          child: Icon(Icons.notifications_rounded, color: Color(0xFFC9782F)),
                         ),
                         Expanded(
                           flex: 1,
@@ -149,36 +149,16 @@ class _NotificationState extends State<_NotificationScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                child: Text(currentPackage.sellBy.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
+                                child: Text(currentPackage.type.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
                               ),
                             ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
-                            child: Wrap(
-                              alignment: WrapAlignment.end,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(currentPackage.qty.toString().trim() +' ' + currentPackage.coin!.name!, style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.end),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(currentPackage.nairaAmount.toString() + " NGN", style: TextStyle(fontSize: 15), textAlign: TextAlign.end),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
                           ),
                         )
                       ],
                     ),
                   );
                 },
-                itemCount: coinSellTransactionsEntity!.transactions!.length,
+                itemCount: notificationsEntity!.notifications!.length,
               );
             },
           ),
