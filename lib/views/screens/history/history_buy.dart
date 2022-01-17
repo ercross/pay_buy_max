@@ -10,7 +10,6 @@ import 'package:pay_buy_max/models/history/coin_buy_transactions_entity.dart';
 import 'package:pay_buy_max/models/history/coin_sell_transactions_entity.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
 import 'package:provider/provider.dart';
-
 import '../../../style_sheet.dart';
 
 class HistoryBuy extends StatelessWidget {
