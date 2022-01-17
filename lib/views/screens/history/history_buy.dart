@@ -101,90 +101,72 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
         child: Flex(
           direction: Axis.vertical,
           children: [
-            Builder(
-              builder: (context2) {
-                if (coinSellTransactionsEntity == null){
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(25),
-                      child: CircularProgressIndicator(
-                        color: Color(0xFFC9782F),
+            Expanded(
+              child: Builder(
+                builder: (context2) {
+                  if (coinSellTransactionsEntity == null){
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(25),
+                        child: CircularProgressIndicator(
+                          color: Color(0xFFC9782F),
+                        ),
                       ),
-                    ),
-                  );
-                }
-                if (coinSellTransactionsEntity!.transactions!.isEmpty) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(25),
-                      child: Center(
-                          child: Text('No Transactions Here',
-                              style: TextStyle(color: Color(0xFFC9782F), fontSize: 18,fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center)),
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  itemBuilder: (context3, position) {
-                    var currentPackage = coinSellTransactionsEntity!.transactions!.elementAt(position);
-                    var title = currentPackage.coin!.name.toString();
+                    );
+                  }
+                  if (coinSellTransactionsEntity!.transactions!.isEmpty) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(25),
+                        child: Center(
+                            child: Text('No Transactions Here',
+                                style: TextStyle(color: Color(0xFFC9782F), fontSize: 18,fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center)),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemBuilder: (context3, position) {
+                      var currentPackage = coinSellTransactionsEntity!.transactions!.elementAt(position);
+                      var title = "Sold "+currentPackage.qty.toString().trim()+" "+currentPackage.coin!.name.toString();
 
-                    return Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              top: BorderSide(color: Colors.black12,width: 1.0)
-                          )
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Icon(Icons.history, color: Color(0xFFC9782F)),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                  child: Text(title, style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                  child: Text(currentPackage.sellBy.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
-                                ),
-                              ],
+                      return Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(color: Colors.black12,width: 1.0)
+                            )
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Icon(Icons.history, color: Color(0xFFC9782F)),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 30,top: 15,bottom: 15),
-                              child: Wrap(
-                                alignment: WrapAlignment.end,
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    children: [
-                                      Text(currentPackage.qty.toString().trim() +' ' + currentPackage.coin!.name!, style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.end),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10),
-                                        child: Text(currentPackage.nairaAmount.toString() + " NGN", style: TextStyle(fontSize: 15), textAlign: TextAlign.end),
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
+                                    child: Text(title, style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30, bottom: 15),
+                                    child: Text(currentPackage.nairaAmount.toString() + " NGN", style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
                                   ),
                                 ],
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                  itemCount: coinSellTransactionsEntity!.transactions!.length,
-                );
-              },
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: coinSellTransactionsEntity!.transactions!.length,
+                  );
+                },
+              ),
             ),
           ],
         ),

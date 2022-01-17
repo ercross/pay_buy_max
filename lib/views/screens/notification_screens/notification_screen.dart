@@ -97,70 +97,68 @@ class _NotificationState extends State<_NotificationScreen> {
       child: Flex(
         direction: Axis.vertical,
         children: [
-          Builder(
-            builder: (context2) {
-              if (notificationsEntity == null){
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25),
-                    child: CircularProgressIndicator(
-                      color: Color(0xFFC9782F),
-                    ),
-                  ),
-                );
-              }
-              if (notificationsEntity!.notifications!.isEmpty) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25),
-                    child: Center(
-                        child: Text('No Notifications Here',
-                            style: TextStyle(color: Color(0xFFC9782F), fontSize: 18,fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center)),
-                  ),
-                );
-              }
-              return ListView.builder(
-                itemBuilder: (context3, position) {
-                  var currentPackage = notificationsEntity!.notifications!.elementAt(position);
-                  var title = currentPackage.message.toString();
-
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            top: BorderSide(color: Colors.black12,width: 1.0)
-                        )
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Icon(Icons.notifications_rounded, color: Color(0xFFC9782F)),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 30, bottom: 5,top: 15),
-                                child: Text(title, style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 30, bottom: 15),
-                                child: Text(currentPackage.type.toString(), style: TextStyle(fontSize: 15), textAlign: TextAlign.start),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+          Expanded(
+            child: Builder(
+              builder: (context2) {
+                if (notificationsEntity == null){
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFC9782F),
+                      ),
                     ),
                   );
-                },
-                itemCount: notificationsEntity!.notifications!.length,
-              );
-            },
+                }
+                if (notificationsEntity!.notifications!.isEmpty) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: Center(
+                          child: Text('No Notifications Here',
+                              style: TextStyle(color: Color(0xFFC9782F), fontSize: 18,fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center)),
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  itemBuilder: (context3, position) {
+                    var currentPackage = notificationsEntity!.notifications!.elementAt(position);
+                    var title = currentPackage.message.toString();
+
+                    return Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              top: BorderSide(color: Colors.black12,width: 1.0)
+                          )
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Icon(Icons.notifications_rounded, color: Color(0xFFC9782F)),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30, bottom: 15,top: 15),
+                                  child: Text(title, style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: notificationsEntity!.notifications!.length,
+                );
+              },
+            ),
           ),
         ],
       ),

@@ -119,9 +119,7 @@ class _SignInPageState extends State<SignInPage> {
     _formKey.currentState!.validate();
     if(!(_credentials["email"] == null || _credentials["password"] == null)){
       if(_credentials["email"]!.isNotEmpty && _credentials["password"]!.isNotEmpty){
-        if(_credentials["password"]!.length>=8){
-          _signUp(context);
-        }
+        _signUp(context);
       }
     }
   }
