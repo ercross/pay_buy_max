@@ -57,7 +57,7 @@ class _HistoryBuyWidgetState extends State<HistoryBuyWidget> {
 
   Future<CoinBuyTransactionsEntity> getDepositHistoryBuy() async {
     try{
-      String url = 'https://paybuymax.com/api/buy-coin/internal';
+      String url = 'https://paybuymax.com/api/view-my-internal-sell';
 
       final response = await http.get(Uri.parse(url), headers: {"Authorization": args.token.toString()});
       print(response.statusCode);

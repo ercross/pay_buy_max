@@ -57,7 +57,7 @@ class _HistoryWidgetState extends State<HistoryWidget> {
 
   Future<DepositHistoryEntity> getDepositHistory() async {
     try{
-      String url = 'https://paybuymax.com/api/buy-coin/internal';
+      String url = 'https://paybuymax.com/wallet/history';
 
       final response = await http.get(Uri.parse(url), headers: {"Authorization": args.token.toString()});
       print(response.statusCode);
