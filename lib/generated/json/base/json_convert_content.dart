@@ -7,6 +7,8 @@ import 'package:pay_buy_max/models/wallet/user_entity.dart';
 import 'package:pay_buy_max/generated/json/user_entity_helper.dart';
 import 'package:pay_buy_max/models/history/coin_buy_transactions_entity.dart';
 import 'package:pay_buy_max/generated/json/coin_buy_transactions_entity_helper.dart';
+import 'package:pay_buy_max/models/history/coin_withdrawal_history_entity.dart';
+import 'package:pay_buy_max/generated/json/coin_withdrawal_history_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/fund_wallet_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_wallet_entity_helper.dart';
 import 'package:pay_buy_max/models/history/coin_sell_transactions_entity.dart';
@@ -73,6 +75,14 @@ class JsonConvert<T> {
 				return coinBuyTransactionsTransactionsCoinFromJson(data as CoinBuyTransactionsTransactionsCoin, json) as T;
 			case CoinBuyTransactionsTransactionsUser:
 				return coinBuyTransactionsTransactionsUserFromJson(data as CoinBuyTransactionsTransactionsUser, json) as T;
+			case CoinWithdrawalHistoryEntity:
+				return coinWithdrawalHistoryEntityFromJson(data as CoinWithdrawalHistoryEntity, json) as T;
+			case CoinWithdrawalHistoryHistory:
+				return coinWithdrawalHistoryHistoryFromJson(data as CoinWithdrawalHistoryHistory, json) as T;
+			case CoinWithdrawalHistoryHistoryUser:
+				return coinWithdrawalHistoryHistoryUserFromJson(data as CoinWithdrawalHistoryHistoryUser, json) as T;
+			case CoinWithdrawalHistoryHistoryCoin:
+				return coinWithdrawalHistoryHistoryCoinFromJson(data as CoinWithdrawalHistoryHistoryCoin, json) as T;
 			case FundWalletEntity:
 				return fundWalletEntityFromJson(data as FundWalletEntity, json) as T;
 			case CoinSellTransactionsEntity:
@@ -172,6 +182,14 @@ class JsonConvert<T> {
 				return coinBuyTransactionsTransactionsCoinToJson(data as CoinBuyTransactionsTransactionsCoin);
 			case CoinBuyTransactionsTransactionsUser:
 				return coinBuyTransactionsTransactionsUserToJson(data as CoinBuyTransactionsTransactionsUser);
+			case CoinWithdrawalHistoryEntity:
+				return coinWithdrawalHistoryEntityToJson(data as CoinWithdrawalHistoryEntity);
+			case CoinWithdrawalHistoryHistory:
+				return coinWithdrawalHistoryHistoryToJson(data as CoinWithdrawalHistoryHistory);
+			case CoinWithdrawalHistoryHistoryUser:
+				return coinWithdrawalHistoryHistoryUserToJson(data as CoinWithdrawalHistoryHistoryUser);
+			case CoinWithdrawalHistoryHistoryCoin:
+				return coinWithdrawalHistoryHistoryCoinToJson(data as CoinWithdrawalHistoryHistoryCoin);
 			case FundWalletEntity:
 				return fundWalletEntityToJson(data as FundWalletEntity);
 			case CoinSellTransactionsEntity:
@@ -279,6 +297,18 @@ class JsonConvert<T> {
 		}
 		if(type == (CoinBuyTransactionsTransactionsUser).toString()){
 			return CoinBuyTransactionsTransactionsUser().fromJson(json);
+		}
+		if(type == (CoinWithdrawalHistoryEntity).toString()){
+			return CoinWithdrawalHistoryEntity().fromJson(json);
+		}
+		if(type == (CoinWithdrawalHistoryHistory).toString()){
+			return CoinWithdrawalHistoryHistory().fromJson(json);
+		}
+		if(type == (CoinWithdrawalHistoryHistoryUser).toString()){
+			return CoinWithdrawalHistoryHistoryUser().fromJson(json);
+		}
+		if(type == (CoinWithdrawalHistoryHistoryCoin).toString()){
+			return CoinWithdrawalHistoryHistoryCoin().fromJson(json);
 		}
 		if(type == (FundWalletEntity).toString()){
 			return FundWalletEntity().fromJson(json);
@@ -426,6 +456,18 @@ class JsonConvert<T> {
 		}
 		if(<CoinBuyTransactionsTransactionsUser>[] is M){
 			return data.map<CoinBuyTransactionsTransactionsUser>((e) => CoinBuyTransactionsTransactionsUser().fromJson(e)).toList() as M;
+		}
+		if(<CoinWithdrawalHistoryEntity>[] is M){
+			return data.map<CoinWithdrawalHistoryEntity>((e) => CoinWithdrawalHistoryEntity().fromJson(e)).toList() as M;
+		}
+		if(<CoinWithdrawalHistoryHistory>[] is M){
+			return data.map<CoinWithdrawalHistoryHistory>((e) => CoinWithdrawalHistoryHistory().fromJson(e)).toList() as M;
+		}
+		if(<CoinWithdrawalHistoryHistoryUser>[] is M){
+			return data.map<CoinWithdrawalHistoryHistoryUser>((e) => CoinWithdrawalHistoryHistoryUser().fromJson(e)).toList() as M;
+		}
+		if(<CoinWithdrawalHistoryHistoryCoin>[] is M){
+			return data.map<CoinWithdrawalHistoryHistoryCoin>((e) => CoinWithdrawalHistoryHistoryCoin().fromJson(e)).toList() as M;
 		}
 		if(<FundWalletEntity>[] is M){
 			return data.map<FundWalletEntity>((e) => FundWalletEntity().fromJson(e)).toList() as M;
