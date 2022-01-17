@@ -197,7 +197,6 @@ class _LearnState extends State<_LearnScreen> {
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
 
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: StyleSheet.primaryColor.withOpacity(0.09),

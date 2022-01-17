@@ -19,6 +19,8 @@ import 'package:pay_buy_max/models/invest/investment_history_entity.dart';
 import 'package:pay_buy_max/generated/json/investment_history_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
 import 'package:pay_buy_max/generated/json/subscribe_response_entity_helper.dart';
+import 'package:pay_buy_max/models/transfer/verify_bank_entity.dart';
+import 'package:pay_buy_max/generated/json/verify_bank_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/fund_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/fund_coin_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/all_available_coin_entity.dart';
@@ -27,10 +29,14 @@ import 'package:pay_buy_max/models/invest/investment_list_entity.dart';
 import 'package:pay_buy_max/generated/json/investment_list_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
 import 'package:pay_buy_max/generated/json/code_response_entity_helper.dart';
+import 'package:pay_buy_max/models/transfer/withdraw_coin_entity.dart';
+import 'package:pay_buy_max/generated/json/withdraw_coin_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_in_response_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
 import 'package:pay_buy_max/generated/json/wallet_balance_entity_helper.dart';
+import 'package:pay_buy_max/models/transfer/withdraw_naira_entity.dart';
+import 'package:pay_buy_max/generated/json/withdraw_naira_entity_helper.dart';
 
 class JsonConvert<T> {
 	T fromJson(Map<String, dynamic> json) {
@@ -75,6 +81,10 @@ class JsonConvert<T> {
 				return investmentHistoryInvestmentsPackageFromJson(data as InvestmentHistoryInvestmentsPackage, json) as T;
 			case SubscribeResponseEntity:
 				return subscribeResponseEntityFromJson(data as SubscribeResponseEntity, json) as T;
+			case VerifyBankEntity:
+				return verifyBankEntityFromJson(data as VerifyBankEntity, json) as T;
+			case VerifyBankData:
+				return verifyBankDataFromJson(data as VerifyBankData, json) as T;
 			case FundCoinEntity:
 				return fundCoinEntityFromJson(data as FundCoinEntity, json) as T;
 			case FundCoinData:
@@ -91,6 +101,8 @@ class JsonConvert<T> {
 				return investmentListPackagesFromJson(data as InvestmentListPackages, json) as T;
 			case CodeResponseEntity:
 				return codeResponseEntityFromJson(data as CodeResponseEntity, json) as T;
+			case WithdrawCoinEntity:
+				return withdrawCoinEntityFromJson(data as WithdrawCoinEntity, json) as T;
 			case SignInResponseEntity:
 				return signInResponseEntityFromJson(data as SignInResponseEntity, json) as T;
 			case SignInResponseUser:
@@ -102,7 +114,9 @@ class JsonConvert<T> {
 			case WalletBalanceUserUserCoins:
 				return walletBalanceUserUserCoinsFromJson(data as WalletBalanceUserUserCoins, json) as T;
 			case WalletBalanceUserUserCoinsCoinTypes:
-				return walletBalanceUserUserCoinsCoinTypesFromJson(data as WalletBalanceUserUserCoinsCoinTypes, json) as T;    }
+				return walletBalanceUserUserCoinsCoinTypesFromJson(data as WalletBalanceUserUserCoinsCoinTypes, json) as T;
+			case WithdrawNairaEntity:
+				return withdrawNairaEntityFromJson(data as WithdrawNairaEntity, json) as T;    }
 		return data as T;
 	}
 
@@ -140,6 +154,10 @@ class JsonConvert<T> {
 				return investmentHistoryInvestmentsPackageToJson(data as InvestmentHistoryInvestmentsPackage);
 			case SubscribeResponseEntity:
 				return subscribeResponseEntityToJson(data as SubscribeResponseEntity);
+			case VerifyBankEntity:
+				return verifyBankEntityToJson(data as VerifyBankEntity);
+			case VerifyBankData:
+				return verifyBankDataToJson(data as VerifyBankData);
 			case FundCoinEntity:
 				return fundCoinEntityToJson(data as FundCoinEntity);
 			case FundCoinData:
@@ -156,6 +174,8 @@ class JsonConvert<T> {
 				return investmentListPackagesToJson(data as InvestmentListPackages);
 			case CodeResponseEntity:
 				return codeResponseEntityToJson(data as CodeResponseEntity);
+			case WithdrawCoinEntity:
+				return withdrawCoinEntityToJson(data as WithdrawCoinEntity);
 			case SignInResponseEntity:
 				return signInResponseEntityToJson(data as SignInResponseEntity);
 			case SignInResponseUser:
@@ -168,6 +188,8 @@ class JsonConvert<T> {
 				return walletBalanceUserUserCoinsToJson(data as WalletBalanceUserUserCoins);
 			case WalletBalanceUserUserCoinsCoinTypes:
 				return walletBalanceUserUserCoinsCoinTypesToJson(data as WalletBalanceUserUserCoinsCoinTypes);
+			case WithdrawNairaEntity:
+				return withdrawNairaEntityToJson(data as WithdrawNairaEntity);
 			}
 			return data as T;
 		}
@@ -222,6 +244,12 @@ class JsonConvert<T> {
 		if(type == (SubscribeResponseEntity).toString()){
 			return SubscribeResponseEntity().fromJson(json);
 		}
+		if(type == (VerifyBankEntity).toString()){
+			return VerifyBankEntity().fromJson(json);
+		}
+		if(type == (VerifyBankData).toString()){
+			return VerifyBankData().fromJson(json);
+		}
 		if(type == (FundCoinEntity).toString()){
 			return FundCoinEntity().fromJson(json);
 		}
@@ -246,6 +274,9 @@ class JsonConvert<T> {
 		if(type == (CodeResponseEntity).toString()){
 			return CodeResponseEntity().fromJson(json);
 		}
+		if(type == (WithdrawCoinEntity).toString()){
+			return WithdrawCoinEntity().fromJson(json);
+		}
 		if(type == (SignInResponseEntity).toString()){
 			return SignInResponseEntity().fromJson(json);
 		}
@@ -263,6 +294,9 @@ class JsonConvert<T> {
 		}
 		if(type == (WalletBalanceUserUserCoinsCoinTypes).toString()){
 			return WalletBalanceUserUserCoinsCoinTypes().fromJson(json);
+		}
+		if(type == (WithdrawNairaEntity).toString()){
+			return WithdrawNairaEntity().fromJson(json);
 		}
 
 		return null;
@@ -318,6 +352,12 @@ class JsonConvert<T> {
 		if(<SubscribeResponseEntity>[] is M){
 			return data.map<SubscribeResponseEntity>((e) => SubscribeResponseEntity().fromJson(e)).toList() as M;
 		}
+		if(<VerifyBankEntity>[] is M){
+			return data.map<VerifyBankEntity>((e) => VerifyBankEntity().fromJson(e)).toList() as M;
+		}
+		if(<VerifyBankData>[] is M){
+			return data.map<VerifyBankData>((e) => VerifyBankData().fromJson(e)).toList() as M;
+		}
 		if(<FundCoinEntity>[] is M){
 			return data.map<FundCoinEntity>((e) => FundCoinEntity().fromJson(e)).toList() as M;
 		}
@@ -342,6 +382,9 @@ class JsonConvert<T> {
 		if(<CodeResponseEntity>[] is M){
 			return data.map<CodeResponseEntity>((e) => CodeResponseEntity().fromJson(e)).toList() as M;
 		}
+		if(<WithdrawCoinEntity>[] is M){
+			return data.map<WithdrawCoinEntity>((e) => WithdrawCoinEntity().fromJson(e)).toList() as M;
+		}
 		if(<SignInResponseEntity>[] is M){
 			return data.map<SignInResponseEntity>((e) => SignInResponseEntity().fromJson(e)).toList() as M;
 		}
@@ -359,6 +402,9 @@ class JsonConvert<T> {
 		}
 		if(<WalletBalanceUserUserCoinsCoinTypes>[] is M){
 			return data.map<WalletBalanceUserUserCoinsCoinTypes>((e) => WalletBalanceUserUserCoinsCoinTypes().fromJson(e)).toList() as M;
+		}
+		if(<WithdrawNairaEntity>[] is M){
+			return data.map<WithdrawNairaEntity>((e) => WithdrawNairaEntity().fromJson(e)).toList() as M;
 		}
 
 		throw Exception("not found");
