@@ -1745,6 +1745,17 @@ class _HomeState extends State<_HomePage> {
                             iconColor: Color(0xFFFAFAFA),
                             textColor: Color(0xFFFAFAFA),
                             tileColor: Color(0xFFC9782F),
+                            leading: Icon(Icons.email),
+                            title: const Text('Admin Messages', style: TextStyle(color: Color(0xFFFAFAFA))),
+                            onTap: () {
+                              /*_fragNav.putPosit(
+                                  key: ValueKey(LearnScreen.route),
+                                  closeDrawer: true);*/
+                            }),
+                        ListTile(
+                            iconColor: Color(0xFFFAFAFA),
+                            textColor: Color(0xFFFAFAFA),
+                            tileColor: Color(0xFFC9782F),
                             leading: Icon(Icons.book_rounded),
                             title: const Text('Courses', style: TextStyle(
                                 color: Color(0xFFFAFAFA))),
@@ -1753,26 +1764,6 @@ class _HomeState extends State<_HomePage> {
                                   key: ValueKey(LearnScreen.route),
                                   closeDrawer: true);
                             }),
-                        /* ListTile(
-                          iconColor: Color(0xFFFAFAFA),
-                          textColor: Color(0xFFFAFAFA),
-                          tileColor: Color(0xFFC9782F),
-                          leading: Icon(Icons.person_add_rounded),
-                          title: const Text('My Referrals'),
-                          onTap: () {
-
-                          },
-                        ),
-                        ListTile(
-                          iconColor: Color(0xFFFAFAFA),
-                          textColor: Color(0xFFFAFAFA),
-                          tileColor: Color(0xFFC9782F),
-                          leading: Icon(Icons.admin_panel_settings_rounded),
-                          title: const Text('Admin Messages'),
-                          onTap: () {
-
-                          },
-                        ),*/
                         ListTile(
                           iconColor: Color(0xFFFAFAFA),
                           textColor: Color(0xFFFAFAFA),
