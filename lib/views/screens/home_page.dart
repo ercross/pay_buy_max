@@ -1661,7 +1661,7 @@ class _HomeState extends State<_HomePage> {
                                       color: Color(0xFFFAFAFA))),
                                   onTap: () {
                                     _fragNav.putPosit(
-                                        key: ValueKey("History"),
+                                        key: ValueKey(History.route),
                                         closeDrawer: true);
                                   }),
                             ]
