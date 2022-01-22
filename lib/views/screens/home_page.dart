@@ -35,7 +35,6 @@ import 'exchange_screens/sell_coin.dart';
 import 'history/history.dart';
 import 'investment_screens/investment_screen.dart';
 import 'notification_screens/notification_screen.dart';
-import 'package:flutter_tawk/flutter_tawk.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
@@ -1790,9 +1789,13 @@ class _HomeState extends State<_HomePage> {
                       ],
                     ),
                   ),
-                  body: ScreenNavigate(
-                      child: s.data!.fragment,
-                      control: _fragNav
+                  body: Stack(
+                    children: [
+                      ScreenNavigate(
+                          child: s.data!.fragment,
+                          control: _fragNav
+                      ),
+                    ],
                   ),
                 )
             );

@@ -2,8 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/controllers/providers/user_provider.dart';
+import 'package:pay_buy_max/views/screens/tawk/tawk_visitor.dart';
+import 'package:pay_buy_max/views/screens/tawk/tawk_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tawk/flutter_tawk.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage();
@@ -30,7 +31,6 @@ class _ChatPage extends StatefulWidget {
 }
 
 class _ChatState extends State<_ChatPage> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,7 +44,7 @@ class _ChatState extends State<_ChatPage> {
           directChatLink: 'YOUR_DIRECT_CHAT_LINK',
           visitor: TawkVisitor(
             name: 'Ayoub AMINE',
-            email: 'ayoubamine2a@gmail.com',
+            email: 'ayoubamine2a@gmail.com', hash: '',
           ),
           onLoad: () {
 

@@ -39,16 +39,16 @@ class _ExchangeState extends State<_ExchangeScreen> {
   void initState() {
     super.initState();
     exchangeItems = new List<ExchangeItems>.from(List.empty());
-    exchangeItems.add(new ExchangeItems("i Tunes", Assets.giftCardsGiftCards1));
-    exchangeItems.add(new ExchangeItems("Starbucks", Assets.giftCardsGiftCards2));
-    exchangeItems.add(new ExchangeItems("Walmart", Assets.giftCardsGiftCards3));
-    exchangeItems.add(new ExchangeItems("Victoria’s secret", Assets.giftCardsGiftCards4));
-    exchangeItems.add(new ExchangeItems("Target", Assets.giftCardsGiftCards5));
-    exchangeItems.add(new ExchangeItems("Amazon", Assets.giftCardsGiftCards6));
-    exchangeItems.add(new ExchangeItems("Best Buy", Assets.giftCardsGiftCards7));
-    exchangeItems.add(new ExchangeItems("Chipotle", Assets.giftCardsGiftCards8));
-    exchangeItems.add(new ExchangeItems("Fandango", Assets.giftCardsGiftCards9));
-    exchangeItems.add(new ExchangeItems("Sephora", Assets.giftCardsGiftCards10));
+    exchangeItems.add(new ExchangeItems("i Tunes", Assets.giftCardsGiftcards1));
+    exchangeItems.add(new ExchangeItems("Starbucks", Assets.giftCardsGiftcards2));
+    exchangeItems.add(new ExchangeItems("Walmart", Assets.giftCardsGiftcards3));
+    exchangeItems.add(new ExchangeItems("Victoria’s secret", Assets.giftCardsGiftcards4));
+    exchangeItems.add(new ExchangeItems("Target", Assets.giftCardsGiftcards5));
+    exchangeItems.add(new ExchangeItems("Amazon", Assets.giftCardsGiftcards6));
+    exchangeItems.add(new ExchangeItems("Best Buy", Assets.giftCardsGiftcards7));
+    exchangeItems.add(new ExchangeItems("Chipotle", Assets.giftCardsGiftcards8));
+    exchangeItems.add(new ExchangeItems("Fandango", Assets.giftCardsGiftcards9));
+    exchangeItems.add(new ExchangeItems("Sephora", Assets.giftCardsGiftcards10));
   }
 
   @override
