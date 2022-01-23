@@ -99,10 +99,7 @@ class _TawkState extends State<Tawk> {
           },
         ),
         _isLoading
-            ? widget.placeholder ??
-                const Center(
-                  child: CircularProgressIndicator(),
-                )
+            ? widget.placeholder
             : Container(),
       ],
     );

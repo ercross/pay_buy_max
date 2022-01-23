@@ -78,15 +78,10 @@ class _NotificationState extends State<_NotificationScreen> {
           statusBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: Color(0xFFFAFAFA)),
       centerTitle: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color(0xFFC9782F),
       elevation: 0,
-      title: Text("Notifications",
-          style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-          textAlign: TextAlign.start),
-      leading: IconButton(
-          icon: new Icon(Icons.arrow_back_rounded), onPressed: () {
-        Navigator.of(context).pop();
-      }, color: Colors.blueGrey),
+      title: Text("Notifications", style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 18), textAlign: TextAlign.start),
+      leading: IconButton(icon: new Icon(Icons.arrow_back_rounded), onPressed: () {Navigator.of(context).pop();}, color: Color(0xFFFAFAFA)),
     );
 
     final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);

@@ -18,6 +18,7 @@ import 'package:pay_buy_max/views/screens/history/history_buy.dart';
 import 'package:pay_buy_max/views/screens/history/history_sell.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
 import 'package:pay_buy_max/views/screens/settings_screens/setting_screen.dart';
+import 'package:pay_buy_max/views/screens/tawk/chat.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/fund_local_wallet.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
@@ -1790,11 +1791,31 @@ class _HomeState extends State<_HomePage> {
                     ),
                   ),
                   body: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
                     children: [
                       ScreenNavigate(
                           child: s.data!.fragment,
                           control: _fragNav
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: InkWell(
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Color(0xFFC9782F),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8), // Border radius
+                              child: ClipOval(child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Image.asset("assets/images/chat.png",scale: 0.5,color: Color(0xFFFFFFFF),),
+                              )),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushNamed(ChatPage.route,arguments: args);
+                          },
+                        ),
+                      )
                     ],
                   ),
                 )

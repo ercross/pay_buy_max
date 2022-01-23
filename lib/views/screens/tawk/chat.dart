@@ -1,10 +1,15 @@
 
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pay_buy_max/controllers/providers/user_provider.dart';
+import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/views/screens/tawk/tawk_visitor.dart';
 import 'package:pay_buy_max/views/screens/tawk/tawk_widget.dart';
 import 'package:provider/provider.dart';
+import '../../../style_sheet.dart';
+
 
 class ChatPage extends StatelessWidget {
   const ChatPage();
@@ -31,20 +36,39 @@ class _ChatPage extends StatefulWidget {
 }
 
 class _ChatState extends State<_ChatPage> {
+  late SignInResponseEntity args;
+
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as SignInResponseEntity;
+
+    var name = args.user!.email.toString();
+    if(args.user!.name != null){
+      name = args.user!.name.toString();
+    }
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Chat'),
-          backgroundColor: Color(0XFFF7931E),
-          elevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarColor: StyleSheet.primaryColor
+                  .withOpacity(0.09)),
+          centerTitle: true,
+          backgroundColor: Color(0xFFC9782F),
+          title: Text("Chat", style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 18), textAlign: TextAlign.start),
+          leading: IconButton(icon: new Icon(Icons.arrow_back_rounded), onPressed: () {Navigator.of(context).pop();}, color: Color(0xFFFAFAFA)),
         ),
         body: Tawk(
-          directChatLink: 'YOUR_DIRECT_CHAT_LINK',
+          directChatLink: 'https://tawk.to/chat/61ebbca0b9e4e21181bb4964/1fq0dhlt7',
           visitor: TawkVisitor(
-            name: 'Ayoub AMINE',
-            email: 'ayoubamine2a@gmail.com', hash: '',
+            name: name,
+            email: args.user!.email.toString(), hash: '',
           ),
           onLoad: () {
 

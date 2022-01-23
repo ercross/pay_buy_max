@@ -13,6 +13,7 @@ import 'package:pay_buy_max/views/screens/investment_screens/investment_screen.d
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
 import 'package:pay_buy_max/views/screens/notification_screens/notification_screen.dart';
 import 'package:pay_buy_max/views/screens/payment_screen.dart';
+import 'package:pay_buy_max/views/screens/tawk/chat.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/local_wallet_screen.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/wallet_screen.dart';
@@ -141,6 +142,12 @@ class PayBuyMax extends StatelessWidget {
     GetPage(
         name: WithdrawScreen.route,
         page: () => WithdrawScreen(),
+        curve: Curves.easeIn,
+        transitionDuration: Duration(milliseconds: _duration),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: ChatPage.route,
+        page: () => ChatPage(),
         curve: Curves.easeIn,
         transitionDuration: Duration(milliseconds: _duration),
         transition: Transition.rightToLeft),
