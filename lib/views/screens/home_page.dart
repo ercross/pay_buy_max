@@ -212,253 +212,330 @@ class _HomeState extends State<_HomePage> {
         barrierDismissible: false,
         context: context1,
         builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                Text('Withdraw From Naira Wallet', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.center),
-                TextField(
-                    controller: _errorFieldController,
-                    style: TextStyle(color: Colors.black,fontSize: 15),
-                    textAlign: TextAlign.center,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      filled: false,
-                      contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                    )),
-              ],
-            ),
-            content: StatefulBuilder(
-              builder: (BuildContext context,StateSetter setState){
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child:  Text('Amount To Send', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextField(
-                        controller: _amtFieldController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFC9782F),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),hintText: "Enter Amount",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child:  Text('Bank Name', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Container(
-                      height: 50,
-                      child: InputDecorator(
-                        decoration: InputDecoration(focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFC9782F),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                        child: DropdownButton(
-                            value: value1,
-                            underline: SizedBox.shrink(),
-                            isExpanded: true, items: banks.map((String value) {
-                          return DropdownMenuItem(value: value,child: Text(value));
-                        }).toList(), onChanged: (_value){
-                          gotName = false;
-                          setState(() {
-                            value1 = _value as String;
-                          });
-                        }),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child:  Text('Account Number', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextField(
-                        onChanged: (text) {
-                          gotName = false;
-                        },
-                        controller: _accFieldController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
+          return Center(
+            child: SingleChildScrollView(
+              child: Center(
+                child: AlertDialog(
+                  title: Column(
+                    children: [
+                      Text('Withdraw From Naira Wallet', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.center),
+                      TextField(
+                          controller: _errorFieldController,
+                          style: TextStyle(color: Colors.black,fontSize: 15),
+                          textAlign: TextAlign.center,
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0xFFC9782F),
+                                color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            hintText: "Enter Account Number",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child:  Text('Account Name', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextFormField(
-                        controller: _nameFieldController,
-                        obscureText: false,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          hintText: "Account Name",
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFC9782F),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          filled: true,
-                          contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child:  Text('OTP Code', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextField(
-                        controller: _otpFieldController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0xFFC9782F),
+                                color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            hintText: "Enter OTP Code",
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
-            actions: <Widget>[
-              FlatButton(
-                color: Colors.black,
-                textColor: Colors.white,
-                child: Text('CANCEL'),
-                onPressed: () {
-                  setState(() {
-                    _amtFieldController.text = "";
-                    _accFieldController.text = "";
-                    _otpFieldController.text = "";
-                    _nameFieldController.text = "";
-                    Navigator.pop(context);
-                  });
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: FlatButton(
-                  color: Color(0xFFC9782F),
-                  textColor: Colors.white,
-                  child: Text('OK'),
-                  onPressed: () {
-                    if(_amtFieldController.text.isEmpty){
-                      _errorFieldController.text = "Enter Amount";
-                    }else if(_accFieldController.text.isEmpty){
-                      _errorFieldController.text = "Enter Account Number";
-                    } else{
-                      if(gotName){
-                        if(sentOTP){
-                          if(_otpFieldController.text.isEmpty){
-                            _errorFieldController.text = "Enter OTP Code";
-                          }else{
-                            Navigator.pop(context1);
-                            showLoadingDialog(context1,"Performing Transaction, Please Wait");
-                            withdrawNaira(_accFieldController.text, _nameFieldController.text, bankMap[value1].toString(), value1, _amtFieldController.text, _otpFieldController.text).then((value){
-                              Navigator.pop(context1);
-                              if(value.status == true){
-                                if(value.message == null){
-                                  AppOverlay.snackbar(title: "Success",message: "Transaction Successful");
+                            filled: false,
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          )),
+                    ],
+                  ),
+                  content: StatefulBuilder(
+                    builder: (BuildContext context,StateSetter setState){
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child:  Text('Amount To Send', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: TextField(
+                              controller: _amtFieldController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC9782F),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),hintText: "Enter Amount",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child:  Text('Bank Name', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Container(
+                            height: 50,
+                            child: InputDecorator(
+                              decoration: InputDecoration(focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC9782F),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                              child: DropdownButton(
+                                  value: value1,
+                                  underline: SizedBox.shrink(),
+                                  isExpanded: true, items: banks.map((String value) {
+                                return DropdownMenuItem(value: value,child: Text(value));
+                              }).toList(), onChanged: (_value){
+                                gotName = false;
+                                setState(() {
+                                  value1 = _value as String;
+                                });
+                              }),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child:  Text('Account Number', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: TextField(
+                              onChanged: (text) {
+                                gotName = false;
+                              },
+                              controller: _accFieldController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFC9782F),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  hintText: "Enter Account Number",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child:  Text('Account Name', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: Stack(
+                              alignment: AlignmentDirectional.centerEnd,
+                              children: [
+                                TextFormField(
+                                  controller: _nameFieldController,
+                                  obscureText: false,
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                    hintText: "Account Name",
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFC9782F),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    filled: true,
+                                    contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2),
+                                  child: FlatButton(
+                                    color: Color(0xFF000000),
+                                    textColor: Colors.white,
+                                    child: Text('Get Name'),
+                                    onPressed: () {
+                                      if(_amtFieldController.text.isEmpty){
+                                        AppOverlay.snackbar(message: "Enter Account Number",title: "Error");
+                                      }else{
+                                        showLoadingDialog(context1,"Getting Account Name, Please Wait");
+                                        getAccountName(_accFieldController.text, bankMap[value1].toString()).then((value){
+                                          Navigator.pop(context1);
+                                          if(value.status == true){
+                                            _errorFieldController.text = "Click Ok To Continue With Transfer";
+                                            _nameFieldController.text = value.data!.accountName.toString();
+                                            gotName = true;
+                                          }else{
+                                            _errorFieldController.text = "An Error Occurred";
+                                            if(value.message.toString().isNotEmpty){
+                                              _errorFieldController.text = value.message.toString();
+                                            }
+                                            gotName = false;
+                                          }
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child:  Text('OTP Code', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: TextField(
+                              controller: _otpFieldController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFC9782F),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  hintText: "Enter OTP Code",
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2),
+                                  child: FlatButton(
+                                    color: Color(0xFF000000),
+                                    textColor: Colors.white,
+                                    child: Text('Get OTP'),
+                                    onPressed: () {
+                                      if(_amtFieldController.text.isEmpty){
+                                        AppOverlay.snackbar(message: "Enter Amount",title: "Error");
+                                      }else{
+                                        showLoadingDialog(context1,"Sending OTP Code, Please Wait");
+                                        sendOTPCode("money", args.user!.id.toString(), double.parse(_amtFieldController.text)).then((value){
+                                          Navigator.pop(context1);
+                                          if(value.success == true){
+                                            _errorFieldController.text = "Check Your Email For OTP Code";
+                                            sentOTP = true;
+                                          }else{
+                                            _errorFieldController.text = "Unable To Send OTP Code.Please Try Again";
+                                            sentOTP = false;
+                                          }
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      color: Colors.black,
+                      textColor: Colors.white,
+                      child: Text('CANCEL'),
+                      onPressed: () {
+                        setState(() {
+                          _amtFieldController.text = "";
+                          _accFieldController.text = "";
+                          _otpFieldController.text = "";
+                          _nameFieldController.text = "";
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: FlatButton(
+                        color: Color(0xFFC9782F),
+                        textColor: Colors.white,
+                        child: Text('OK'),
+                        onPressed: () {
+                          if(_amtFieldController.text.isEmpty){
+                            _errorFieldController.text = "Enter Amount";
+                          }else if(_accFieldController.text.isEmpty){
+                            _errorFieldController.text = "Enter Account Number";
+                          } else{
+                            if(gotName){
+                              if(sentOTP){
+                                if(_otpFieldController.text.isEmpty){
+                                  _errorFieldController.text = "Enter OTP Code";
                                 }else{
-                                  AppOverlay.snackbar(title: "Success",message: value.message.toString());
+                                  Navigator.pop(context1);
+                                  showLoadingDialog(context1,"Performing Transaction, Please Wait");
+                                  withdrawNaira(_accFieldController.text, _nameFieldController.text, bankMap[value1].toString(), value1, _amtFieldController.text, _otpFieldController.text).then((value){
+                                    Navigator.pop(context1);
+                                    if(value.status == true){
+                                      if(value.message == null){
+                                        AppOverlay.snackbar(title: "Success",message: "Transaction Successful");
+                                      }else{
+                                        AppOverlay.snackbar(title: "Success",message: value.message.toString());
+                                      }
+                                    }else{
+                                      if(value.message == null){
+                                        AppOverlay.snackbar(title: "Error",message: "An Error Occurred");
+                                      }else{
+                                        AppOverlay.snackbar(title: "Error",message: value.message.toString());
+                                      }
+                                    }
+                                  });
                                 }
                               }else{
-                                if(value.message == null){
-                                  AppOverlay.snackbar(title: "Error",message: "An Error Occurred");
-                                }else{
-                                  AppOverlay.snackbar(title: "Error",message: value.message.toString());
-                                }
+                                showLoadingDialog(context1,"Sending OTP Code");
+                                sendOTPCode("money", args.user!.id.toString(), double.parse(_amtFieldController.text)).then((value){
+                                  Navigator.pop(context1);
+                                  if(value.success == true){
+                                    _errorFieldController.text = "Check Your Email For OTP Code";
+                                    sentOTP = true;
+                                  }else{
+                                    _errorFieldController.text = "Unable To Send OTP Code.Please Try Again";
+                                    sentOTP = false;
+                                  }
+                                });
                               }
-                            });
-                          }
-                        }else{
-                          showLoadingDialog(context1,"Sending OTP Code");
-                          sendOTPCode("money", args.user!.id.toString(), double.parse(_amtFieldController.text)).then((value){
-                            Navigator.pop(context1);
-                            if(value.success == true){
-                              _errorFieldController.text = "Check Your Email For OTP Code";
-                              sentOTP = true;
                             }else{
-                              _errorFieldController.text = "Unable To Send OTP Code.Please Try Again";
-                              sentOTP = false;
+                              _errorFieldController.text = "Getting Account Name";
+                              showLoadingDialog(context1,"Getting Account Name, Please Wait");
+                              getAccountName(_accFieldController.text, bankMap[value1].toString()).then((value){
+                                Navigator.pop(context1);
+                                if(value.status == true){
+                                  _errorFieldController.text = "Click Ok To Continue With Transfer";
+                                  _nameFieldController.text = value.data!.accountName.toString();
+                                  gotName = true;
+                                }else{
+                                  _errorFieldController.text = "An Error Occurred";
+                                  if(value.message.toString().isNotEmpty){
+                                    _errorFieldController.text = value.message.toString();
+                                  }
+                                  gotName = false;
+                                }
+                              });
                             }
-                          });
-                        }
-                      }else{
-                        _errorFieldController.text = "Getting Account Name";
-                        showLoadingDialog(context1,"Getting Account Name, Please Wait");
-                        getAccountName(_accFieldController.text, bankMap[value1].toString()).then((value){
-                          Navigator.pop(context1);
-                          if(value.status == true){
-                            _errorFieldController.text = "Click Ok To Continue With Transfer";
-                            _nameFieldController.text = value.data!.accountName.toString();
-                            gotName = true;
-                          }else{
-                            _errorFieldController.text = "An Error Occurred";
-                            if(value.message.toString().isNotEmpty){
-                              _errorFieldController.text = value.message.toString();
-                            }
-                            gotName = false;
                           }
-                        });
-                      }
-                    }
-                  },
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           );
         });
   }
@@ -487,197 +564,234 @@ class _HomeState extends State<_HomePage> {
         barrierDismissible: false,
         context: context1,
         builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                Text('Withdraw From Crypto Wallet', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.center),
-                TextField(
-                    controller: _errorFieldController,
-                    style: TextStyle(color: Colors.black,fontSize: 15),
-                    textAlign: TextAlign.center,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      filled: false,
-                      contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                    )),
-              ],
-            ),
-            content: StatefulBuilder(
-              builder: (BuildContext context,StateSetter setState){
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Amount To Send', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextField(
-                        controller: _amtFieldController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFC9782F),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),hintText: "Enter Amount",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child:  Text('Crypto Type', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Container(
-                      height: 50,
-                      child: InputDecorator(
-                        decoration: InputDecoration(focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFC9782F),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                        child: DropdownButton(
-                            value: value1,
-                            underline: SizedBox.shrink(),
-                            isExpanded: true, items: coinList.map((String value) {
-                          return DropdownMenuItem(value: value,child: Text(value));
-                        }).toList(), onChanged: (_value){
-                          setState(() {
-                            value1 = _value as String;
-                          });
-                        }),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child:  Text('Wallet Address', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextField(
-                        controller: _accFieldController,
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
+          return Center(
+            child: SingleChildScrollView(
+              child: Center(
+                child: AlertDialog(
+                  title: Column(
+                    children: [
+                      Text('Withdraw From Crypto Wallet', style: TextStyle(color: Color(0xFFC9782F)), textAlign: TextAlign.center),
+                      TextField(
+                          controller: _errorFieldController,
+                          style: TextStyle(color: Colors.black,fontSize: 15),
+                          textAlign: TextAlign.center,
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0xFFC9782F),
+                                color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            hintText: "Enter Wallet Address",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child:  Text('OTP Code', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: TextField(
-                        controller: _otpFieldController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0xFFC9782F),
+                                color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            hintText: "Enter OTP Code",
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
-            actions: <Widget>[
-              FlatButton(
-                color: Colors.black,
-                textColor: Colors.white,
-                child: Text('CANCEL'),
-                onPressed: () {
-                  setState(() {
-                    _amtFieldController.text = "";
-                    _accFieldController.text = "";
-                    _otpFieldController.text = "";
-                    _nameFieldController.text = "";
-                    Navigator.pop(context);
-                  });
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: FlatButton(
-                  color: Color(0xFFC9782F),
-                  textColor: Colors.white,
-                  child: Text('OK'),
-                  onPressed: () {
-                    if(_amtFieldController.text.isEmpty){
-                      _errorFieldController.text = "Enter Amount";
-                    }else if(_accFieldController.text.isEmpty){
-                      _errorFieldController.text = "Enter Wallet Address";
-                    } else{
-                      _errorFieldController.text = "Sending OTP Code";
-                      if(sentOTP){
-                        if(_otpFieldController.text.isEmpty){
-                          _errorFieldController.text = "Enter OTP Code";
-                        }else{
-                          Navigator.pop(context1);
-                          showLoadingDialog(context1,"Performing Transaction, Please Wait");
-                          withdrawCoin(coinMap[value1].toString(), _accFieldController.text, _amtFieldController.text, _otpFieldController.text).then((value) {
-                            Navigator.pop(context1);
-                            if(value.status == true){
-                              if(value.message == null){
-                                AppOverlay.snackbar(title: "Success",message: "Transaction Successful");
+                            filled: false,
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          )),
+                    ],
+                  ),
+                  content: StatefulBuilder(
+                    builder: (BuildContext context,StateSetter setState){
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Amount To Send', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: TextField(
+                              controller: _amtFieldController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC9782F),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),hintText: "Enter Amount",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child:  Text('Crypto Type', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Container(
+                            height: 50,
+                            child: InputDecorator(
+                              decoration: InputDecoration(focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC9782F),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                              child: DropdownButton(
+                                  value: value1,
+                                  underline: SizedBox.shrink(),
+                                  isExpanded: true, items: coinList.map((String value) {
+                                return DropdownMenuItem(value: value,child: Text(value));
+                              }).toList(), onChanged: (_value){
+                                setState(() {
+                                  value1 = _value as String;
+                                });
+                              }),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child:  Text('Wallet Address', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: TextField(
+                              controller: _accFieldController,
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFC9782F),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  hintText: "Enter Wallet Address",border: OutlineInputBorder(),contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child:  Text('OTP Code', style: TextStyle(color: Color(0xFF000000), fontSize: 14,fontWeight: FontWeight.bold), textAlign: TextAlign.start),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: TextField(
+                              controller: _otpFieldController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFC9782F),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  hintText: "Enter OTP Code",
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8)),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2),
+                                  child: FlatButton(
+                                    color: Color(0xFF000000),
+                                    textColor: Colors.white,
+                                    child: Text('Get OTP'),
+                                    onPressed: () {
+                                      if(_amtFieldController.text.isEmpty){
+                                        AppOverlay.snackbar(message: "Enter Amount",title: "Error");
+                                      }else{
+                                        showLoadingDialog(context1,"Sending OTP Code, Please Wait");
+                                        sendOTPCode("money", args.user!.id.toString(), double.parse(_amtFieldController.text)).then((value){
+                                          Navigator.pop(context1);
+                                          if(value.success == true){
+                                            _errorFieldController.text = "Check Your Email For OTP Code";
+                                            sentOTP = true;
+                                          }else{
+                                            _errorFieldController.text = "Unable To Send OTP Code.Please Try Again";
+                                            sentOTP = false;
+                                          }
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      color: Colors.black,
+                      textColor: Colors.white,
+                      child: Text('CANCEL'),
+                      onPressed: () {
+                        setState(() {
+                          _amtFieldController.text = "";
+                          _accFieldController.text = "";
+                          _otpFieldController.text = "";
+                          _nameFieldController.text = "";
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: FlatButton(
+                        color: Color(0xFFC9782F),
+                        textColor: Colors.white,
+                        child: Text('OK'),
+                        onPressed: () {
+                          if(_amtFieldController.text.isEmpty){
+                            _errorFieldController.text = "Enter Amount";
+                          }else if(_accFieldController.text.isEmpty){
+                            _errorFieldController.text = "Enter Wallet Address";
+                          } else{
+                            _errorFieldController.text = "Sending OTP Code";
+                            if(sentOTP){
+                              if(_otpFieldController.text.isEmpty){
+                                _errorFieldController.text = "Enter OTP Code";
                               }else{
-                                AppOverlay.snackbar(title: "Success",message: value.message.toString());
+                                Navigator.pop(context1);
+                                showLoadingDialog(context1,"Performing Transaction, Please Wait");
+                                withdrawCoin(coinMap[value1].toString(), _accFieldController.text, _amtFieldController.text, _otpFieldController.text).then((value) {
+                                  Navigator.pop(context1);
+                                  if(value.status == true){
+                                    if(value.message == null){
+                                      AppOverlay.snackbar(title: "Success",message: "Transaction Successful");
+                                    }else{
+                                      AppOverlay.snackbar(title: "Success",message: value.message.toString());
+                                    }
+                                  }else{
+                                    if(value.message == null){
+                                      AppOverlay.snackbar(title: "Error",message: "An Error Occurred");
+                                    }else{
+                                      AppOverlay.snackbar(title: "Error",message: value.message.toString());
+                                    }
+                                  }
+                                  _errorFieldController.text = "";
+                                });
                               }
                             }else{
-                              if(value.message == null){
-                                AppOverlay.snackbar(title: "Error",message: "An Error Occurred");
-                              }else{
-                                AppOverlay.snackbar(title: "Error",message: value.message.toString());
-                              }
+                              showLoadingDialog(context1,"Sending OTP Code");
+                              sendOTPCode("money", args.user!.id.toString(), double.parse(_amtFieldController.text)).then((value){
+                                Navigator.pop(context1);
+                                if(value.success == true){
+                                  _errorFieldController.text = "Check Your Email For OTP Code";
+                                  sentOTP = true;
+                                }else{
+                                  _errorFieldController.text = "Unable To Send OTP Code.Please Try Again";
+                                  sentOTP = false;
+                                }
+                              });
                             }
-                            _errorFieldController.text = "";
-                          });
-                        }
-                      }else{
-                        showLoadingDialog(context1,"Sending OTP Code");
-                        sendOTPCode("money", args.user!.id.toString(), double.parse(_amtFieldController.text)).then((value){
-                          Navigator.pop(context1);
-                          if(value.success == true){
-                            _errorFieldController.text = "Check Your Email For OTP Code";
-                            sentOTP = true;
-                          }else{
-                            _errorFieldController.text = "Unable To Send OTP Code.Please Try Again";
-                            sentOTP = false;
                           }
-                        });
-                      }
-                    }
-                  },
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           );
         });
   }

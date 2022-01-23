@@ -10,6 +10,7 @@ import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../style_sheet.dart';
 
@@ -401,6 +402,46 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                                     } else {
                                       fundCryptoWalletFromInternalWallet();
                                     }
+                                  },
+                                  child: Text("SELL COIN"),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.black)),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 150,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 6,
+                        color: Color(0xFFFAFAFA),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 15, bottom: 15, top: 10),
+                              child: Text('Sell From External Wallet',
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.start),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 15, bottom: 10),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    var link = "https://wa.me/+2348128195573";
+                                    launch(link);
                                   },
                                   child: Text("SELL COIN"),
                                   style: ElevatedButton.styleFrom(

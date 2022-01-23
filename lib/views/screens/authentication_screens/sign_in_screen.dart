@@ -135,12 +135,17 @@ class _SignInPageState extends State<SignInPage> {
      // Navigator.of(context).pushReplacementNamed(HomePage.route,arguments: response);
       //Navigator.of(context).popAndPushNamed(HomePage.route,arguments: response);
       Navigator.of(context).pushNamedAndRemoveUntil(HomePage.route,(Route<dynamic> route) => false,arguments: response);
+      /*runApp(MultiProvider(
+          providers: [
+            ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
+          ],
+          child: HomePage()));*/
     }else{
       if(response.message == null){
         AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
       }else{
         if(response.message!.isEmpty){
-          AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+          AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again",title: "Error");
         }else{
           AppOverlay.snackbar(message: response.message.toString());
         }
