@@ -294,7 +294,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 15, right: 15, bottom: 15, top: 10),
-                              child: Text('Sell From Wallet',
+                              child: Text('Sell From Internal Wallet',
                                   style: TextStyle(
                                       color: Colors.black54,
                                       fontSize: 20,

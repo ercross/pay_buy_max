@@ -86,31 +86,8 @@ class _HomeState extends State<_HomePage> {
     _nameFieldController = TextEditingController();
     _errorFieldController = TextEditingController();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _getWalletInfo();
       getBankList().then((value) => {
         bankListEntity = value
-      });
-    });
-  }
-
-  void _getWalletInfo() {
-    // final response = await getWalletInfo();
-    getWalletInfo().then((value) {
-      setState(() {
-        if (value.status == true) {
-          walletBalanceEntity = value;
-        } else {
-          walletBalanceEntity = null;
-          /*if(response.message == null){
-        AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
-      }else{
-        if(response.message!.isEmpty){
-          AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
-        }else{
-          AppOverlay.snackbar(message: response.message.toString());
-        }
-      }*/
-        }
       });
     });
   }
@@ -832,6 +809,25 @@ class _HomeState extends State<_HomePage> {
           Expanded(
             child: StatefulBuilder(
               builder: (BuildContext context1,StateSetter setState){
+                getWalletInfo().then((value) {
+                  setState(() {
+                    if (value.status == true) {
+                      walletBalanceEntity = value;
+                    } else {
+                      walletBalanceEntity = null;
+                      /*if(response.message == null){
+        AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+      }else{
+        if(response.message!.isEmpty){
+          AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
+        }else{
+          AppOverlay.snackbar(message: response.message.toString());
+        }
+      }*/
+                    }
+                  });
+                });
+
                 return ListView(
                   scrollDirection: Axis.vertical,
                   children: [
@@ -867,7 +863,7 @@ class _HomeState extends State<_HomePage> {
                       padding: const EdgeInsets.only(
                           top: 20, left: 25, right: 25, bottom: 10),
                       child: Container(
-                          height: 250,
+                          height: 290,
                           child: Card(
                             color: Color(0xFFFAFAFA),
                             shape: RoundedRectangleBorder(
@@ -1076,6 +1072,17 @@ class _HomeState extends State<_HomePage> {
                                           )
                                         ],
                                       ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 15, right: 15, bottom: 5),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            var link = "https://paybuymax.com/signup?ref="+args.user!.referralId.toString();
+                                          },
+                                          child: Text("Share Referral Link",style: TextStyle(color: Color(0xFF000000))),
+                                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF))),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 )
@@ -1509,7 +1516,7 @@ class _HomeState extends State<_HomePage> {
                           )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 );
               },
@@ -1798,13 +1805,13 @@ class _HomeState extends State<_HomePage> {
                           control: _fragNav
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(18.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: InkWell(
                           child: CircleAvatar(
                             radius: 50,
                             backgroundColor: Color(0xFFC9782F),
                             child: Padding(
-                              padding: const EdgeInsets.all(8), // Border radius
+                              padding: const EdgeInsets.all(10), // Border radius
                               child: ClipOval(child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Image.asset("assets/images/chat.png",scale: 0.5,color: Color(0xFFFFFFFF),),
