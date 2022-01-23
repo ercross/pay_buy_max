@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fragment_navigate/navigate-control.dart';
 import 'package:fragment_navigate/navigate-support.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_buy_max/controllers/providers/user_provider.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/transfer/bank_list_entity.dart';
@@ -38,6 +39,7 @@ import 'exchange_screens/sell_coin.dart';
 import 'history/history.dart';
 import 'investment_screens/investment_screen.dart';
 import 'notification_screens/notification_screen.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage();
@@ -787,13 +789,7 @@ class _HomeState extends State<_HomePage> {
       ],
     );
 
-    final double height = MediaQuery
-        .of(context)
-        .size
-        .height - (appBar.preferredSize.height + MediaQuery
-        .of(context)
-        .padding
-        .top);
+    final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
 
     Container newContainer = new Container(
       height: height,
@@ -809,12 +805,13 @@ class _HomeState extends State<_HomePage> {
             child: StatefulBuilder(
               builder: (BuildContext context1,StateSetter setState){
                 getWalletInfo().then((value) {
-                  setState(() {
-                    if (value.status == true) {
-                      walletBalanceEntity = value;
-                    } else {
-                      walletBalanceEntity = null;
-                      /*if(response.message == null){
+                  try{
+                    setState(() {
+                      if (value.status == true) {
+                        walletBalanceEntity = value;
+                      } else {
+                        walletBalanceEntity = null;
+                        /*if(response.message == null){
         AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
       }else{
         if(response.message!.isEmpty){
@@ -823,8 +820,11 @@ class _HomeState extends State<_HomePage> {
           AppOverlay.snackbar(message: response.message.toString());
         }
       }*/
-                    }
-                  });
+                      }
+                    });
+                  }catch(e){
+
+                  }
                 });
 
                 return ListView(
@@ -852,8 +852,7 @@ class _HomeState extends State<_HomePage> {
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold));
                           }
-                          return Text("", style: TextStyle(color: Colors.black,
-                              fontSize: 22,
+                          return Text("", style: TextStyle(color: Colors.black, fontSize: 22,
                               fontWeight: FontWeight.bold));
                         },
                       ),
@@ -1808,8 +1807,10 @@ class _HomeState extends State<_HomePage> {
                           leading: Icon(Icons.logout_rounded),
                           title: const Text('Log Out'),
                           onTap: () {
-                            Navigator.of(context).pushReplacementNamed(SignUpPage.route);
+                            //Get.offAll(SignUpPage());
+                            //Navigator.of(context).pushReplacementNamed(SignUpPage.route);
                             //Navigator.of(context).popAndPushNamed(SignUpPage.route);
+                            Navigator.of(context).pushNamedAndRemoveUntil(SignUpPage.route,(Route<dynamic> route) => false);
                           },
                         )
                       ],

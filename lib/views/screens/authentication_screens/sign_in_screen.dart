@@ -16,6 +16,7 @@ import '../../widgets/authentication_text_field.dart';
 import '../../widgets/horizontal_bar.dart';
 import 'forgot_password_screen.dart';
 import 'sign_up_screen.dart';
+import 'package:get/get.dart';
 
 class SignInPage extends StatefulWidget {
   SignInPage();
@@ -131,8 +132,9 @@ class _SignInPageState extends State<SignInPage> {
     Navigator.pop(context);
     if(response.status == true){
       //AppOverlay.snackbar(message: "Welcome");
-      Navigator.of(context).pushReplacementNamed(HomePage.route,arguments: response);
-     // Navigator.of(context).popAndPushNamed(HomePage.route,arguments: response);
+     // Navigator.of(context).pushReplacementNamed(HomePage.route,arguments: response);
+      //Navigator.of(context).popAndPushNamed(HomePage.route,arguments: response);
+      Navigator.of(context).pushNamedAndRemoveUntil(HomePage.route,(Route<dynamic> route) => false,arguments: response);
     }else{
       if(response.message == null){
         AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");
