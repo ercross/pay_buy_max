@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/generated/assets.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
+import 'package:pay_buy_max/models/messages/admin_messages_entity.dart';
 import 'package:pay_buy_max/models/referral/referral_entity.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class _AdminScreen extends StatefulWidget {
 }
 
 class _AdminState extends State<_AdminScreen> {
-  ReferralEntity? referralsEntity;
+  AdminMessagesEntity? adminMessagesEntity;
   late SignInResponseEntity args;
 
   late TextEditingController textController;
@@ -47,21 +48,21 @@ class _AdminState extends State<_AdminScreen> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       getReferrals().then((value) {
         setState(() {
-          referralsEntity = value;
+          adminMessagesEntity = value;
         });
       });
     });
   }
 
-  Future<ReferralEntity> getReferrals() async {
+  Future<AdminMessagesEntity> getReferrals() async {
     try{
-      String url = 'https://paybuymax.com/api/referrals';
+      String url = 'https://paybuymax.com/api/messages';
 
       final response = await http.get(Uri.parse(url), headers: {"Authorization": args.token.toString()});
       print(response.statusCode);
-      return ReferralEntity().fromJson(json.decode(response.body));
+      return AdminMessagesEntity().fromJson(json.decode(response.body));
     }catch(e){
-      var historyBuy = ReferralEntity();
+      var historyBuy = AdminMessagesEntity();
       historyBuy.status = false;
       return historyBuy;
     }
@@ -81,7 +82,7 @@ class _AdminState extends State<_AdminScreen> {
           Expanded(
             child: Builder(
               builder: (context2) {
-                if (referralsEntity == null){
+                if (adminMessagesEntity == null){
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(25),
@@ -91,12 +92,12 @@ class _AdminState extends State<_AdminScreen> {
                     ),
                   );
                 }
-                if (referralsEntity!.referrals!.isEmpty) {
+                if (adminMessagesEntity!.messages!.isEmpty) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(25),
                       child: Center(
-                          child: Text('You have not referred anyone yet',
+                          child: Text('No Admin Messages Here Yet.',
                               style: TextStyle(color: Color(0xFFC9782F), fontSize: 18,fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center)),
                     ),
@@ -104,17 +105,9 @@ class _AdminState extends State<_AdminScreen> {
                 }
                 return ListView.builder(
                   itemBuilder: (context3, position) {
-                    var currentPackage = referralsEntity!.referrals!.elementAt(position);
-                    var name = currentPackage.user!.name;
-                    var email = currentPackage.user!.email.toString();
-
-                    var title = "You referred ";
-
-                    if(name == null){
-                      title = "You referred "+email;
-                    }else{
-                      title = "You referred "+name.toString();
-                    }
+                    var currentPackage = adminMessagesEntity!.messages!.elementAt(position);
+                    var title = currentPackage.title.toString();
+                    var message = currentPackage.message.toString();
 
                     return Container(
                       decoration: BoxDecoration(
@@ -135,8 +128,12 @@ class _AdminState extends State<_AdminScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 30, bottom: 15,top: 15),
+                                  padding: const EdgeInsets.only(left: 30, bottom: 1,top: 15),
                                   child: Text(title, style: TextStyle(color: Color(0xFFC9782F), fontSize: 18), textAlign: TextAlign.start),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30, bottom: 15),
+                                  child: Text(message, style: TextStyle( fontSize: 15), textAlign: TextAlign.start),
                                 )
                               ],
                             ),
@@ -145,7 +142,7 @@ class _AdminState extends State<_AdminScreen> {
                       ),
                     );
                   },
-                  itemCount: referralsEntity!.referrals!.length,
+                  itemCount: adminMessagesEntity!.messages!.length,
                 );
               },
             ),
