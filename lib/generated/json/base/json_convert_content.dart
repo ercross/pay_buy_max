@@ -25,6 +25,8 @@ import 'package:pay_buy_max/models/invest/investment_history_entity.dart';
 import 'package:pay_buy_max/generated/json/investment_history_entity_helper.dart';
 import 'package:pay_buy_max/models/history/naira_withdrawal_history_entity.dart';
 import 'package:pay_buy_max/generated/json/naira_withdrawal_history_entity_helper.dart';
+import 'package:pay_buy_max/models/referral/referral_entity.dart';
+import 'package:pay_buy_max/generated/json/referral_entity_helper.dart';
 import 'package:pay_buy_max/models/history/notifications_entity.dart';
 import 'package:pay_buy_max/generated/json/notifications_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/subscribe_response_entity.dart';
@@ -117,6 +119,12 @@ class JsonConvert<T> {
 				return nairaWithdrawalHistoryEntityFromJson(data as NairaWithdrawalHistoryEntity, json) as T;
 			case NairaWithdrawalHistoryWithdrawals:
 				return nairaWithdrawalHistoryWithdrawalsFromJson(data as NairaWithdrawalHistoryWithdrawals, json) as T;
+			case ReferralEntity:
+				return referralEntityFromJson(data as ReferralEntity, json) as T;
+			case ReferralReferrals:
+				return referralReferralsFromJson(data as ReferralReferrals, json) as T;
+			case ReferralReferralsUser:
+				return referralReferralsUserFromJson(data as ReferralReferralsUser, json) as T;
 			case NotificationsEntity:
 				return notificationsEntityFromJson(data as NotificationsEntity, json) as T;
 			case NotificationsNotifications:
@@ -224,6 +232,12 @@ class JsonConvert<T> {
 				return nairaWithdrawalHistoryEntityToJson(data as NairaWithdrawalHistoryEntity);
 			case NairaWithdrawalHistoryWithdrawals:
 				return nairaWithdrawalHistoryWithdrawalsToJson(data as NairaWithdrawalHistoryWithdrawals);
+			case ReferralEntity:
+				return referralEntityToJson(data as ReferralEntity);
+			case ReferralReferrals:
+				return referralReferralsToJson(data as ReferralReferrals);
+			case ReferralReferralsUser:
+				return referralReferralsUserToJson(data as ReferralReferralsUser);
 			case NotificationsEntity:
 				return notificationsEntityToJson(data as NotificationsEntity);
 			case NotificationsNotifications:
@@ -360,6 +374,15 @@ class JsonConvert<T> {
 		}
 		if(type == (NairaWithdrawalHistoryWithdrawals).toString()){
 			return NairaWithdrawalHistoryWithdrawals().fromJson(json);
+		}
+		if(type == (ReferralEntity).toString()){
+			return ReferralEntity().fromJson(json);
+		}
+		if(type == (ReferralReferrals).toString()){
+			return ReferralReferrals().fromJson(json);
+		}
+		if(type == (ReferralReferralsUser).toString()){
+			return ReferralReferralsUser().fromJson(json);
 		}
 		if(type == (NotificationsEntity).toString()){
 			return NotificationsEntity().fromJson(json);
@@ -519,6 +542,15 @@ class JsonConvert<T> {
 		}
 		if(<NairaWithdrawalHistoryWithdrawals>[] is M){
 			return data.map<NairaWithdrawalHistoryWithdrawals>((e) => NairaWithdrawalHistoryWithdrawals().fromJson(e)).toList() as M;
+		}
+		if(<ReferralEntity>[] is M){
+			return data.map<ReferralEntity>((e) => ReferralEntity().fromJson(e)).toList() as M;
+		}
+		if(<ReferralReferrals>[] is M){
+			return data.map<ReferralReferrals>((e) => ReferralReferrals().fromJson(e)).toList() as M;
+		}
+		if(<ReferralReferralsUser>[] is M){
+			return data.map<ReferralReferralsUser>((e) => ReferralReferralsUser().fromJson(e)).toList() as M;
 		}
 		if(<NotificationsEntity>[] is M){
 			return data.map<NotificationsEntity>((e) => NotificationsEntity().fromJson(e)).toList() as M;
