@@ -131,7 +131,8 @@ class _SignInPageState extends State<SignInPage> {
     Navigator.pop(context);
     if(response.status == true){
       //AppOverlay.snackbar(message: "Welcome");
-      Navigator.of(context).pushNamed(HomePage.route,arguments: response);
+      Navigator.of(context).pushReplacementNamed(HomePage.route,arguments: response);
+     // Navigator.of(context).popAndPushNamed(HomePage.route,arguments: response);
     }else{
       if(response.message == null){
         AppOverlay.snackbar(message: "An Error Occurred!. Please Try Again");

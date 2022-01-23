@@ -17,6 +17,7 @@ import 'package:pay_buy_max/views/screens/exchange_screens/exchange_screen.dart'
 import 'package:pay_buy_max/views/screens/history/history_buy.dart';
 import 'package:pay_buy_max/views/screens/history/history_sell.dart';
 import 'package:pay_buy_max/views/screens/learn_screens/learn_screen.dart';
+import 'package:pay_buy_max/views/screens/refer_screens/referral.dart';
 import 'package:pay_buy_max/views/screens/settings_screens/setting_screen.dart';
 import 'package:pay_buy_max/views/screens/tawk/chat.dart';
 import 'package:pay_buy_max/views/screens/wallet_screens/all_wallet_balance.dart';
@@ -31,6 +32,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../style_sheet.dart';
+import 'admin_screens/admin_screen.dart';
 import 'authentication_screens/sign_up_screen.dart';
 import 'exchange_screens/sell_coin.dart';
 import 'history/history.dart';
@@ -757,10 +759,7 @@ class _HomeState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute
-        .of(context)!
-        .settings
-        .arguments as SignInResponseEntity;
+    args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
 
     AppBar appBar = AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -1078,8 +1077,10 @@ class _HomeState extends State<_HomePage> {
                                         child: ElevatedButton(
                                           onPressed: () {
                                             var link = "https://paybuymax.com/signup?ref="+args.user!.referralId.toString();
+                                            Clipboard.setData(ClipboardData(text: link));
+                                            AppOverlay.snackbar(title: "Success",message: "Link Copied To Clipboard");
                                           },
-                                          child: Text("Share Referral Link",style: TextStyle(color: Color(0xFF000000))),
+                                          child: Text("Copy Referral Link",style: TextStyle(color: Color(0xFF000000))),
                                           style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF))),
                                         ),
                                       )
@@ -1584,6 +1585,16 @@ class _HomeState extends State<_HomePage> {
             key: ValueKey(HistorySell.route),
             fragment: HistorySell(),
           ),
+          Posit(
+            title: "My Referrals",
+            key: ValueKey(ReferralScreen.route),
+            fragment: ReferralScreen(),
+          ),
+          Posit(
+            title: "Admin Messages",
+            key: ValueKey(AdminScreen.route),
+            fragment: AdminScreen(),
+          ),
         ]
     );
     _fragNav.setDrawerContext = context;
@@ -1756,9 +1767,7 @@ class _HomeState extends State<_HomePage> {
                             leading: Icon(Icons.email),
                             title: const Text('Admin Messages', style: TextStyle(color: Color(0xFFFAFAFA))),
                             onTap: () {
-                              /*_fragNav.putPosit(
-                                  key: ValueKey(LearnScreen.route),
-                                  closeDrawer: true);*/
+                              _fragNav.putPosit(key: ValueKey(AdminScreen.route), closeDrawer: true);
                             }),
                         ListTile(
                             iconColor: Color(0xFFFAFAFA),
@@ -1767,9 +1776,7 @@ class _HomeState extends State<_HomePage> {
                             leading: Icon(Icons.people_sharp),
                             title: const Text('My Referrals', style: TextStyle(color: Color(0xFFFAFAFA))),
                             onTap: () {
-                              /*_fragNav.putPosit(
-                                  key: ValueKey(LearnScreen.route),
-                                  closeDrawer: true);*/
+                              _fragNav.putPosit(key: ValueKey(ReferralScreen.route), closeDrawer: true);
                             }),
                         ListTile(
                             iconColor: Color(0xFFFAFAFA),
@@ -1801,8 +1808,8 @@ class _HomeState extends State<_HomePage> {
                           leading: Icon(Icons.logout_rounded),
                           title: const Text('Log Out'),
                           onTap: () {
-                            Navigator.of(context).pushReplacementNamed(
-                                SignUpPage.route);
+                            Navigator.of(context).pushReplacementNamed(SignUpPage.route);
+                            //Navigator.of(context).popAndPushNamed(SignUpPage.route);
                           },
                         )
                       ],

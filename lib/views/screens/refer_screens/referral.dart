@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class ReferralScreen extends StatelessWidget {
   const ReferralScreen();
 
-  static const String route = "/ReferralScreen";
+  static const String route = "/referralScreen";
 
   @override
   Widget build(BuildContext context) {
@@ -72,22 +72,8 @@ class _ReferralState extends State<_ReferralScreen> {
     args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color(0xFFFAFAFA)));
 
-    AppBar appBar = AppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Color(0xFFFAFAFA)),
-      centerTitle: true,
-      backgroundColor: Color(0xFFC9782F),
-      elevation: 0,
-      title: Text("My Referrals", style: TextStyle(color: Color(0xFFFAFAFA), fontSize: 18), textAlign: TextAlign.start),
-      leading: IconButton(icon: new Icon(Icons.arrow_back_rounded), onPressed: () {Navigator.of(context).pop();}, color: Color(0xFFFAFAFA)),
-    );
-
-    final double height = MediaQuery.of(context).size.height - (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
-
     Container container = Container(
-      height: height,
+      height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Flex(
         direction: Axis.vertical,
@@ -125,9 +111,9 @@ class _ReferralState extends State<_ReferralScreen> {
                     var title = "You referred ";
 
                     if(name == null){
-                      title = ""+email;
+                      title = "You referred "+email;
                     }else{
-                      title = ""+name.toString();
+                      title = "You referred "+name.toString();
                     }
 
                     return Container(
@@ -170,13 +156,7 @@ class _ReferralState extends State<_ReferralScreen> {
 
     return LayoutBuilder(
       builder: (_, constraints) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            appBar: appBar,
-            body: container,
-          ),
-        );
+        return container;
       },
     );
   }
