@@ -33,6 +33,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../style_sheet.dart';
+import '../../main.dart';
 import 'admin_screens/admin_screen.dart';
 import 'authentication_screens/sign_up_screen.dart';
 import 'exchange_screens/sell_coin.dart';
@@ -794,10 +795,7 @@ class _HomeState extends State<_HomePage> {
     Container newContainer = new Container(
       height: height,
       color: StyleSheet.primaryColor.withOpacity(0.09),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       child: Flex(
         direction: Axis.vertical,
         children: [
@@ -1811,6 +1809,11 @@ class _HomeState extends State<_HomePage> {
                             //Navigator.of(context).pushReplacementNamed(SignUpPage.route);
                             //Navigator.of(context).popAndPushNamed(SignUpPage.route);
                             Navigator.of(context).pushNamedAndRemoveUntil(SignUpPage.route,(Route<dynamic> route) => false);
+                            runApp(MultiProvider(
+                                providers: [
+                                  ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
+                                ],
+                                child: PayBuyMax()));
                           },
                         )
                       ],

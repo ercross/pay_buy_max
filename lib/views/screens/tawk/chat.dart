@@ -40,10 +40,7 @@ class _ChatState extends State<_ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute
-        .of(context)!
-        .settings
-        .arguments as SignInResponseEntity;
+    args = ModalRoute.of(context)!.settings.arguments as SignInResponseEntity;
 
     var name = args.user!.email.toString();
     if(args.user!.name != null){
@@ -65,7 +62,7 @@ class _ChatState extends State<_ChatPage> {
           leading: IconButton(icon: new Icon(Icons.arrow_back_rounded), onPressed: () {Navigator.of(context).pop();}, color: Color(0xFFFAFAFA)),
         ),
         body: Tawk(
-          directChatLink: 'https://tawk.to/chat/61ebbca0b9e4e21181bb4964/1fq0dhlt7',
+          directChatLink: 'https://tawk.to/chat/611bde74d6e7610a49b0a01e/1fdadpu1t',
           visitor: TawkVisitor(
             name: name,
             email: args.user!.email.toString(), hash: '',

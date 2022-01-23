@@ -19,6 +19,8 @@ import 'package:pay_buy_max/models/learn/course_list_entity.dart';
 import 'package:pay_buy_max/generated/json/course_list_entity_helper.dart';
 import 'package:pay_buy_max/models/transfer/bank_list_entity.dart';
 import 'package:pay_buy_max/generated/json/bank_list_entity_helper.dart';
+import 'package:pay_buy_max/models/messages/admin_messages_entity.dart';
+import 'package:pay_buy_max/generated/json/admin_messages_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_up_response_entity_helper.dart';
 import 'package:pay_buy_max/models/invest/investment_history_entity.dart';
@@ -107,6 +109,10 @@ class JsonConvert<T> {
 				return bankListEntityFromJson(data as BankListEntity, json) as T;
 			case BankListData:
 				return bankListDataFromJson(data as BankListData, json) as T;
+			case AdminMessagesEntity:
+				return adminMessagesEntityFromJson(data as AdminMessagesEntity, json) as T;
+			case AdminMessagesMessages:
+				return adminMessagesMessagesFromJson(data as AdminMessagesMessages, json) as T;
 			case SignUpResponseEntity:
 				return signUpResponseEntityFromJson(data as SignUpResponseEntity, json) as T;
 			case InvestmentHistoryEntity:
@@ -220,6 +226,10 @@ class JsonConvert<T> {
 				return bankListEntityToJson(data as BankListEntity);
 			case BankListData:
 				return bankListDataToJson(data as BankListData);
+			case AdminMessagesEntity:
+				return adminMessagesEntityToJson(data as AdminMessagesEntity);
+			case AdminMessagesMessages:
+				return adminMessagesMessagesToJson(data as AdminMessagesMessages);
 			case SignUpResponseEntity:
 				return signUpResponseEntityToJson(data as SignUpResponseEntity);
 			case InvestmentHistoryEntity:
@@ -356,6 +366,12 @@ class JsonConvert<T> {
 		}
 		if(type == (BankListData).toString()){
 			return BankListData().fromJson(json);
+		}
+		if(type == (AdminMessagesEntity).toString()){
+			return AdminMessagesEntity().fromJson(json);
+		}
+		if(type == (AdminMessagesMessages).toString()){
+			return AdminMessagesMessages().fromJson(json);
 		}
 		if(type == (SignUpResponseEntity).toString()){
 			return SignUpResponseEntity().fromJson(json);
@@ -524,6 +540,12 @@ class JsonConvert<T> {
 		}
 		if(<BankListData>[] is M){
 			return data.map<BankListData>((e) => BankListData().fromJson(e)).toList() as M;
+		}
+		if(<AdminMessagesEntity>[] is M){
+			return data.map<AdminMessagesEntity>((e) => AdminMessagesEntity().fromJson(e)).toList() as M;
+		}
+		if(<AdminMessagesMessages>[] is M){
+			return data.map<AdminMessagesMessages>((e) => AdminMessagesMessages().fromJson(e)).toList() as M;
 		}
 		if(<SignUpResponseEntity>[] is M){
 			return data.map<SignUpResponseEntity>((e) => SignUpResponseEntity().fromJson(e)).toList() as M;
