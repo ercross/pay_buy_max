@@ -1764,6 +1764,17 @@ class _HomeState extends State<_HomePage> {
                             iconColor: Color(0xFFFAFAFA),
                             textColor: Color(0xFFFAFAFA),
                             tileColor: Color(0xFFC9782F),
+                            leading: Icon(Icons.people_sharp),
+                            title: const Text('My Referrals', style: TextStyle(color: Color(0xFFFAFAFA))),
+                            onTap: () {
+                              /*_fragNav.putPosit(
+                                  key: ValueKey(LearnScreen.route),
+                                  closeDrawer: true);*/
+                            }),
+                        ListTile(
+                            iconColor: Color(0xFFFAFAFA),
+                            textColor: Color(0xFFFAFAFA),
+                            tileColor: Color(0xFFC9782F),
                             leading: Icon(Icons.book_rounded),
                             title: const Text('Courses', style: TextStyle(
                                 color: Color(0xFFFAFAFA))),
