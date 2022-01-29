@@ -38,10 +38,12 @@ class SettingScreenWidget extends StatefulWidget {
 
 class _SettingScreenWidgetState extends State<SettingScreenWidget> {
   late TextEditingController textController;
+  late TextEditingController phoneController;
   late TextEditingController oldController;
   late TextEditingController newController;
   late TextEditingController confirmController;
   late TextEditingController emailController;
+  late TextEditingController fileController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String value = "International Passport";
   late SignInResponseEntity args;
@@ -54,24 +56,26 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     newController = TextEditingController();
     confirmController = TextEditingController();
     emailController = TextEditingController();
+    phoneController = TextEditingController();
+    fileController = TextEditingController(text: "Choose File");
   }
 
   void _changePassword(){
     if(oldController.text.isEmpty){
-      AppOverlay.snackbar(message: "Fields Cannot Be Empty");
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else if(newController.text.isEmpty){
-      AppOverlay.snackbar(message: "Fields Cannot Be Empty");
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else if(confirmController.text.isEmpty){
-      AppOverlay.snackbar(message: "Fields Cannot Be Empty");
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else{
       if(newController.text == confirmController.text){
         changePassword().then((value){
           setState(() {
             if(value.status == true){
-              AppOverlay.snackbar(message: "Success");
+              AppOverlay.snackbar(message: "Success",title:"Success");
             }else{
               if(value.message == null){
-                AppOverlay.snackbar(message: "An Error Occurred");
+                AppOverlay.snackbar(message: "An Error Occurred",title:"Error");
               }else{
                 AppOverlay.snackbar(message: value.message.toString());
               }
@@ -79,15 +83,46 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
           });
         });
       }else{
-        AppOverlay.snackbar(message: "Fields Do Not Match");
+        AppOverlay.snackbar(message: "Fields Do Not Match",title:"Error");
       }
     }
   }
 
   Future<SignUpResponseEntity> changePassword() async{
     String url = 'https://paybuymax.com/api/update-password';
-    print(args.token.toString());
     final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: {"oldPassword":oldController.text,"password":newController.text,"confirmPassword":confirmController.text});
+    return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  void _changeProfile(){
+    if(phoneController.text.isEmpty){
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
+    }else if(textController.text.isEmpty){
+      AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
+    }else{
+      changeProfile().then((value){
+        setState(() {
+          if(value.status == true){
+            if(value.message == null){
+              AppOverlay.snackbar(message: "Success",title:"Success");
+            }else{
+              AppOverlay.snackbar(message: value.message.toString(),title:"Success");
+            }
+          }else{
+            if(value.message == null){
+              AppOverlay.snackbar(message: "An Error Occurred",title:"Error");
+            }else{
+              AppOverlay.snackbar(message: value.message.toString(),title:"Error");
+            }
+          }
+        });
+      });
+    }
+  }
+
+  Future<SignUpResponseEntity> changeProfile() async{
+    String url = 'https://paybuymax.com/api/update/profile';
+    final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: {"phone":phoneController.text,"name":textController.text});
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
@@ -173,7 +208,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
                           child: TextFormField(
-                            controller: textController,
+                            controller: phoneController,
                             obscureText: false,
                             decoration: const InputDecoration(border: OutlineInputBorder()),
                           ),
@@ -187,7 +222,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                              child: ElevatedButton(onPressed: (){}, child: Text("UPDATE"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                              child: ElevatedButton(onPressed: (){
+                                _changeProfile();
+                              }, child: Text("UPDATE"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                             ),
                           ],
                         ),
@@ -322,11 +359,35 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15,right: 15,bottom: 7),
-                          child: TextFormField(
-                            controller: textController,
-                            obscureText: false,
-                            decoration: const InputDecoration(border: OutlineInputBorder()),
+                          padding: const EdgeInsets.only(left: 15,right: 15),
+                          child: InkWell(
+                            child: TextFormField(
+                              controller: fileController,
+                              obscureText: false,
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                filled: true,
+                                contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                              ),
+                            ),
+                            onTap: (){
+
+                            },
                           ),
                         ),
                       ),

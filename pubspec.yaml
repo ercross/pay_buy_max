@@ -46,6 +46,7 @@ dependencies:
   http: ^0.13.4
   marquee: ^2.2.0
   webview_flutter: ^3.0.0
+  file_picker: ^4.3.3
 
 dev_dependencies:
   flutter_test:
