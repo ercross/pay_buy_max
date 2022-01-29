@@ -1,6 +1,8 @@
 
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
@@ -124,6 +126,24 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     String url = 'https://paybuymax.com/api/update/profile';
     final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: {"phone":phoneController.text,"name":textController.text});
     return SignUpResponseEntity().fromJson(json.decode(response.body));
+  }
+
+  void _pickFile(){
+    pickFile().then((value){
+      if(value!=null){
+        fileController.text = value.names.single.toString();
+      }
+    });
+  }
+
+  Future<FilePickerResult?> pickFile() async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      //File file = File(result.files.single.path.toString());
+      return result;
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -385,8 +405,8 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                                 EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                               ),
                             ),
-                            onTap: (){
-
+                            onTap: () {
+                              _pickFile();
                             },
                           ),
                         ),
