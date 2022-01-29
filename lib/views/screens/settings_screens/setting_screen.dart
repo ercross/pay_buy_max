@@ -62,7 +62,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     fileController = TextEditingController(text: "Choose File");
   }
 
-  void _changePassword(){
+  void _changePassword(BuildContext context){
     if(oldController.text.isEmpty){
       AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else if(newController.text.isEmpty){
@@ -71,7 +71,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
       AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else{
       if(newController.text == confirmController.text){
+        showLoadingDialog(context,"Changing Password, Please Wait");
         changePassword().then((value){
+          Navigator.pop(context);
           setState(() {
             if(value.status == true){
               AppOverlay.snackbar(message: "Success",title:"Success");
@@ -96,13 +98,15 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
-  void _changeProfile(){
+  void _changeProfile(BuildContext context){
     if(phoneController.text.isEmpty){
       AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else if(textController.text.isEmpty){
       AppOverlay.snackbar(message: "Fields Cannot Be Empty",title:"Error");
     }else{
+      showLoadingDialog(context,"Updating Profile, Please Wait");
       changeProfile().then((value){
+        Navigator.pop(context);
         setState(() {
           if(value.status == true){
             if(value.message == null){
@@ -144,6 +148,24 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     } else {
       return null;
     }
+  }
+
+  void showLoadingDialog(BuildContext context,String text){
+    AlertDialog alertDialog = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text(text),
+          )
+        ],
+      ),
+    );
+
+    showDialog(barrierDismissible: false, context:context, builder: (BuildContext context){
+      return alertDialog;
+    });
   }
 
   @override
@@ -242,7 +264,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
                               child: ElevatedButton(onPressed: (){
-                                _changeProfile();
+                                _changeProfile(context);
                               }, child: Text("UPDATE"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                             ),
                           ],
@@ -322,7 +344,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
                               child: ElevatedButton(onPressed: (){
-                                _changePassword();
+                                _changePassword(context);
                               }, child: Text("SUBMIT"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                             ),
                           ],
