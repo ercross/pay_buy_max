@@ -235,10 +235,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                       ),
                       Expanded(
-                        child: Row(
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
@@ -316,10 +315,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                         ),
                       ),
                       Expanded(
-                        child: Row(
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
@@ -336,7 +334,7 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
               ),
             ),
             Container(
-              height:300,
+              height:310,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
@@ -380,42 +378,40 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15,right: 15),
-                          child: InkWell(
-                            child: TextFormField(
-                              controller: fileController,
-                              obscureText: false,
-                              readOnly: true,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
+                          child: TextFormField(
+                            controller: fileController,
+                            obscureText: false,
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                borderRadius: BorderRadius.circular(5),
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              filled: true,
+                              contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                             ),
-                            onTap: () {
+                            onTap: (){
                               _pickFile();
+                              print("print");
                             },
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Row(
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
