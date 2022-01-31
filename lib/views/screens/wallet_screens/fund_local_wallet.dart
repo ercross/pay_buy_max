@@ -50,7 +50,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
   double height = 720;
   String value = "Bitcoin Wallet";
   String value2 = "Amount In Naira";
-  String value3 = "Fund With Transaction code";
+  String value3 = "Fund With Naira Wallet";
 
   var publicKey = 'pk_live_f33e851ff1413ae66d2ea22a3e717b35d8513267';
   final plugin = PaystackPlugin();
@@ -155,6 +155,8 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
     String coinID = "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a";
     if(value == "Ethereum Wallet"){
       coinID = "eb29cac0-fb67-11eb-9951-3380c6ecc4c1";
+    }else if (value == "Tether Wallet"){
+      coinID = "29920ca0-fb68-11eb-9951-3380c6ecc4c1";
     }
 
     var body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
@@ -174,6 +176,8 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
     String coinID = "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a";
     if(value == "Ethereum Wallet"){
       coinID = "eb29cac0-fb67-11eb-9951-3380c6ecc4c1";
+    }else if (value == "Tether Wallet"){
+      coinID = "29920ca0-fb68-11eb-9951-3380c6ecc4c1";
     }
 
     var body = {"coinId":coinID,"amount":textController.text,"userId":args.user!.id,"medium":"ngn"};
@@ -253,7 +257,7 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                                            child: DropdownButton(
                                                value: value,
                                                underline: SizedBox.shrink(),
-                                               isExpanded: true, items: ["Naira Wallet","Bitcoin Wallet","Ethereum Wallet"].map((String value) {
+                                               isExpanded: true, items: ["Naira Wallet","Bitcoin Wallet","Ethereum Wallet","Tether Wallet"].map((String value) {
                                              return DropdownMenuItem(value: value,child: Text(value));
                                            }).toList(), onChanged: (_value){
                                              if(value == "Naira Wallet"){
@@ -359,69 +363,75 @@ class _FundLocalWalletWidgetState extends State<FundLocalWalletWidget> {
                                        ],
                                      );
                                    }else{
-                                     return Column(
-                                       mainAxisSize: MainAxisSize.min,
-                                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                                       children: [
-                                         Padding(
-                                           padding: const EdgeInsets.only(right:15,bottom: 2,top: 10,left:15),
-                                           child:  Text('Transaction Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                         ),
-                                         Container(
-                                           height:90,
-                                           child: Padding(
-                                             padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
-                                             child: InputDecorator(
-                                               decoration: const InputDecoration(border: OutlineInputBorder()),
-                                               child: DropdownButton(
-                                                   value: value3,
-                                                   underline: SizedBox.shrink(),
-                                                   isExpanded: true, items: ["Fund With Transaction code","Fund With Naira Wallet"].map((String value) {
-                                                 return DropdownMenuItem(value: value,child: Text(value));
-                                               }).toList(), onChanged: (_value){
-                                                 setState(() {
-                                                   if(value == "Naira Wallet"){
-                                                     height = 450;
-                                                   }else{
-                                                     if(value3 == "Fund With Transaction code"){
-                                                       height = 720;
+                                     return Visibility(
+                                       maintainSize: true,
+                                       maintainAnimation: true,
+                                       maintainState: true,
+                                       visible: false,
+                                       child: Column(
+                                         mainAxisSize: MainAxisSize.min,
+                                         crossAxisAlignment: CrossAxisAlignment.stretch,
+                                         children: [
+                                           Padding(
+                                             padding: const EdgeInsets.only(right:15,bottom: 2,top: 10,left:15),
+                                             child:  Text('Transaction Type', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                           ),
+                                           Container(
+                                             height:90,
+                                             child: Padding(
+                                               padding: const EdgeInsets.only(left:15,right:15,bottom: 20),
+                                               child: InputDecorator(
+                                                 decoration: const InputDecoration(border: OutlineInputBorder()),
+                                                 child: DropdownButton(
+                                                     value: value3,
+                                                     underline: SizedBox.shrink(),
+                                                     isExpanded: true, items: ["Fund With Naira Wallet"].map((String value) {
+                                                   return DropdownMenuItem(value: value,child: Text(value));
+                                                 }).toList(), onChanged: (_value){
+                                                   setState(() {
+                                                     if(value == "Naira Wallet"){
+                                                       height = 450;
                                                      }else{
-                                                       height = 550;
+                                                       if(value3 == "Fund With Transaction code"){
+                                                         height = 720;
+                                                       }else{
+                                                         height = 550;
+                                                       }
                                                      }
-                                                   }
-                                                   value3 = _value as String;
-                                                 });
-                                               }),
+                                                     value3 = _value as String;
+                                                   });
+                                                 }),
+                                               ),
                                              ),
                                            ),
-                                         ),
-                                         Builder(
-                                           builder: (context) {
-                                             if(value3 == "Fund With Transaction code"){
-                                               return  Padding(
-                                                 padding: const EdgeInsets.only(left: 15,right: 15),
-                                                 child: Column(
-                                                   mainAxisSize: MainAxisSize.max,
-                                                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                   children: [
-                                                     Padding(
-                                                       padding: const EdgeInsets.only(right:15,bottom: 2,top: 20),
-                                                       child:  Text('Transaction Code', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
-                                                     ),
-                                                     TextFormField(
-                                                       controller: codeController,
-                                                       obscureText: false,
-                                                       keyboardType: TextInputType.number,
-                                                       decoration: const InputDecoration(border: OutlineInputBorder()),
-                                                     ),
-                                                   ],
-                                                 ),
-                                               );
-                                             }
-                                             return Column();
-                                           },
-                                         )
-                                       ],
+                                           Builder(
+                                             builder: (context) {
+                                               if(value3 == "Fund With Transaction code"){
+                                                 return  Padding(
+                                                   padding: const EdgeInsets.only(left: 15,right: 15),
+                                                   child: Column(
+                                                     mainAxisSize: MainAxisSize.max,
+                                                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                     children: [
+                                                       Padding(
+                                                         padding: const EdgeInsets.only(right:15,bottom: 2,top: 20),
+                                                         child:  Text('Transaction Code', style: TextStyle(color: Colors.black54, fontSize: 14), textAlign: TextAlign.start),
+                                                       ),
+                                                       TextFormField(
+                                                         controller: codeController,
+                                                         obscureText: false,
+                                                         keyboardType: TextInputType.number,
+                                                         decoration: const InputDecoration(border: OutlineInputBorder()),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                 );
+                                               }
+                                               return Column();
+                                             },
+                                           )
+                                         ],
+                                       ),
                                      );
                                    }
                                  },

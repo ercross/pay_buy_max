@@ -59,8 +59,19 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
   Future<SignUpResponseEntity> fundCryptoWalletFromInternalWallet() async {
     showLoadingDialog(context);
 
+    var coinIds = {
+      "Bitcoin": "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a",
+      "Tether": "29920ca0-fb68-11eb-9951-3380c6ecc4c1",
+      "Ethereum": "eb29cac0-fb67-11eb-9951-3380c6ecc4c1",
+    };
+
     String url = 'https://paybuymax.com/api/buy-coin/internal';
     String coinID = "ce2b1390-fabb-11eb-b1f2-03ff05a8e54a";
+    if(value == "Ethereum"){
+      coinID = "eb29cac0-fb67-11eb-9951-3380c6ecc4c1";
+    }else if (value == "Tether"){
+      coinID = "29920ca0-fb68-11eb-9951-3380c6ecc4c1";
+    }
 
     var body = {
       "coinId": coinID,
@@ -76,9 +87,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
         "medium": "usd"
       };
     }
-    final response = await http.post(Uri.parse(url),
-        headers: {"Authorization": args.token.toString()}, body: body);
-    print(response.statusCode);
+    final response = await http.post(Uri.parse(url), headers: {"Authorization": args.token.toString()}, body: body);
     Navigator.pop(context);
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
@@ -321,7 +330,7 @@ class _SellCoinWidgetState extends State<SellCoinWidget> {
                                       value: value,
                                       underline: SizedBox.shrink(),
                                       isExpanded: true,
-                                      items: ["Bitcoin", "Ethereum"]
+                                      items: ["Bitcoin", "Ethereum","Tether"]
                                           .map((String value) {
                                         return DropdownMenuItem(
                                             value: value, child: Text(value));
