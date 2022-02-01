@@ -45,6 +45,8 @@ import 'package:pay_buy_max/models/wallet/code_response_entity.dart';
 import 'package:pay_buy_max/generated/json/code_response_entity_helper.dart';
 import 'package:pay_buy_max/models/transfer/withdraw_coin_entity.dart';
 import 'package:pay_buy_max/generated/json/withdraw_coin_entity_helper.dart';
+import 'package:pay_buy_max/models/upload_response_entity.dart';
+import 'package:pay_buy_max/generated/json/upload_response_entity_helper.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/generated/json/sign_in_response_entity_helper.dart';
 import 'package:pay_buy_max/models/wallet/wallet_balance_entity.dart';
@@ -161,6 +163,8 @@ class JsonConvert<T> {
 				return codeResponseEntityFromJson(data as CodeResponseEntity, json) as T;
 			case WithdrawCoinEntity:
 				return withdrawCoinEntityFromJson(data as WithdrawCoinEntity, json) as T;
+			case UploadResponseEntity:
+				return uploadResponseEntityFromJson(data as UploadResponseEntity, json) as T;
 			case SignInResponseEntity:
 				return signInResponseEntityFromJson(data as SignInResponseEntity, json) as T;
 			case SignInResponseUser:
@@ -278,6 +282,8 @@ class JsonConvert<T> {
 				return codeResponseEntityToJson(data as CodeResponseEntity);
 			case WithdrawCoinEntity:
 				return withdrawCoinEntityToJson(data as WithdrawCoinEntity);
+			case UploadResponseEntity:
+				return uploadResponseEntityToJson(data as UploadResponseEntity);
 			case SignInResponseEntity:
 				return signInResponseEntityToJson(data as SignInResponseEntity);
 			case SignInResponseUser:
@@ -444,6 +450,9 @@ class JsonConvert<T> {
 		}
 		if(type == (WithdrawCoinEntity).toString()){
 			return WithdrawCoinEntity().fromJson(json);
+		}
+		if(type == (UploadResponseEntity).toString()){
+			return UploadResponseEntity().fromJson(json);
 		}
 		if(type == (SignInResponseEntity).toString()){
 			return SignInResponseEntity().fromJson(json);
@@ -618,6 +627,9 @@ class JsonConvert<T> {
 		}
 		if(<WithdrawCoinEntity>[] is M){
 			return data.map<WithdrawCoinEntity>((e) => WithdrawCoinEntity().fromJson(e)).toList() as M;
+		}
+		if(<UploadResponseEntity>[] is M){
+			return data.map<UploadResponseEntity>((e) => UploadResponseEntity().fromJson(e)).toList() as M;
 		}
 		if(<SignInResponseEntity>[] is M){
 			return data.map<SignInResponseEntity>((e) => SignInResponseEntity().fromJson(e)).toList() as M;

@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:pay_buy_max/controllers/providers/coin_price_provider.dart';
 import 'package:pay_buy_max/models/auth/sign_in_response_entity.dart';
 import 'package:pay_buy_max/models/auth/sign_up_response_entity.dart';
+import 'package:pay_buy_max/models/upload_response_entity.dart';
 import 'package:pay_buy_max/views/widgets/overlays.dart';
 import 'package:provider/provider.dart';
 import '../../../style_sheet.dart';
 import 'package:http/http.dart' as http;
+import 'package:cloudinary_public/cloudinary_public.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen();
@@ -132,9 +134,11 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
     return SignUpResponseEntity().fromJson(json.decode(response.body));
   }
 
+  FilePickerResult? pickedFile;
   void _pickFile(){
     pickFile().then((value){
       if(value!=null){
+        pickedFile = value;
         fileController.text = value.names.single.toString();
       }
     });
@@ -147,6 +151,55 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
       return result;
     } else {
       return null;
+    }
+  }
+
+  void _uploadFile(BuildContext context){
+    if(pickedFile == null){
+      AppOverlay.snackbar(message: "Pick A File",title:"Error");
+    }else{
+      showLoadingDialog(context, "Uploading File. Please Wait");
+      uploadFile().then((value){
+        Navigator.pop(context);
+        if(value!=null){
+          if(value.status == true){
+            AppOverlay.snackbar(message: value.message.toString(),title:"Success");
+          }else{
+            AppOverlay.snackbar(message: "Upload Successful",title:"Success");
+          }
+        }else{
+          AppOverlay.snackbar(message: "Upload Failed",title:"Error");
+        }
+      });
+    }
+  }
+
+  Future<UploadResponseEntity?> uploadFile() async{
+    if(pickedFile!=null){
+      try{
+        final cloudinary = CloudinaryPublic('paybuymax-com', 'en3jr1t4', cache: false);
+
+        final res = await cloudinary.uploadFile(
+            CloudinaryFile.fromFile(
+              pickedFile!.paths.first.toString(),
+              folder: 'KYC',
+              context: {
+                'file_name': pickedFile!.names.single.toString(),
+                'caption': value,
+              },
+            )
+        );
+
+        String url = 'https://paybuymax.com/api/upload/kyc';
+        final response = await http.patch(Uri.parse(url),headers: {"Authorization":args.token.toString()},body: {"imageUrl":res.url,"document":value});
+        return UploadResponseEntity().fromJson(json.decode(response.body));
+      }catch(e, stacktrace){
+        print(stacktrace.toString());
+        var error = UploadResponseEntity();
+        error.status = false;
+        error.message = "Upload Failed";
+        return error;
+      }
     }
   }
 
@@ -437,7 +490,9 @@ class _SettingScreenWidgetState extends State<SettingScreenWidget> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left:15,right:15,bottom: 10),
-                              child: ElevatedButton(onPressed: (){}, child: Text("UPLOAD"),style: ElevatedButton.styleFrom(primary:Colors.black)),
+                              child: ElevatedButton(onPressed: (){
+                                _uploadFile(context);
+                              }, child: Text("UPLOAD"),style: ElevatedButton.styleFrom(primary:Colors.black)),
                             ),
                           ],
                         ),
